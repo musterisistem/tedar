@@ -109,7 +109,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         const fetchAllData = async () => {
             // 1. Fetch Products
             const fetchProducts = async () => {
-                // Return cached data if available (optional optimization if we persisted state)
+                // Return cached data if available
                 if (products.length > 0) return;
 
                 // Prevent duplicate requests
@@ -121,7 +121,23 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
 
                 try {
                     const fetchPromise = (async () => {
-                        let data = initialProducts; // Use static import first
+                        let data;
+
+                        try {
+                            // Try MongoDB API first
+                            const response = await fetch('/api/products');
+                            if (response.ok) {
+                                const result = await response.json();
+                                data = result.data || [];
+                                console.log('✅ Products loaded from MongoDB:', data.length);
+                            } else {
+                                throw new Error('API fetch failed');
+                            }
+                        } catch (apiError) {
+                            // Fallback to static import
+                            console.warn('⚠️ MongoDB API failed, using static data', apiError);
+                            data = initialProducts;
+                        }
 
                         // Load saved reviews from localStorage
                         const savedReviews = JSON.parse(localStorage.getItem('product_reviews') || '{}');
@@ -184,21 +200,70 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
     }, []);
 
     const addProduct = async (product: Product) => {
-        const newProducts = [product, ...products];
-        setProducts(newProducts);
-        await saveProductsToDisk(newProducts);
+        try {
+            // Add to MongoDB via API
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(product)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setProducts([result.data, ...products]);
+                console.log('✅ Product added to MongoDB');
+            } else {
+                throw new Error('Failed to add product');
+            }
+        } catch (error) {
+            console.error('Error adding product:', error);
+            // Fallback: add to local state only
+            setProducts([product, ...products]);
+        }
     };
 
     const addBulkProducts = async (newProductsList: Product[]) => {
-        const updatedProducts = [...newProductsList, ...products];
-        setProducts(updatedProducts);
-        await saveProductsToDisk(updatedProducts);
+        try {
+            // Add each product to MongoDB
+            for (const product of newProductsList) {
+                await fetch('/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(product)
+                });
+            }
+            setProducts([...newProductsList, ...products]);
+            console.log(`✅ ${newProductsList.length} products added to MongoDB`);
+        } catch (error) {
+            console.error('Error bulk adding products:', error);
+            setProducts([...newProductsList, ...products]);
+        }
     };
 
     const updateProduct = async (id: string | number, updatedProduct: Partial<Product>) => {
-        const newProducts = products.map(p => p.id.toString() === id.toString() ? { ...p, ...updatedProduct } : p);
-        setProducts(newProducts);
-        await saveProductsToDisk(newProducts);
+        try {
+            // Update in MongoDB
+            const response = await fetch('/api/products', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, ...updatedProduct })
+            });
+
+            if (response.ok) {
+                const newProducts = products.map(p =>
+                    p.id.toString() === id.toString() ? { ...p, ...updatedProduct } : p
+                );
+                setProducts(newProducts);
+                console.log('✅ Product updated in MongoDB');
+            }
+        } catch (error) {
+            console.error('Error updating product:', error);
+            // Fallback: update local state only
+            const newProducts = products.map(p =>
+                p.id.toString() === id.toString() ? { ...p, ...updatedProduct } : p
+            );
+            setProducts(newProducts);
+        }
     };
 
     const addReview = async (productId: string | number, review: Review) => {
@@ -212,8 +277,8 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
                 return {
                     ...p,
                     reviewItems: updatedReviews,
-                    reviews: updatedReviews.length, // Update review count
-                    rating: Number(averageRating.toFixed(1)) // Update rating
+                    reviews: updatedReviews.length,
+                    rating: Number(averageRating.toFixed(1))
                 };
             }
             return p;
@@ -226,9 +291,23 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         if (updatedProduct) {
             savedReviews[productId] = updatedProduct.reviewItems;
             localStorage.setItem('product_reviews', JSON.stringify(savedReviews));
-        }
 
-        await saveProductsToDisk(newProducts);
+            // Update in MongoDB
+            try {
+                await fetch('/api/products', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: productId,
+                        reviewItems: updatedProduct.reviewItems,
+                        reviews: updatedProduct.reviews,
+                        rating: updatedProduct.rating
+                    })
+                });
+            } catch (error) {
+                console.error('Error updating review in MongoDB:', error);
+            }
+        }
     };
 
     const deleteReview = async (productId: string | number, reviewIndex: number) => {
@@ -242,8 +321,8 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
                 return {
                     ...p,
                     reviewItems: updatedReviews,
-                    reviews: updatedReviews.length, // Update review count
-                    rating: Number(averageRating.toFixed(1)) // Update rating
+                    reviews: updatedReviews.length,
+                    rating: Number(averageRating.toFixed(1))
                 };
             }
             return p;
@@ -256,36 +335,62 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         if (updatedProduct) {
             savedReviews[productId] = updatedProduct.reviewItems;
             localStorage.setItem('product_reviews', JSON.stringify(savedReviews));
-        }
 
-        await saveProductsToDisk(newProducts);
+            // Update in MongoDB
+            try {
+                await fetch('/api/products', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: productId,
+                        reviewItems: updatedProduct.reviewItems,
+                        reviews: updatedProduct.reviews,
+                        rating: updatedProduct.rating
+                    })
+                });
+            } catch (error) {
+                console.error('Error updating review in MongoDB:', error);
+            }
+        }
     };
 
     const deleteProduct = async (id: string | number) => {
-        const newProducts = products.filter(p => p.id.toString() !== id.toString());
-        setProducts(newProducts);
-        await saveProductsToDisk(newProducts);
+        try {
+            // Delete from MongoDB
+            const response = await fetch(`/api/products?id=${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                const newProducts = products.filter(p => p.id.toString() !== id.toString());
+                setProducts(newProducts);
+                console.log('✅ Product deleted from MongoDB');
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            // Fallback: remove from local state only
+            const newProducts = products.filter(p => p.id.toString() !== id.toString());
+            setProducts(newProducts);
+        }
     };
 
     const deleteBulkProducts = async (ids: (string | number)[]) => {
-        const idsSet = new Set(ids.map(id => id.toString()));
-        const newProducts = products.filter(p => !idsSet.has(p.id.toString()));
-        setProducts(newProducts);
-        await saveProductsToDisk(newProducts);
-    };
-
-    const saveProductsToDisk = async (currentProducts: Product[]) => {
         try {
-            await fetch('/api/save-settings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    filename: 'products.json',
-                    data: currentProducts
-                })
-            });
+            // Delete each from MongoDB
+            for (const id of ids) {
+                await fetch(`/api/products?id=${id}`, {
+                    method: 'DELETE'
+                });
+            }
+            const idsSet = new Set(ids.map(id => id.toString()));
+            const newProducts = products.filter(p => !idsSet.has(p.id.toString()));
+            setProducts(newProducts);
+            console.log(`✅ ${ids.length} products deleted from MongoDB`);
         } catch (error) {
-            console.error('Ürünler kaydedilirken hata oluştu:', error);
+            console.error('Error bulk deleting products:', error);
+            const idsSet = new Set(ids.map(id => id.toString()));
+            const newProducts = products.filter(p => !idsSet.has(p.id.toString()));
+            setProducts(newProducts);
         }
     };
 
