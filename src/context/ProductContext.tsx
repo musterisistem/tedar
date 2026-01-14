@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, type ReactNode } from 'react';
-// import { realProducts } from '../data/realProducts';
+import initialProducts from '../data/products.json';
 import productSettings from '../data/productSettings.json';
 
 export interface ProductPrice {
@@ -121,27 +121,12 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
 
                 try {
                     const fetchPromise = (async () => {
-                        // Use API endpoint instead of direct file access
-                        const response = await fetch('/api/settings/products.json?t=' + Date.now());
-
-                        let data;
-                        if (response.ok) {
-                            const result = await response.json();
-                            data = result.data || result; // Handle {filename, data} wrapper or direct array
-                        } else {
-                            // Fallback to static file if API fails (first run)
-                            console.warn('API fetch failed, falling back to static file');
-                            const fallbackResponse = await fetch('/data/products.json');
-                            if (!fallbackResponse.ok) throw new Error('Failed to fetch products');
-                            data = await fallbackResponse.json();
-                        }
-
-                        const arrayData = Array.isArray(data) ? data : (data?.data || []);
+                        let data = initialProducts; // Use static import first
 
                         // Load saved reviews from localStorage
                         const savedReviews = JSON.parse(localStorage.getItem('product_reviews') || '{}');
 
-                        return (Array.isArray(arrayData) ? arrayData : []).map((p: any) => {
+                        return (Array.isArray(data) ? data : []).map((p: any) => {
                             // Merge saved reviews if available
                             const productReviews = savedReviews[p.id] || p.reviewItems || [];
                             return {
