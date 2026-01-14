@@ -1,0 +1,41 @@
+[
+  {
+    "id": "f48i9dw",
+    "userId": 1767745702005,
+    "userName": "Orhan İlimdaroğlu",
+    "email": "a@dortel.com",
+    "productId": "TY8681272049953",
+    "productName": "Yeni Yıl Temalı Özel Tasarım Kağıt Paketli Porselen Kupa (Kardan Adam)",
+    "date": "2026-01-10"
+  },
+  {
+    "id": "jvobek9",
+    "userId": 1767745702005,
+    "userName": "Orhan İlimdaroğlu",
+    "email": "a@dortel.com",
+    "productId": "TY8681272039918",
+    "productName": "H2O Metal Kapaklı Matara 750 ML (Siyah)",
+    "priceAtAlert": 349.9,
+    "date": "2026-01-11"
+  },
+  {
+    "id": "btzrg6l",
+    "userId": 1768097788192,
+    "userName": "hasan",
+    "email": "ba@dortel.com",
+    "productId": "252.000.618",
+    "productName": "Keskin Color Bloknot Spiralli Frozen 42 YP A7 3'lü 140100-92",
+    "priceAtAlert": 219.9,
+    "date": "2026-01-12"
+  },
+  {
+    "id": "nwhm4t1",
+    "userId": 1768097788192,
+    "userName": "hasan",
+    "email": "ba@dortel.com",
+    "productId": "52984196",
+    "productName": "Harry Potter Kalemlik Masaüstü Organizer Kare",
+    "priceAtAlert": 349.9,
+    "date": "2026-01-13"
+  }
+]

@@ -1,0 +1,463 @@
+[
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 499.9,
+    "status": "pending",
+    "paymentType": "Havale / EFT",
+    "items": [
+      {
+        "id": "5.616.513",
+        "name": "Handmade Yılbaşı Temalı Çok Desenli Porselen Kupa",
+        "price": 499.9,
+        "quantity": 1,
+        "image": "/product/images/5616513-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 499.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "date": "2026-01-14",
+    "id": 1768350296088,
+    "orderNo": "DT7289",
+    "time": "03:24"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 499.9,
+    "status": "pending",
+    "paymentType": "Havale / EFT",
+    "items": [
+      {
+        "id": "DT4414",
+        "name": "Vintage Düğmeli Geniş Büyük Kapasiteli Çok Bölmeli Kalemlik Makyaj Çantası Yeşil",
+        "price": 499.9,
+        "quantity": 1,
+        "image": "/product/images/dt4414-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 499.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "date": "2026-01-13",
+    "id": 1768347168698,
+    "orderNo": "DT1530",
+    "time": "02:32"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 2129.8,
+    "status": "pending",
+    "paymentType": "Kapıda Ödeme",
+    "items": [
+      {
+        "id": "5.465.475",
+        "name": "Hestia Hakiki & Vintage Deri El Çantası",
+        "price": 1999.9,
+        "quantity": 1,
+        "image": "/product/images/5465475-1.jpg"
+      },
+      {
+        "id": "252.000.961",
+        "name": "Keskin Color Bloknot Spiralli 1 Örümcek Adam 42 YP A7 (1 ADET RASTGELE RENK GÖNDERİLECEKTİR)",
+        "price": 129.9,
+        "quantity": 1,
+        "image": "/product/images/252000961-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 2129.8,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "date": "2026-01-13",
+    "id": 1768344366212,
+    "orderNo": "DT2949",
+    "time": "01:46"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 269.9,
+    "status": "Kargoya Verildi",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "ITH-CMK-200",
+        "name": "Mavi Pembe Ayıcık Öğrenci Makası 1 Adet",
+        "price": 269.9,
+        "quantity": 1,
+        "image": "/product/images/ith-cmk-200-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 269.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768341659554,
+    "orderNo": "DT6243",
+    "date": "2026-01-13",
+    "time": "01:00",
+    "trackingNumber": "",
+    "notes": ""
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 499.9,
+    "status": "İşleme Alındı",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "DT65598",
+        "name": "İphone Hakiki Deri Dikişli Karlıklı Kılıf Iphone 11",
+        "price": 499.9,
+        "quantity": 1,
+        "image": "/product/images/dt65598-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 499.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768340905122,
+    "orderNo": "DT3650",
+    "date": "2026-01-13",
+    "time": "00:48",
+    "trackingNumber": "",
+    "notes": ""
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 149.9,
+    "status": "pending",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "170.000.024",
+        "name": "Stick Yapıştırıcı 40 Gr 3440",
+        "price": 149.9,
+        "quantity": 1,
+        "image": "/product/images/170000024-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 149.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768340587737,
+    "orderNo": "DT9303",
+    "date": "2026-01-13",
+    "time": "00:43"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 99.9,
+    "status": "pending",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "T923",
+        "name": "Yapıştırıcı 43 Gr",
+        "price": 99.9,
+        "quantity": 1,
+        "image": "/product/images/t923-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 99.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768340100517,
+    "orderNo": "DT5679",
+    "date": "2026-01-13",
+    "time": "00:35"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 149.9,
+    "status": "Hazırlanıyor",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "DT4478917",
+        "name": "Love Baskılı Porselen Kupa Beyaz",
+        "price": 149.9,
+        "quantity": 1,
+        "image": "/product/images/dt4478917-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 149.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768269609438,
+    "orderNo": "DT6091",
+    "date": "2026-01-13",
+    "time": "05:00",
+    "trackingNumber": "",
+    "notes": ""
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 1799.6,
+    "status": "shipped",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "DT65459",
+        "name": "Juno İphone Hakiki Deri Koruyucu Kılıf Iphone 12/12 Pro Uyumlu",
+        "price": 999.9,
+        "quantity": 1,
+        "image": "/product/images/dt65459-1.jpg"
+      },
+      {
+        "id": "DT525",
+        "name": "Karikatür Öğle Yemeği Kutusu, Okulda Gençler ve Çocuklar için Taşınabilir 2 Bölmeli Saklama Kabı",
+        "price": 499.9,
+        "quantity": 1,
+        "image": "/product/images/dt525-1.jpg"
+      },
+      {
+        "id": "BM-1533",
+        "name": "Sevimli Ayı Tasarımlı Post-It Seti",
+        "price": 149.9,
+        "quantity": 2,
+        "image": "/product/images/bm-1533-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 1799.6,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768268676723,
+    "orderNo": "DT9672",
+    "date": "2026-01-13",
+    "time": "04:44",
+    "trackingNumber": "",
+    "notes": ""
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 1999.6,
+    "status": "pending",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "DT65453",
+        "name": "Juno İphone Hakiki Deri Koruyucu Kılıf Iphone 12/12 Pro uyumlu",
+        "price": 499.9,
+        "quantity": 4,
+        "image": "/product/images/dt65453-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 1999.6,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768265136526,
+    "orderNo": "ORD-2026-6426",
+    "date": "2026-01-13",
+    "time": "03:45"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 269.9,
+    "status": "pending",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "OFIS6452",
+        "name": "Zımba Teli No:10 6452 20'li Paket",
+        "price": 269.9,
+        "quantity": 1,
+        "image": "/product/images/ofis6452-1.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 269.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768262105679,
+    "orderNo": "ORD-2026-6013",
+    "date": "2026-01-12",
+    "time": "02:55"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 977.7,
+    "status": "pending",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "TY8681272049953",
+        "name": "Yeni Yıl Temalı Özel Tasarım Kağıt Paketli Porselen Kupa (Kardan Adam)",
+        "price": 449.9,
+        "quantity": 2,
+        "image": "https://cdn.dsmcdn.com/ty1799/prod/QC_PREP/20251211/11/ed581467-bc00-3b95-9b5d-54c07fb262c8/1_org_zoom.jpg"
+      },
+      {
+        "id": 1768176910766.8125,
+        "name": "Kaktüs Led Dekoratif Aydınlatma",
+        "price": 149.9,
+        "quantity": 1,
+        "image": "https://cdn.dsmcdn.com/ty1367/product/media/images/prod/QC/20240614/14/fc6260e1-01a8-3c8a-af5e-732ec9c4be57/1_org_zoom.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 1049.7,
+    "basketDiscount": 72,
+    "basketDiscountRate": 8,
+    "id": 1768252114553,
+    "orderNo": "ORD-2026-7573",
+    "date": "2026-01-12",
+    "time": "00:08"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 349.9,
+    "status": "pending",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "TY8681272039916",
+        "name": "H2O Metal Kapaklı Matara 750 ML (Gri)",
+        "price": 349.9,
+        "quantity": 1,
+        "image": "https://cdn.dsmcdn.com/ty1798/prod/QC_PREP/20251209/11/4a773ef7-e258-3ecb-82a9-912c9654324c/1_org_zoom.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 349.9,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768176532494,
+    "orderNo": "ORD-2026-1440",
+    "date": "2026-01-12",
+    "time": "03:08"
+  },
+  {
+    "customer": "hasan",
+    "email": "ba@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "city": "Bingöl",
+    "district": "Merkez",
+    "amount": 2747.3999999999996,
+    "status": "processing",
+    "paymentType": "Kredi Kartı",
+    "items": [
+      {
+        "id": "TY8681272049954",
+        "name": "Yeni Yıl Temalı Özel Tasarım Kağıt Paketli Porselen Kupa (Geyik)",
+        "price": 449.9,
+        "quantity": 2,
+        "image": "https://cdn.dsmcdn.com/ty1798/prod/QC_PREP/20251211/11/34c79927-69f6-3c1f-8801-76411cafb9e5/1_org_zoom.jpg"
+      },
+      {
+        "id": "TY8681272042117",
+        "name": "3D Hayvan Figürlü Kış Temalı Seramik Kupa 420 ML (Koala)",
+        "price": 499.9,
+        "quantity": 2,
+        "image": "https://cdn.dsmcdn.com/ty1797/prod/QC_PREP/20251209/11/4275a0d5-8e8f-3a24-822e-97bb8ace50ff/1_org_zoom.jpg"
+      },
+      {
+        "id": "TY8681272042104",
+        "name": "3D Hayvan Figürlü Kış Temalı Seramik Kupa 420 ML (Tilki)",
+        "price": 499.9,
+        "quantity": 2,
+        "image": "https://cdn.dsmcdn.com/ty1797/prod/QC_PREP/20251209/11/1f1a23c9-f457-31bb-b9bb-92ec6075a265/1_org_zoom.jpg"
+      }
+    ],
+    "isActiveMember": true,
+    "subtotal": 2899.3999999999996,
+    "basketDiscount": 152,
+    "basketDiscountRate": 8,
+    "id": 1768098303460,
+    "orderNo": "ORD-2026-2906",
+    "date": "2026-01-11",
+    "time": "05:25",
+    "trackingNumber": "",
+    "notes": ""
+  },
+  {
+    "customer": "Orhan İlimdaroğlu",
+    "email": "a@dortel.com",
+    "phone": "05384103717",
+    "address": "Hacı İlyas Mah. 15. Gül Sok. 6 Tokaç Saray İşh. Osmangazi, Bursa",
+    "amount": 0,
+    "status": "pending",
+    "paymentType": "Kredi Kartı",
+    "items": [],
+    "isActiveMember": true,
+    "subtotal": 0,
+    "basketDiscount": 0,
+    "basketDiscountRate": 8,
+    "id": 1768090859804,
+    "orderNo": "ORD-2026-8497",
+    "date": "2026-01-11"
+  }
+]

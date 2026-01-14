@@ -1,0 +1,136 @@
+{
+  "data": [
+    {
+      "id": "ofis-kirtasiye",
+      "name": "Ofis & Kırtasiye Ürünleri",
+      "icon": "Briefcase",
+      "subcategories": [
+        "Sekreterlik",
+        "Kalemlik & Ataşlık",
+        "Not Kağıtları ve Bloknot",
+        "Kırtasiye Seti",
+        "Dosya",
+        "Planlayıcı",
+        "Masaüstü Organizer",
+        "Etiket",
+        "Fotokopi & Baskı Kağıtları",
+        "Delgeç",
+        "Kaşe ve Istampa",
+        "Paket Lastiği",
+        "Ofis Aksesuarı",
+        "Hesap Makinesi",
+        "Lazer Yazıcı"
+      ]
+    },
+    {
+      "id": "kalem-yazi",
+      "name": "Kalem & Yazı Gereçleri",
+      "icon": "PenTool",
+      "subcategories": [
+        "Kurşun Kalem",
+        "Keçeli Kalem",
+        "Fosforlu Kalem",
+        "Jel Mürekkepli Kalem",
+        "Prestij & Dolma Kalem",
+        "Kuru Boya Kalemi",
+        "Pastel Boya",
+        "Guaj Boya",
+        "Kalem Uçları",
+        "Kalemtraş",
+        "Silgi",
+        "Mürekkep",
+        "Sanatsal Kağıt & Kalem"
+      ]
+    },
+    {
+      "id": "kisisel-aksesuar",
+      "name": "Kişisel Aksesuarlar",
+      "icon": "User",
+      "subcategories": [
+        "El Çantası",
+        "Omuz Çantası",
+        "Kartlık",
+        "Kapak & Kılıf",
+        "Rozet",
+        "Taç",
+        "Tırnak Makası"
+      ]
+    },
+    {
+      "id": "mutfak-icecek",
+      "name": "Mutfak & İçecek Ürünleri",
+      "icon": "Coffee",
+      "subcategories": [
+        "Mug",
+        "Kahve Fincanı",
+        "Sürahi ve Karaf",
+        "Suluk & Matara",
+        "Spor Matara",
+        "Karıştırıcı",
+        "Dripper",
+        "Limon Sıkacağı",
+        "Sarımsak Ezici",
+        "El Rondosu",
+        "Tirbuşon",
+        "Kahve ve Baharat Öğütücü Değirmen",
+        "Saklama Kabı",
+        "Kağıt Peçete"
+      ]
+    },
+    {
+      "id": "promosyon-kurumsal",
+      "name": "Promosyon & Kurumsal Ürünler",
+      "icon": "Gift",
+      "subcategories": [
+        "Mousepad",
+        "Kumbara",
+        "Kartlık",
+        "Rozet",
+        "Hediye Kutusu",
+        "Kırtasiye Seti"
+      ]
+    },
+    {
+      "id": "teknoloji",
+      "name": "Teknoloji & Elektronik Aksesuarlar",
+      "icon": "Monitor",
+      "subcategories": [
+        "Mousepad",
+        "Led Işık",
+        "Lazer Yazıcı"
+      ]
+    },
+    {
+      "id": "hobi-oyuncak",
+      "name": "Hobi, Oyuncak & Eğitici Ürünler",
+      "icon": "Gamepad2",
+      "subcategories": [
+        "Futbol Topu",
+        "Hamur Şekillendirici",
+        "Tohumlar",
+        "Sanatsal Kağıt & Kalem",
+        "Müzik Kutusu"
+      ]
+    },
+    {
+      "id": "ozel-gun",
+      "name": "Özel Gün & Sezonluk Ürünler",
+      "icon": "Sparkles",
+      "subcategories": [
+        "Kar Küresi",
+        "Konsept Hediyelik",
+        "Mum & Kandil"
+      ]
+    },
+    {
+      "id": "dekorasyon",
+      "name": "Dekorasyon & Özel Ürünler",
+      "icon": "Gem",
+      "subcategories": [
+        "Oda Kokusu",
+        "Mum & Kandil",
+        "Müzik Kutusu"
+      ]
+    }
+  ]
+}
