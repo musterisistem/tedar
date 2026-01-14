@@ -69,10 +69,6 @@ export const AdminLogin: React.FC = () => {
                     >
                         Giriş Yap
                     </button>
-
-                    <div className="text-center text-xs text-gray-400 mt-4">
-                        <p>Demo Giriş: admin@dortel.com / admin123</p>
-                    </div>
                 </form>
             </div>
         </div>
