@@ -116,9 +116,22 @@ export const Footer: React.FC = () => {
                     </div>
                 </div>
                 <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-gray-500">
-                        © 2026 Dörtel Tedarik. Tüm hakları saklıdır.
-                    </p>
+                    <div className="flex flex-col items-center md:items-start gap-2">
+                        <p className="text-sm text-gray-500">
+                            © 2026 Dörtel Tedarik. Tüm hakları saklıdır.
+                        </p>
+                        {/* SEO Backlink */}
+                        <p className="text-xs text-gray-600">
+                            WebCode: <a
+                                href="https://bursawebtasarimhizmeti.com.tr"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-secondary hover:text-blue-400 transition-colors"
+                            >
+                                Bursa Web Tasarım
+                            </a>
+                        </p>
+                    </div>
                     <div className="flex gap-4">
                         {/* Payment Icons Placeholder */}
                         <div className="h-6 w-10 bg-gray-700 rounded"></div>

@@ -132,6 +132,18 @@ export const AdminLayout: React.FC = () => {
                         <LogOut className="w-5 h-5" />
                         Çıkış Yap
                     </Link>
+
+                    {/* SEO Backlink */}
+                    <div className="mt-4 text-center text-xs text-slate-500">
+                        WebCode: <a
+                            href="https://bursawebtasarimhizmeti.com.tr"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-400 hover:text-blue-300 transition-colors"
+                        >
+                            Bursa Web Tasarım
+                        </a>
+                    </div>
                 </div>
             </aside>
 
