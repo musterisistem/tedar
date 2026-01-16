@@ -148,7 +148,7 @@ export const Footer: React.FC = () => {
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" className="max-h-full max-w-full" />
                             </div>
                             <div className="bg-white px-2 py-1 rounded h-6 w-10 flex items-center justify-center">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Troy_logo.png/200px-Troy_logo.png" alt="Troy" className="max-h-full max-w-full" />
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Troy_logo.svg/200px-Troy_logo.svg.png" alt="Troy" className="max-h-full max-w-full" />
                             </div>
                         </div>
                     </div>
