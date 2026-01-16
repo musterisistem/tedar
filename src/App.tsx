@@ -23,6 +23,8 @@ const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage').then(module
 const OrderSuccess = React.lazy(() => import('./pages/OrderSuccess').then(module => ({ default: module.OrderSuccess })));
 const Login = React.lazy(() => import('./pages/auth/Login').then(module => ({ default: module.Login })));
 const Register = React.lazy(() => import('./pages/auth/Register').then(module => ({ default: module.Register })));
+const ForgotPassword = React.lazy(() => import('./pages/auth/ForgotPassword').then(module => ({ default: module.ForgotPassword })));
+const ResetPassword = React.lazy(() => import('./pages/auth/ResetPassword').then(module => ({ default: module.ResetPassword })));
 const Account = React.lazy(() => import('./pages/account/Account').then(module => ({ default: module.Account })));
 const About = React.lazy(() => import('./pages/About').then(module => ({ default: module.About })));
 const Contact = React.lazy(() => import('./pages/Contact').then(module => ({ default: module.Contact })));
@@ -126,6 +128,8 @@ function App() {
                             <Route path="/siparis-basarili" element={<OrderSuccess />} />
                             <Route path="/giris" element={<Login />} />
                             <Route path="/kayit" element={<Register />} />
+                            <Route path="/sifremi-unuttum" element={<ForgotPassword />} />
+                            <Route path="/sifre-sifirla/:token" element={<ResetPassword />} />
                             <Route path="/hesabim" element={<Account />} />
                             <Route path="/account" element={<Navigate to="/hesabim" replace />} />
                             <Route path="/account" element={<Navigate to="/hesabim" replace />} />

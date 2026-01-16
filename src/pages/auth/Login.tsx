@@ -109,16 +109,24 @@ export const Login: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="flex items-center mb-2">
-                            <input
-                                id="remember_me"
-                                name="remember_me"
-                                type="checkbox"
-                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-                            />
-                            <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-600 cursor-pointer select-none">
-                                Beni hatırla
-                            </label>
+                        <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center">
+                                <input
+                                    id="remember_me"
+                                    name="remember_me"
+                                    type="checkbox"
+                                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                                />
+                                <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-600 cursor-pointer select-none">
+                                    Beni hatırla
+                                </label>
+                            </div>
+                            <Link
+                                to="/sifremi-unuttum"
+                                className="text-sm font-medium text-blue-600 hover:text-blue-700"
+                            >
+                                Şifremi Unuttum
+                            </Link>
                         </div>
 
                         <button

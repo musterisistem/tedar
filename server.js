@@ -187,6 +187,41 @@ const getWelcomeTemplate = (name) => `
     </div>
 `;
 
+const getResetPasswordTemplate = (link) => `
+    <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+        <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+            <div style="background: #2563eb; padding: 30px; text-align: center;">
+                <div style="background: rgba(255,255,255,0.2); width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 30px;">🔐</span>
+                </div>
+                <h1 style="color: white; font-size: 24px; margin: 0; font-weight: 700;">Şifre Sıfırlama</h1>
+            </div>
+            
+            <div style="padding: 40px 30px; text-align: center;">
+                <h2 style="color: #1e293b; font-size: 20px; margin: 0 0 15px;">Şifrenizi mi unuttunuz?</h2>
+                <p style="color: #64748b; margin: 0 0 30px; line-height: 1.6;">
+                    Bu e-posta, şifrenizi sıfırlama talebiniz üzerine gönderilmiştir. 
+                    Aşağıdaki butona tıklayarak yeni şifrenizi belirleyebilirsiniz.
+                </p>
+                
+                <a href="${link}" style="display: inline-block; background: #2563eb; color: white; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);">
+                    Şifremi Sıfırla
+                </a>
+                
+                <p style="margin: 30px 0 0; font-size: 13px; color: #94a3b8;">
+                    Bu bağlantı 24 saat süreyle geçerlidir. Eğer bu talebi siz yapmadıysanız, bu e-postayı dikkate almayınız.
+                </p>
+            </div>
+            
+            <div style="background: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+                <p style="color: #94a3b8; font-size: 12px; margin: 0;">
+                    © ${new Date().getFullYear()} Dörtel Tedarik. Güvenliğiniz bizim için önemlidir.
+                </p>
+            </div>
+        </div>
+    </div>
+`;
+
 const getOrderReceivedTemplate = (order) => `
     <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 650px; margin: 0 auto; background: #f8f9fa; padding: 30px 15px;">
         <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
@@ -909,6 +944,116 @@ app.post('/api/users/login', async (req, res) => {
     } catch (error) {
         console.error('Login Error:', error);
         res.status(500).json({ error: 'Giriş başarısız: ' + error.message });
+    }
+});
+
+// PASSWORD RESET ROUTES (JWT BASED)
+// 1. Forgot Password Request
+app.post('/api/auth/forgot-password', async (req, res) => {
+    try {
+        const { contactMethod, value } = req.body;
+        const db = await connectDB();
+
+        // Find user
+        let user;
+        if (contactMethod === 'email') {
+            user = await db.collection('users').findOne({ email: value.toLowerCase() });
+        } else {
+            user = await db.collection('users').findOne({ phone: value });
+        }
+
+        if (!user) {
+            // Return success even if user not found (security)
+            console.log('Forgot password: User not found for', value);
+            return res.status(200).json({ success: true, message: 'If user exists, reset link sent.' });
+        }
+
+        // Generate JWT Reset Token (valid for 24h)
+        const resetToken = jwt.sign(
+            { userId: user._id, type: 'reset' },
+            JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        // Send Email
+        const resetLink = `${process.env.BASE_URL || 'https://dorteltedarik.com'}/sifre-sifirla/${resetToken}`;
+
+        console.log(`🔐 Reset Link for ${user.email}: ${resetLink}`);
+
+        if (contactMethod === 'email' && process.env.RESEND_API_KEY) {
+            await resend.emails.send({
+                from: 'Dörtel Tedarik <info@dorteltedarik.com>',
+                to: user.email,
+                subject: 'Şifre Sıfırlama Talebi 🔐',
+                html: getResetPasswordTemplate(resetLink)
+            });
+            console.log('✅ Reset email sent to', user.email);
+        }
+
+        res.json({ success: true, message: 'Reset link sent' });
+    } catch (error) {
+        console.error('Forgot Password Error:', error);
+        res.status(500).json({ error: 'İşlem başarısız' });
+    }
+});
+
+// 2. Validate Token
+app.get('/api/auth/validate-reset-token/:token', async (req, res) => {
+    try {
+        const { token } = req.params;
+
+        try {
+            const decoded = jwt.verify(token, JWT_SECRET);
+            if (decoded.type !== 'reset') throw new Error('Invalid token type');
+
+            // Check if user still exists
+            const db = await connectDB();
+            const user = await db.collection('users').findOne({ _id: new ObjectId(decoded.userId) });
+            if (!user) throw new Error('User not found');
+
+            res.json({ valid: true });
+        } catch (err) {
+            return res.status(400).json({ valid: false, error: 'Geçersiz veya süresi dolmuş bağlantı' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 3. Reset Password
+app.post('/api/auth/reset-password', async (req, res) => {
+    try {
+        const { token, newPassword } = req.body;
+
+        try {
+            const decoded = jwt.verify(token, JWT_SECRET);
+            if (decoded.type !== 'reset') throw new Error('Invalid token type');
+
+            const db = await connectDB();
+
+            // Hash new password
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+            // Update user password
+            await db.collection('users').updateOne(
+                { _id: new ObjectId(decoded.userId) },
+                {
+                    $set: {
+                        password: hashedPassword,
+                        lastLogin: new Date() // Optional: force re-login check or just update date
+                    }
+                }
+            );
+
+            console.log('✅ Password reset successful for user:', decoded.userId);
+            res.json({ success: true, message: 'Şifre başarıyla güncellendi' });
+
+        } catch (err) {
+            return res.status(400).json({ success: false, error: 'Geçersiz veya süresi dolmuş bağlantı' });
+        }
+    } catch (error) {
+        console.error('Reset Password Error:', error);
+        res.status(500).json({ error: 'İşlem başarısız' });
     }
 });
 
