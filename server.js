@@ -13,6 +13,7 @@ import jwt from 'jsonwebtoken';
 // MongoDB Cached Connection Setup (Critical for Vercel)
 let cachedClient = null;
 let cachedDb = null;
+let lastDbError = null; // Store error for debugging
 
 async function connectDB() {
     // If we have a cached connection, use it
@@ -23,9 +24,8 @@ async function connectDB() {
     const uri = process.env.MONGODB_URI;
 
     if (!uri) {
-        // Fallback for local dev if .env is missing but local string is known (Safety net)
-        // But in Vercel, this must be set in Environment Variables.
-        console.error('❌ MONGODB_URI is missing in environment variables!');
+        lastDbError = 'MONGODB_URI is missing in environment variables!';
+        console.error('❌ ' + lastDbError);
         return null;
     }
 
@@ -43,10 +43,12 @@ async function connectDB() {
 
         cachedClient = client;
         cachedDb = db;
+        lastDbError = null; // Clear error on success
 
         console.log(`✅ MongoDB Connected to ${dbName}`);
         return db;
     } catch (error) {
+        lastDbError = error.message;
         console.error('❌ MongoDB Connection Failed:', error);
         return null;
     }
@@ -288,6 +290,7 @@ app.get('/api/health', async (req, res) => {
     res.json({
         status: db ? 'ok' : 'error',
         message: db ? 'Database Connected' : 'Database Connection Failed',
+        error_detail: lastDbError,
         timestamp: new Date()
     });
 });
