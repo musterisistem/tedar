@@ -329,12 +329,22 @@ export const Header: React.FC = () => {
 
                         {/* Account Group */}
                         <div className="relative group hidden md:block">
-                            <Link to={currentUser ? "/hesabim" : "/giris"} className="flex flex-col items-center hover:text-secondary py-2">
-                                <User className="w-5 h-5 group-hover:text-secondary" />
-                                <span className="hidden sm:inline">
-                                    {currentUser ? currentUser.name.split(' ')[0] : 'Hesabım'}
-                                </span>
-                            </Link>
+                            {currentUser ? (
+                                <Link to="/hesabim" className="flex flex-col items-center hover:text-secondary py-2">
+                                    <User className="w-5 h-5 group-hover:text-secondary" />
+                                    <span className="hidden sm:inline">
+                                        {currentUser.name.split(' ')[0]}
+                                    </span>
+                                </Link>
+                            ) : (
+                                <button
+                                    onClick={() => setIsLoginModalOpen(true)}
+                                    className="flex flex-col items-center hover:text-secondary py-2 w-full"
+                                >
+                                    <User className="w-5 h-5 group-hover:text-secondary" />
+                                    <span className="hidden sm:inline">Giriş Yap</span>
+                                </button>
+                            )}
                             {/* Account Dropdown */}
                             <div className="absolute right-0 top-full w-64 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-5">
                                 {currentUser ? (

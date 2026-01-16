@@ -63,7 +63,7 @@ interface UserContextType {
         district: string;
         zipCode: string;
         password: string
-    }) => void;
+    }) => Promise<{ success: boolean; error?: string }>;
     logout: () => void;
     updateUser: (id: string | number, updatedUser: Partial<User>) => void;
     deleteUser: (id: string | number) => void;
@@ -230,7 +230,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         district: string;
         zipCode: string;
         password: string
-    }) => {
+    }): Promise<{ success: boolean; error?: string }> => {
         try {
             // Normalize email during registration
             const cleanUserData = { ...userData, email: userData.email.trim().toLowerCase() };
@@ -244,8 +244,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const data = await res.json();
 
             if (!res.ok) {
-                alert(data.error || 'Kayıt başarısız');
-                return;
+                return { success: false, error: data.error || 'Kayıt başarısız' };
             }
 
             localStorage.setItem('auth_token', data.token);
@@ -255,8 +254,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             import('../utils/emailService').then(({ emailService }) => {
                 emailService.sendWelcomeEmail(data.user.email, data.user.name);
             });
+
+            return { success: true };
         } catch (error) {
-            alert('Kayıt sırasında bir hata oluştu');
+            console.error('Register Fetch Error:', error);
+            return { success: false, error: 'Sunucu hatası veya bağlantı sorunu' };
         }
     };
 

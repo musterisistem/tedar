@@ -5,7 +5,7 @@ export interface LocationData {
 }
 
 export const locationData: LocationData = {
-    'Adana': { 'Merkez': ['Merkez Mah.'], 'Seyhan': ['Seyhan Mah.'], 'Çukurova': ['Çukurova Mah.'], 'Sarıçam': ['Sarıçam Mah.'], 'Yüreğir': ['Yüreğir Mah.'] },
+    'Adana': { 'Merkez': ['Merkez Mah.'], 'Seyhan': ['Seyhan Mah.'], 'Çukurova': ['Çukurova Mah.'], 'Sarıçam': ['Sarıçam Mah.'], 'Yüreğir': ['Yüreğir Mah.'], 'Ceyhan': ['Merkez Mah.'], 'Kozan': ['Merkez Mah.'], 'İmamoğlu': ['Merkez Mah.'] },
     'Adıyaman': { 'Merkez': ['Merkez Mah.'], 'Kahta': ['Kahta Mah.'] },
     'Afyonkarahisar': { 'Merkez': ['Merkez Mah.'], 'Sandıklı': ['Sandıklı Mah.'] },
     'Ağrı': { 'Merkez': ['Merkez Mah.'], 'Doğubayazıt': ['Doğubayazıt Mah.'] },

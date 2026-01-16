@@ -62,7 +62,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
         setIsLoading(true);
 
         try {
-            await register({
+            const result = await register({
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
@@ -72,9 +72,14 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
                 address: formData.address,
                 password: formData.password
             });
-            onClose();
+
+            if (result.success) {
+                onClose();
+            } else {
+                setError(result.error || 'Kayıt sırasında bir hata oluştu.');
+            }
         } catch (err) {
-            setError('Kayıt sırasında bir hata oluştu.');
+            setError('Sunucu hatası veya bağlantı sorunu.');
         } finally {
             setIsLoading(false);
         }
@@ -206,6 +211,19 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
                                     onChange={handleChange}
                                     className="w-full h-11 px-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all"
                                     placeholder="34000"
+                                />
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Açık Adres</label>
+                                <textarea
+                                    name="address"
+                                    required
+                                    rows={2}
+                                    value={formData.address}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all resize-none"
+                                    placeholder="Mahalle, Cadde, Sokak, Kapı No..."
                                 />
                             </div>
 
