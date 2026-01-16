@@ -6,6 +6,15 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
+import { MongoClient, ObjectId } from 'mongodb';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { Resend } from 'resend';
+import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import { fileURLToPath } from 'url';
 import { MongoClient } from 'mongodb';
 
 // MongoDB Cached Connection Setup (Critical for Vercel)
@@ -294,162 +303,185 @@ connectDB();
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
+
 
 // USERS & AUTH
-app.use('/api/users', async (req, res) => {
+const JWT_SECRET = process.env.JWT_SECRET || 'dortel-super-secret-key-2026';
+
+/* ----------------------------------------------------------------------
+   USER AUTHENTICATION ROUTES (REFACTORED)
+   ---------------------------------------------------------------------- */
+
+// HEALTH CHECK (DB TEST)
+app.get('/api/health', async (req, res) => {
+    const db = await connectDB();
+    res.json({
+        status: db ? 'ok' : 'error',
+        message: db ? 'Database Connected' : 'Database Connection Failed',
+        timestamp: new Date()
+    });
+});
+
+// REGISTER
+app.post('/api/users/register', async (req, res) => {
     try {
-        const database = await connectDB();
-        if (!database) return res.status(500).json({ error: 'Database connection failed' });
-        const collection = database.collection('users');
+        const { email, password, name, phone, address, city, district, zipCode } = req.body;
 
-        // REGISTER
-        if (req.method === 'POST' && req.path.includes('/register')) {
-            const { email, password, name, phone } = req.body;
-            console.log(`[REGISTER ATTEMPT] Email: ${email}, Name: ${name}`);
+        if (!email || !password || !name) {
+            return res.status(400).json({ error: 'Email, şifre ve isim zorunludur' });
+        }
 
-            const existingUser = await collection.findOne({ email });
-            if (existingUser) {
-                console.log(`[REGISTER FAILED] User already exists: ${email}`);
-                return res.status(400).json({ error: 'Bu email adresi zaten kayıtlı' });
-            }
+        const db = await connectDB();
+        if (!db) return res.status(500).json({ error: 'Database connection failed' });
 
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const user = {
+        const collection = db.collection('users');
+        const existingUser = await collection.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({ error: 'Bu email adresi zaten kayıtlı' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = {
+            email,
+            password: hashedPassword,
+            name,
+            phone: phone || '',
+            role: 'customer',
+            createdAt: new Date(),
+            addresses: address ? [{
+                id: Date.now(), title: 'Ev', city, district, content: address, zipCode
+            }] : [],
+            favorites: [],
+            orders: []
+        };
+
+        const result = await collection.insertOne(newUser);
+        const token = jwt.sign({ userId: result.insertedId, email, role: 'customer' }, JWT_SECRET, { expiresIn: '7d' });
+
+        return res.status(201).json({
+            success: true,
+            token,
+            user: {
+                id: result.insertedId,
                 email,
-                password: hashedPassword,
                 name,
-                phone,
                 role: 'customer',
-                createdAt: new Date().toISOString(),
-                addresses: [],
-                orders: []
-            };
-
-            const result = await collection.insertOne(user);
-            console.log(`[REGISTER SUCCESS] User created: ${email}, ID: ${result.insertedId}`);
-
-            const token = jwt.sign({ userId: result.insertedId, email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
-
-            return res.status(201).json({
-                success: true,
-                token,
-                user: { id: result.insertedId, email, name, role: user.role }
-            });
-        }
-
-        // LOGIN
-        if (req.method === 'POST' && req.path.includes('/login')) {
-            const { email, password } = req.body;
-            console.log(`[LOGIN ATTEMPT] Email: ${email}`);
-
-            const user = await collection.findOne({ email });
-            if (!user) {
-                console.log(`[LOGIN FAILED] User not found: ${email}`);
-                return res.status(401).json({ error: 'Email veya şifre hatalı (Kullanıcı yok)' });
+                addresses: newUser.addresses
             }
-
-            const isValid = await bcrypt.compare(password, user.password);
-            if (!isValid) {
-                console.log(`[LOGIN FAILED] Invalid password for: ${email}`);
-                return res.status(401).json({ error: 'Email veya şifre hatalı (Şifre yanlış)' });
-            }
-
-            console.log(`[LOGIN SUCCESS] User: ${email}`);
-            const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
-
-            return res.status(200).json({
-                success: true,
-                token,
-                user: { id: user._id, email: user.email, name: user.name, role: user.role }
-            });
-        }
-
-        // PROFILE
-        if (req.method === 'GET' && req.path.includes('/profile')) {
-            const token = req.headers.authorization?.replace('Bearer ', '');
-            if (!token) return res.status(401).json({ error: 'Yetkisiz erişim' });
-
-            try {
-                const decoded = jwt.verify(token, JWT_SECRET);
-                const user = await collection.findOne({ _id: new ObjectId(decoded.userId) });
-                if (!user) return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
-
-                return res.status(200).json({
-                    success: true,
-                    user: {
-                        id: user._id,
-                        email: user.email,
-                        name: user.name,
-                        phone: user.phone,
-                        addresses: user.addresses,
-                        role: user.role
-                    }
-                });
-            } catch (err) {
-                return res.status(401).json({ error: 'Geçersiz token' });
-            }
-        }
-
-        // UPDATE USER (PUT)
-        if (req.method === 'PUT') {
-            const token = req.headers.authorization?.replace('Bearer ', '');
-            if (!token) return res.status(401).json({ error: 'Yetkisiz erişim' });
-
-            try {
-                const decoded = jwt.verify(token, JWT_SECRET);
-                const userId = decoded.userId;
-                const { name, favorites, addresses, orders, password } = req.body;
-
-                const updateData = {};
-                if (name) updateData.name = name;
-                if (favorites) updateData.favorites = favorites;
-                if (addresses) updateData.addresses = addresses;
-                if (orders) updateData.orders = orders;
-
-                if (password) {
-                    updateData.password = await bcrypt.hash(password, 10);
-                }
-
-                const result = await collection.updateOne(
-                    { _id: new ObjectId(userId) },
-                    { $set: updateData }
-                );
-
-                if (result.matchedCount === 0) {
-                    return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
-                }
-
-                // Return updated user data
-                const updatedUser = await collection.findOne({ _id: new ObjectId(userId) });
-
-                return res.status(200).json({
-                    success: true,
-                    message: 'Kullanıcı güncellendi',
-                    user: {
-                        id: updatedUser._id,
-                        email: updatedUser.email,
-                        name: updatedUser.name,
-                        phone: updatedUser.phone,
-                        addresses: updatedUser.addresses || [],
-                        favorites: updatedUser.favorites || [],
-                        orders: updatedUser.orders || [],
-                        role: updatedUser.role
-                    }
-                });
-
-            } catch (err) {
-                console.error('Update Error:', err);
-                return res.status(401).json({ error: 'İşlem başarısız: ' + err.message });
-            }
-        }
-
-        res.status(404).json({ error: 'User route not found' });
+        });
     } catch (error) {
-        console.error('Users API Error:', error);
-        res.status(500).json({ error: error.message });
+        console.error('Register Error:', error);
+        res.status(500).json({ error: 'Kayıt işlemi başarısız: ' + error.message });
     }
 });
+
+// LOGIN
+app.post('/api/users/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const db = await connectDB();
+        if (!db) return res.status(500).json({ error: 'Database connection failed' });
+
+        const user = await db.collection('users').findOne({ email });
+        if (!user) {
+            return res.status(401).json({ error: 'Kullanıcı bulunamadı veya şifre hatalı' });
+        }
+
+        const isValid = await bcrypt.compare(password, user.password);
+        if (!isValid) {
+            return res.status(401).json({ error: 'Kullanıcı bulunamadı veya şifre hatalı' });
+        }
+
+        const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
+        // Update Last Login
+        await db.collection('users').updateOne(
+            { _id: user._id },
+            { $set: { lastLogin: new Date() } }
+        );
+
+        return res.status(200).json({
+            success: true,
+            token,
+            user: {
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                role: user.role,
+                favorites: user.favorites || [],
+                addresses: user.addresses || [],
+                orders: user.orders || []
+            }
+        });
+    } catch (error) {
+        console.error('Login Error:', error);
+        res.status(500).json({ error: 'Giriş başarısız: ' + error.message });
+    }
+});
+
+// PROFILE
+app.get('/api/users/profile', async (req, res) => {
+    try {
+        const token = req.headers.authorization?.replace('Bearer ', '');
+        if (!token) return res.status(401).json({ error: 'No token' });
+
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const db = await connectDB();
+        if (!db) return res.status(500).json({ error: 'DB Error' });
+
+        const user = await db.collection('users').findOne({ _id: new ObjectId(decoded.userId) });
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        res.json({
+            success: true,
+            user: {
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                phone: user.phone,
+                addresses: user.addresses,
+                role: user.role,
+                favorites: user.favorites,
+                orders: user.orders
+            }
+        });
+    } catch (e) {
+        res.status(401).json({ error: 'Invalid Token' });
+    }
+});
+
+// UPDATE USER (PUT)
+app.put('/api/users', async (req, res) => {
+    try {
+        const token = req.headers.authorization?.replace('Bearer ', '');
+        if (!token) return res.status(401).json({ error: 'No token' });
+
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const db = await connectDB();
+
+        const { name, favorites, addresses, orders, password } = req.body;
+        const updateData = {};
+
+        if (name) updateData.name = name;
+        if (favorites) updateData.favorites = favorites;
+        if (addresses) updateData.addresses = addresses;
+        if (orders) updateData.orders = orders;
+        if (password) updateData.password = await bcrypt.hash(password, 10);
+
+        await db.collection('users').updateOne(
+            { _id: new ObjectId(decoded.userId) },
+            { $set: updateData }
+        );
+
+        res.json({ success: true, message: 'Updated' });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 
 // Price Alerts
 app.get('/api/price-alerts', async (req, res) => {
