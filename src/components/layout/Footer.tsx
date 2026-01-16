@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, ShieldCheck } from 'lucide-react';
 import { useSite } from '../../context/SiteContext';
 import { useCategories } from '../../context/CategoryContext';
 import { Link } from 'react-router-dom';
@@ -132,12 +132,25 @@ export const Footer: React.FC = () => {
                             </a>
                         </p>
                     </div>
-                    <div className="flex gap-4">
-                        {/* Payment Icons Placeholder */}
-                        <div className="h-6 w-10 bg-gray-700 rounded"></div>
-                        <div className="h-6 w-10 bg-gray-700 rounded"></div>
-                        <div className="h-6 w-10 bg-gray-700 rounded"></div>
-                        <div className="h-6 w-10 bg-gray-700 rounded"></div>
+                    <div className="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
+                        {/* SSL Badge */}
+                        <div className="flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 hover:border-green-500/30 transition-colors cursor-help group">
+                            <ShieldCheck className="w-4 h-4 text-green-500 group-hover:text-green-400 transition-colors" />
+                            <span className="text-xs font-medium text-gray-300 group-hover:text-white">256 Bit SSL Güvenli Ödeme</span>
+                        </div>
+
+                        {/* Payment Logos */}
+                        <div className="flex items-center gap-2">
+                            <div className="bg-white px-2 py-1 rounded h-6 w-10 flex items-center justify-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" className="max-h-full max-w-full" />
+                            </div>
+                            <div className="bg-white px-2 py-1 rounded h-6 w-10 flex items-center justify-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" className="max-h-full max-w-full" />
+                            </div>
+                            <div className="bg-white px-2 py-1 rounded h-6 w-10 flex items-center justify-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Troy_logo.png/200px-Troy_logo.png" alt="Troy" className="max-h-full max-w-full" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
