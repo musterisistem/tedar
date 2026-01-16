@@ -17,11 +17,11 @@ export const NotificationSettings: React.FC = () => {
 
     const fetchSettings = async () => {
         try {
-            const res = await fetch('/api/settings/notificationSettings.json');
+            const res = await fetch('/api/notification-settings');
             if (res.ok) {
-                const data = await res.json();
-                if (data && Array.isArray(data.adminEmails)) {
-                    setSettings(data);
+                const result = await res.json();
+                if (result.success && result.data) {
+                    setSettings({ adminEmails: result.data.adminEmails || [] });
                 }
             }
         } catch (error) {
@@ -32,13 +32,11 @@ export const NotificationSettings: React.FC = () => {
     const handleSave = async () => {
         setLoading(true);
         try {
-            const res = await fetch('/api/save-settings', {
+            // Save to MongoDB (for Vercel compatibility)
+            const res = await fetch('/api/notification-settings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    filename: 'notificationSettings.json',
-                    data: settings
-                })
+                body: JSON.stringify(settings)
             });
 
             if (res.ok) {

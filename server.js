@@ -715,6 +715,55 @@ app.post('/api/contact', async (req, res) => {
 });
 
 
+// Notification Settings
+// Get notification settings
+app.get('/api/notification-settings', async (req, res) => {
+    try {
+        const db = await connectDB();
+        if (!db) return res.status(500).json({ error: 'Database connection failed' });
+
+        const settings = await db.collection('notificationSettings').findOne({});
+
+        if (settings) {
+            res.json({ success: true, data: settings });
+        } else {
+            // Return empty settings
+            res.json({ success: true, data: { adminEmails: [] } });
+        }
+    } catch (error) {
+        console.error('Get notification settings error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Save notification settings
+app.post('/api/notification-settings', async (req, res) => {
+    try {
+        const { adminEmails } = req.body;
+        const db = await connectDB();
+        if (!db) return res.status(500).json({ error: 'Database connection failed' });
+
+        // Upsert (update or insert)
+        const result = await db.collection('notificationSettings').updateOne(
+            {}, // Match any document (we only have one settings doc)
+            {
+                $set: {
+                    adminEmails: adminEmails || [],
+                    updatedAt: new Date()
+                }
+            },
+            { upsert: true } // Create if doesn't exist
+        );
+
+        console.log('✅ Notification settings saved to MongoDB:', adminEmails);
+
+        res.json({ success: true, message: 'Settings saved successfully' });
+    } catch (error) {
+        console.error('Save notification settings error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 
 // Ensure DB connection on start
@@ -1016,34 +1065,50 @@ app.post('/api/orders', async (req, res) => {
                     }
 
                     // 2. Send to Admin
-                    // Load admin emails from notification settings (JSON file first, then MongoDB)
+                    // Load admin emails from notification settings
                     let adminEmails = [];
 
-                    // Try JSON file first
+                    console.log('🔍 Loading admin emails for notification...');
+
+                    // Try MongoDB first (works on Vercel)
                     try {
-                        const settingsPath = path.join(DATA_DIR, 'notificationSettings.json');
-                        if (fs.existsSync(settingsPath)) {
-                            const fileData = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
-                            if (Array.isArray(fileData.adminEmails)) {
-                                adminEmails.push(...fileData.adminEmails);
+                        const db = database || await connectDB();
+                        if (db) {
+                            // Check notificationSettings collection
+                            const settingsDoc = await db.collection('notificationSettings').findOne({});
+                            console.log('📊 NotificationSettings from MongoDB:', settingsDoc);
+
+                            if (settingsDoc && Array.isArray(settingsDoc.adminEmails)) {
+                                adminEmails.push(...settingsDoc.adminEmails);
+                                console.log('✅ Loaded from notificationSettings collection:', adminEmails);
+                            }
+
+                            // Also check settings collection with key
+                            if (adminEmails.length === 0) {
+                                const settingsDoc2 = await db.collection('settings').findOne({ key: 'notificationSettings' });
+                                if (settingsDoc2?.data?.adminEmails && Array.isArray(settingsDoc2.data.adminEmails)) {
+                                    adminEmails.push(...settingsDoc2.data.adminEmails);
+                                    console.log('✅ Loaded from settings collection:', adminEmails);
+                                }
                             }
                         }
                     } catch (err) {
-                        console.log('Could not load notification settings from file:', err.message);
+                        console.error('❌ Failed to load notification settings from MongoDB:', err);
                     }
 
-                    // Try MongoDB if no emails from file
-                    if (adminEmails.length === 0) {
+                    // Try JSON file (works on localhost)
+                    if (adminEmails.length === 0 && process.env.VERCEL !== '1') {
                         try {
-                            const db = database || await connectDB();
-                            if (db) {
-                                const settingsDoc = await db.collection('settings').findOne({ key: 'notificationSettings' });
-                                if (settingsDoc?.data?.adminEmails && Array.isArray(settingsDoc.data.adminEmails)) {
-                                    adminEmails.push(...settingsDoc.data.adminEmails);
+                            const settingsPath = path.join(DATA_DIR, 'notificationSettings.json');
+                            if (fs.existsSync(settingsPath)) {
+                                const fileData = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
+                                if (Array.isArray(fileData.adminEmails)) {
+                                    adminEmails.push(...fileData.adminEmails);
+                                    console.log('✅ Loaded from JSON file:', adminEmails);
                                 }
                             }
                         } catch (err) {
-                            console.error('Failed to load notification settings from DB:', err);
+                            console.log('⚠️ Could not load notification settings from file:', err.message);
                         }
                     }
 
@@ -1054,18 +1119,20 @@ app.post('/api/orders', async (req, res) => {
                         console.log('⚠️ Using fallback admin email:', envEmail);
                     }
 
-                    // Remove duplicates
-                    adminEmails = [...new Set(adminEmails)];
+                    // Remove duplicates and empty values
+                    adminEmails = [...new Set(adminEmails.filter(email => email && email.includes('@')))];
 
-                    console.log('📧 Sending admin notification to:', adminEmails);
+                    console.log('📧 Final admin emails for notification:', adminEmails);
 
-                    await resend.emails.send({
-                        from: 'Dörtel Tedarik <siparis@dorteltedarik.com>',
-                        to: adminEmails,
-                        subject: `🛒 Yeni Sipariş: ${order.orderNo} - ${order.amount?.toLocaleString('tr-TR')} TL`,
-                        html: getAdminNotificationTemplate(order)
-                    });
-                    console.log(`✅ Admin email sent to: ${adminEmails.join(', ')}`);
+                    if (adminEmails.length > 0) {
+                        await resend.emails.send({
+                            from: 'Dörtel Tedarik <siparis@dorteltedarik.com>',
+                            to: adminEmails,
+                            subject: `🛒 Yeni Sipariş: ${order.orderNo} - ${order.amount?.toLocaleString('tr-TR')} TL`,
+                            html: getAdminNotificationTemplate(order)
+                        });
+                        console.log(`✅ Admin email sent successfully to: ${adminEmails.join(', ')}`);
+                    }
                 }
             } catch (emailError) {
                 console.error('❌ Email sending failed:', emailError);
