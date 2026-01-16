@@ -1309,9 +1309,9 @@ app.put('/api/orders', async (req, res) => {
     }
 });
 
-app.post('/api/orders/track', async (req, res) => {
+app.get('/api/orders/track', async (req, res) => {
     try {
-        const { orderNo } = req.body;
+        const { orderNo } = req.query;
         const database = await connectDB();
         if (!database) return res.status(500).json({ error: 'Database connection failed' });
 
@@ -1335,6 +1335,8 @@ app.post('/api/orders/track', async (req, res) => {
             date: order.createdAt || order.date,
             customerName: maskName(order.customer?.name || order.customerName || 'Müşteri'),
             total: order.amount || order.total,
+            amount: order.amount || order.total,
+            productCount: (order.items || []).reduce((acc, item) => acc + (item.quantity || 1), 0),
             items: order.items || [],
         };
         res.json({ success: true, data: maskedOrder });
