@@ -7,6 +7,7 @@ import { useUsers } from '../../context/UserContext';
 import { useProducts } from '../../context/ProductContext';
 import { CategoryDropdown } from './CategoryDropdown';
 import { LoginModal } from '../auth/LoginModal';
+import { RegisterModal } from '../auth/RegisterModal';
 import logo from '../../assets/logo.png';
 import * as Icons from 'lucide-react';
 import { OrderTrackingModal } from '../order/OrderTrackingModal';
@@ -22,8 +23,9 @@ export const Header: React.FC = () => {
     const [showSearch, setShowSearch] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // Login Modal State
+    // Auth Modals State
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
     // Order Tracking State
     const [trackingNumber, setTrackingNumber] = useState('');
@@ -359,9 +361,12 @@ export const Header: React.FC = () => {
                                             >
                                                 Giriş Yap
                                             </button>
-                                            <Link to="/kayit" className="block w-full bg-slate-100 text-slate-700 font-bold text-sm py-2 rounded hover:bg-slate-200 transition-colors text-center">
+                                            <button
+                                                onClick={() => setIsRegisterModalOpen(true)}
+                                                className="block w-full bg-slate-100 text-slate-700 font-bold text-sm py-2 rounded hover:bg-slate-200 transition-colors text-center"
+                                            >
                                                 Kayıt Ol
-                                            </Link>
+                                            </button>
                                         </div>
                                     </>
                                 )}
@@ -584,6 +589,20 @@ export const Header: React.FC = () => {
             <LoginModal
                 isOpen={isLoginModalOpen}
                 onClose={() => setIsLoginModalOpen(false)}
+                onRegisterClick={() => {
+                    setIsLoginModalOpen(false);
+                    setIsRegisterModalOpen(true);
+                }}
+            />
+
+            {/* Register Modal */}
+            <RegisterModal
+                isOpen={isRegisterModalOpen}
+                onClose={() => setIsRegisterModalOpen(false)}
+                onLoginClick={() => {
+                    setIsRegisterModalOpen(false);
+                    setIsLoginModalOpen(true);
+                }}
             />
 
         </header >
