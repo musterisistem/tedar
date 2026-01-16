@@ -285,13 +285,17 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const updateUser = async (id: string | number, updatedUser: Partial<User>) => {
         // Optimistic update
+        let updatedCurrentUser = null;
+
+        if (currentUser && currentUser.id.toString() === id.toString()) {
+            updatedCurrentUser = { ...currentUser, ...updatedUser };
+            setCurrentUser(updatedCurrentUser);
+        }
+
         setUsers(prev => prev.map(user => {
             if (user.id.toString() === id.toString()) {
-                const newUserData = { ...user, ...updatedUser };
-                if (currentUser && currentUser.id.toString() === id.toString()) {
-                    setCurrentUser(newUserData);
-                }
-                return newUserData;
+                // If we already updated currentUser, use that object, otherwise create new
+                return updatedCurrentUser || { ...user, ...updatedUser };
             }
             return user;
         }));
