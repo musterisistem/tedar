@@ -21,31 +21,8 @@ export const ProductDetail: React.FC = () => {
     // Find product by slug
     const product = products.length > 0 ? products.find(p => slugify(p.name) === slug) : null;
 
-    // Use effect to handle navigation for non-existent products
-    useEffect(() => {
-        if (products.length > 0 && !product && slug) {
-            navigate('/', { replace: true });
-        }
-    }, [products, product, slug, navigate]);
-
-    // If product is still not found or list is empty
-    if (!product) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-gray-500 font-medium">Ürün bilgileri yükleniyor...</p>
-                </div>
-            </div>
-        );
-    }
-
     // Reviews from Context
-    const reviews = product.reviewItems || [];
-
-    const handleAddReview = (newReview: Review) => {
-        addReview(product.id, newReview);
-    };
+    const reviews = product?.reviewItems || [];
 
     // Scroll to top on mount and tracking history
     useEffect(() => {
@@ -59,6 +36,13 @@ export const ProductDetail: React.FC = () => {
         }
     }, [slug, product]);
 
+    // Use effect to handle navigation for non-existent products
+    useEffect(() => {
+        if (products.length > 0 && !product && slug) {
+            navigate('/', { replace: true });
+        }
+    }, [products, product, slug, navigate]);
+
     // Randomize related products
     const relatedProducts = React.useMemo(() => {
         if (!product) return [];
@@ -69,6 +53,27 @@ export const ProductDetail: React.FC = () => {
         // Shuffle array
         return filtered.sort(() => 0.5 - Math.random()).slice(0, 8);
     }, [products, product]);
+
+    // Breadcrumb items for schema
+    const breadcrumbItems = React.useMemo(() => {
+        const items = [{ name: 'Ana Sayfa', url: '/' }];
+        if (product?.categories && product.categories.length > 0) {
+            const categoryId = product.categories[0];
+            const categoriesArray = (categoriesData as any).data || categoriesData;
+            const category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
+            if (category) {
+                items.push({ name: category.name, url: `/kategori/${category.id}` });
+            }
+        }
+        items.push({ name: product?.name || '', url: `/${slug}` });
+        return items;
+    }, [product, slug]);
+
+    const handleAddReview = (newReview: Review) => {
+        if (product) {
+            addReview(product.id, newReview);
+        }
+    };
 
     const handleReviewClick = () => {
         setActiveTab('reviews');
@@ -86,20 +91,17 @@ export const ProductDetail: React.FC = () => {
         }, 100);
     };
 
-    // Breadcrumb items for schema
-    const breadcrumbItems = React.useMemo(() => {
-        const items = [{ name: 'Ana Sayfa', url: '/' }];
-        if (product?.categories && product.categories.length > 0) {
-            const categoryId = product.categories[0];
-            const categoriesArray = (categoriesData as any).data || categoriesData;
-            const category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
-            if (category) {
-                items.push({ name: category.name, url: `/kategori/${category.id}` });
-            }
-        }
-        items.push({ name: product?.name || '', url: `/${slug}` });
-        return items;
-    }, [product, slug]);
+    // If product is still not found or list is empty
+    if (!product) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-gray-500 font-medium">Ürün bilgileri yükleniyor...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
