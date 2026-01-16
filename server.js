@@ -314,21 +314,44 @@ app.post('/api/contact', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Tüm alanlar zorunludur' });
         }
 
-        // Get admin email from notification settings
+        // Get admin emails from notification settings (Try MongoDB first, then JSON file)
         const db = await connectDB();
-        if (!db) {
-            console.log('DB not available, using fallback email');
-        }
+        let adminEmails = [];
 
-        let adminEmail = 'info@dorteltedarik.com'; // Fallback
-
+        // Try MongoDB
         if (db) {
             const settingsCollection = db.collection('notificationSettings');
             const settings = await settingsCollection.findOne({});
             if (settings && settings.adminEmail) {
-                adminEmail = settings.adminEmail;
+                adminEmails.push(settings.adminEmail);
+            }
+            if (settings && Array.isArray(settings.adminEmails)) {
+                adminEmails.push(...settings.adminEmails);
             }
         }
+
+        // Try JSON file if no MongoDB emails
+        if (adminEmails.length === 0) {
+            try {
+                const settingsPath = path.join(DATA_DIR, 'notificationSettings.json');
+                if (fs.existsSync(settingsPath)) {
+                    const fileData = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
+                    if (Array.isArray(fileData.adminEmails)) {
+                        adminEmails.push(...fileData.adminEmails);
+                    }
+                }
+            } catch (err) {
+                console.log('Could not load notification settings from file:', err.message);
+            }
+        }
+
+        // Fallback
+        if (adminEmails.length === 0) {
+            adminEmails = ['info@dorteltedarik.com'];
+        }
+
+        // Remove duplicates
+        adminEmails = [...new Set(adminEmails)];
 
         // Prepare email data
         const contactData = {
@@ -338,25 +361,58 @@ app.post('/api/contact', async (req, res) => {
             message
         };
 
-        // Send email to admin
+        // Send email to admin(s)
         if (!process.env.RESEND_API_KEY) {
-            console.log('MOCK CONTACT EMAIL:', { to: adminEmail, from: email, subject });
+            console.log('MOCK CONTACT EMAIL:', { to: adminEmails, from: email, subject });
             return res.json({ success: true, message: 'Mesajınız alındı (Mock Mode)' });
         }
 
-        const emailResult = await resend.emails.send({
-            from: 'İletişim Formu <iletisim@dorteltedarik.com>',
-            to: adminEmail,
-            replyTo: email, // Allow admin to reply directly
-            subject: `İletişim Formu: ${subject}`,
-            html: getContactFormTemplate(contactData),
-        });
+        try {
+            // Send to admin
+            await resend.emails.send({
+                from: 'İletişim Formu <iletisim@dorteltedarik.com>',
+                to: adminEmails,
+                replyTo: email,
+                subject: `İletişim Formu: ${subject}`,
+                html: getContactFormTemplate(contactData),
+            });
 
-        res.json({
-            success: true,
-            message: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.',
-            data: emailResult
-        });
+            // Send confirmation to customer
+            await resend.emails.send({
+                from: 'Dörtel Tedarik <info@dorteltedarik.com>',
+                to: email,
+                subject: 'Mesajınız Bize Ulaştı - Dörtel Tedarik',
+                html: `
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <h1 style="color: #2563eb;">Dörtel Tedarik</h1>
+                        </div>
+                        <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px;">
+                            <h2 style="color: #1e293b;">Merhaba ${name},</h2>
+                            <p style="color: #475569;">Mesajınız başarıyla tarafımıza ulaştı. En kısa sürede size geri dönüş yapacağız.</p>
+                            <div style="background-color: #fff; padding: 15px; border-left: 4px solid #2563eb; margin: 20px 0;">
+                                <p style="margin: 0; color: #64748b; font-size: 14px;"><strong>Konu:</strong> ${subject}</p>
+                            </div>
+                            <p style="color: #64748b; font-size: 13px;">Mesajınız için teşekkür ederiz.</p>
+                        </div>
+                        <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #94a3b8;">
+                            © ${new Date().getFullYear()} Dörtel Tedarik. Tüm hakları saklıdır.
+                        </div>
+                    </div>
+                `,
+            });
+
+            res.json({
+                success: true,
+                message: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.'
+            });
+        } catch (emailError) {
+            console.error('Email send error:', emailError);
+            res.status(500).json({
+                success: false,
+                message: 'E-posta gönderilirken bir hata oluştu: ' + emailError.message
+            });
+        }
     } catch (error) {
         console.error('Contact Form Error:', error);
         res.status(500).json({ success: false, error: error.message });
