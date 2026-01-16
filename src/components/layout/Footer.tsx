@@ -44,13 +44,13 @@ export const Footer: React.FC = () => {
 
                     {/* Column 3: Müşteri Hizmetleri */}
                     <div>
-                        <h3 className="text-white font-bold mb-6">Müşteri Hizmetleri</h3>
+                        <h3 className="text-white font-bold mb-6">Kategoriler</h3>
                         <ul className="space-y-3 text-sm">
-                            <li><Link to="/siparis-takip" className="hover:text-secondary transition-colors">Sipariş Takip</Link></li>
-                            <li><a href="#" className="hover:text-secondary transition-colors">İade ve Değişim</a></li>
-                            <li><a href="#" className="hover:text-secondary transition-colors">Sıkça Sorulan Sorular</a></li>
-                            <li><a href="#" className="hover:text-secondary transition-colors">Ödeme Seçenekleri</a></li>
-                            <li><a href="#" className="hover:text-secondary transition-colors">Teslimat Bilgileri</a></li>
+                            <li><Link to="/kategori/kalem-yazi" className="hover:text-secondary transition-colors">Kalem & Yazı Gereçleri</Link></li>
+                            <li><Link to="/kategori/hobi-oyuncak" className="hover:text-secondary transition-colors">Hobi & Oyuncak</Link></li>
+                            <li><Link to="/kategori/ozel-gun" className="hover:text-secondary transition-colors">Özel Gün & Sezonluk</Link></li>
+                            <li><Link to="/kategori/dekorasyon" className="hover:text-secondary transition-colors">Dekorasyon</Link></li>
+                            <li><Link to="/kategori/ofis-kirtasiye" className="hover:text-secondary transition-colors">Ofis & Kırtasiye</Link></li>
                         </ul>
                     </div>
 
