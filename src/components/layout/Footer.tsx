@@ -4,6 +4,9 @@ import { useSite } from '../../context/SiteContext';
 import { useCategories } from '../../context/CategoryContext';
 import { Link } from 'react-router-dom';
 import { slugify } from '../../utils/slugify';
+import visaLogo from '../../assets/payment/visa.svg';
+import mastercardLogo from '../../assets/payment/mastercard.svg';
+import troyLogo from '../../assets/payment/troy.png';
 
 export const Footer: React.FC = () => {
     const { contactPage } = useSite();
@@ -142,13 +145,13 @@ export const Footer: React.FC = () => {
                         {/* Payment Logos */}
                         <div className="flex items-center gap-2">
                             <div className="bg-white px-2 py-1 rounded h-6 w-10 flex items-center justify-center">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" className="max-h-full max-w-full" />
+                                <img src={visaLogo} alt="Visa" className="max-h-full max-w-full" />
                             </div>
                             <div className="bg-white px-2 py-1 rounded h-6 w-10 flex items-center justify-center">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" className="max-h-full max-w-full" />
+                                <img src={mastercardLogo} alt="Mastercard" className="max-h-full max-w-full" />
                             </div>
                             <div className="bg-white px-2 py-1 rounded h-6 w-10 flex items-center justify-center">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Troy_logo.svg/200px-Troy_logo.svg.png" alt="Troy" className="max-h-full max-w-full" />
+                                <img src={troyLogo} alt="Troy" className="max-h-full max-w-full" />
                             </div>
                         </div>
                     </div>
