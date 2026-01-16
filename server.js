@@ -6,6 +6,49 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
+import { MongoClient } from 'mongodb';
+
+// MongoDB Cached Connection Setup (Critical for Vercel)
+let cachedClient = null;
+let cachedDb = null;
+
+async function connectDB() {
+    // If we have a cached connection, use it
+    if (cachedDb) {
+        return cachedDb;
+    }
+
+    const uri = process.env.MONGODB_URI;
+
+    if (!uri) {
+        // Fallback for local dev if .env is missing but local string is known (Safety net)
+        // But in Vercel, this must be set in Environment Variables.
+        console.error('❌ MONGODB_URI is missing in environment variables!');
+        return null;
+    }
+
+    try {
+        const client = new MongoClient(uri, {
+            // Optimization for Serverless
+            maxPoolSize: 10,
+            serverSelectionTimeoutMS: 10000,
+            socketTimeoutMS: 45000,
+        });
+
+        await client.connect();
+        const dbName = new URL(uri).pathname.substr(1) || 'test';
+        const db = client.db(dbName);
+
+        cachedClient = client;
+        cachedDb = db;
+
+        console.log(`✅ MongoDB Connected to ${dbName}`);
+        return db;
+    } catch (error) {
+        console.error('❌ MongoDB Connection Failed:', error);
+        return null;
+    }
+}
 
 dotenv.config();
 if (fs.existsSync('.env.local')) {
