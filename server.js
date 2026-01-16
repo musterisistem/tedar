@@ -21,7 +21,11 @@ async function connectDB() {
         return cachedDb;
     }
 
-    const uri = process.env.MONGODB_URI;
+    // Clean up URI (Remove whitespace and accidental quotes)
+    let uri = process.env.MONGODB_URI;
+    if (uri) {
+        uri = uri.trim().replace(/^["']|["']$/g, '');
+    }
 
     if (!uri) {
         lastDbError = 'MONGODB_URI is missing in environment variables!';
