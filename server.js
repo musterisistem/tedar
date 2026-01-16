@@ -247,27 +247,7 @@ app.post('/api/send-email', async (req, res) => {
     }
 });
 
-// 2. Save Settings (Database/JSON persistence)
-app.post('/api/save-settings', (req, res) => {
-    try {
-        const { filename, ...data } = req.body;
-        const targetFile = filename || 'siteSettings.json';
 
-        // Block direct access to sensitive file via this generic endpoint
-        if (targetFile === 'paytrSettings.json') {
-            return res.status(403).json({ success: false, message: 'Sensitive file access denied' });
-        }
-
-        const filePath = path.join(DATA_DIR, targetFile);
-        const contentToSave = data.data !== undefined ? data.data : data;
-
-        fs.writeFileSync(filePath, JSON.stringify(contentToSave, null, 2), 'utf-8');
-        res.json({ success: true, message: `${targetFile} saved successfully` });
-    } catch (error) {
-        console.error('Save Error:', error);
-        res.status(500).json({ success: false, message: 'Failed to save settings' });
-    }
-});
 
 
 
