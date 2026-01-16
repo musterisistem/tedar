@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { ShoppingCart, Heart, Phone, Truck, User, Search, X, Menu, ChevronRight, Percent, HelpCircle } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,8 +7,6 @@ import { useCategories } from '../../context/CategoryContext';
 import { useUsers } from '../../context/UserContext';
 import { useProducts } from '../../context/ProductContext';
 import { CategoryDropdown } from './CategoryDropdown';
-import { LoginModal } from '../auth/LoginModal';
-import { RegisterModal } from '../auth/RegisterModal';
 import logo from '../../assets/logo.png';
 import * as Icons from 'lucide-react';
 import { OrderTrackingModal } from '../order/OrderTrackingModal';
@@ -18,14 +17,9 @@ export const Header: React.FC = () => {
     const { categories } = useCategories();
     const { currentUser, logout, favorites } = useUsers();
     const { products } = useProducts();
-    // const { orders } = useOrders();
     const [searchTerm, setSearchTerm] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-    // Auth Modals State
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
     // Order Tracking State
     const [trackingNumber, setTrackingNumber] = useState('');
@@ -127,9 +121,10 @@ export const Header: React.FC = () => {
                                         <ChevronRight className="w-4 h-4 ml-auto text-blue-400 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                 ) : (
-                                    <button
-                                        onClick={() => setIsLoginModalOpen(true)}
+                                    <Link
+                                        to="/giris"
                                         className="flex items-center gap-3 text-blue-900 group w-full text-left"
+                                        onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                                             <User className="w-5 h-5 text-blue-600" />
@@ -139,7 +134,7 @@ export const Header: React.FC = () => {
                                             <div className="font-bold text-sm">Giriş Yap / Üye Ol</div>
                                         </div>
                                         <ChevronRight className="w-4 h-4 ml-auto text-blue-400 group-hover:translate-x-1 transition-transform" />
-                                    </button>
+                                    </Link>
                                 )}
                             </div>
 
@@ -185,11 +180,6 @@ export const Header: React.FC = () => {
                                     {categories.map((cat) => {
                                         const iconName = cat?.icon || 'Circle';
                                         const IconComponent = (Icons as any)[iconName] || Icons.Circle;
-                                        // Simple mobile implementation: just show main categories for now, 
-                                        // or could make this an accordion. Let's make it a simple accordion.
-                                        // Since we can't easily add state to this specific map without refactoring the whole Header to subcomponents,
-                                        // we will just list them. Or we can just show the main category link.
-                                        // For now, let's keep it simple as a link, but maybe add a small text indicating subcategories exist.
                                         return (
                                             <li key={cat.id}>
                                                 <Link to={`/kategori/${slugify(cat.name)}`} className="flex items-center justify-between px-2 py-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg group transition-colors">
@@ -270,9 +260,6 @@ export const Header: React.FC = () => {
                             AYNI GÜN KARGO
                         </Link>
                         <Link to="/iletisim" className="hover:text-secondary transition-colors">İLETİŞİM</Link>
-
-                        {/* Campaigns Flyout */}
-
                     </nav>
 
                     {/* Right: Utilities */}
@@ -314,12 +301,9 @@ export const Header: React.FC = () => {
                                 </div>
                                 <div className="mt-3 pt-3 border-t border-gray-100 text-center">
                                     {!currentUser && (
-                                        <button
-                                            onClick={() => setIsLoginModalOpen(true)}
-                                            className="text-xs text-blue-600 font-medium hover:underline"
-                                        >
+                                        <Link to="/giris" className="text-xs text-blue-600 font-medium hover:underline">
                                             Üye Girişi Yap
-                                        </button>
+                                        </Link>
                                     )}
                                 </div>
                             </div>
@@ -337,13 +321,10 @@ export const Header: React.FC = () => {
                                     </span>
                                 </Link>
                             ) : (
-                                <button
-                                    onClick={() => setIsLoginModalOpen(true)}
-                                    className="flex flex-col items-center hover:text-secondary py-2 w-full"
-                                >
+                                <Link to="/giris" className="flex flex-col items-center hover:text-secondary py-2 w-full">
                                     <User className="w-5 h-5 group-hover:text-secondary" />
                                     <span className="hidden sm:inline">Giriş Yap</span>
-                                </button>
+                                </Link>
                             )}
                             {/* Account Dropdown */}
                             <div className="absolute right-0 top-full w-64 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-5">
@@ -365,24 +346,23 @@ export const Header: React.FC = () => {
                                     <>
                                         <h4 className="font-bold text-gray-800 text-center mb-4">Giriş Yap</h4>
                                         <div className="space-y-3">
-                                            <button
-                                                onClick={() => setIsLoginModalOpen(true)}
+                                            <Link
+                                                to="/giris"
                                                 className="block w-full bg-secondary text-white font-bold text-sm py-2 rounded hover:bg-blue-700 transition-colors shadow-blue-100 shadow-lg text-center"
                                             >
                                                 Giriş Yap
-                                            </button>
-                                            <button
-                                                onClick={() => setIsRegisterModalOpen(true)}
+                                            </Link>
+                                            <Link
+                                                to="/kayit"
                                                 className="block w-full bg-slate-100 text-slate-700 font-bold text-sm py-2 rounded hover:bg-slate-200 transition-colors text-center"
                                             >
                                                 Kayıt Ol
-                                            </button>
+                                            </Link>
                                         </div>
                                     </>
                                 )}
                             </div>
                         </div>
-
 
                         <Link to="/hesabim?tab=favorites" className="hidden md:flex flex-col items-center hover:text-secondary group relative">
                             <div className="relative">
@@ -588,6 +568,7 @@ export const Header: React.FC = () => {
                     </div>
                 </div>
             </div>
+
             {/* Order Tracking Modal */}
             <OrderTrackingModal
                 isOpen={isTrackModalOpen}
@@ -595,26 +576,6 @@ export const Header: React.FC = () => {
                 order={trackedOrder}
             />
 
-            {/* Login Modal */}
-            <LoginModal
-                isOpen={isLoginModalOpen}
-                onClose={() => setIsLoginModalOpen(false)}
-                onRegisterClick={() => {
-                    setIsLoginModalOpen(false);
-                    setIsRegisterModalOpen(true);
-                }}
-            />
-
-            {/* Register Modal */}
-            <RegisterModal
-                isOpen={isRegisterModalOpen}
-                onClose={() => setIsRegisterModalOpen(false)}
-                onLoginClick={() => {
-                    setIsRegisterModalOpen(false);
-                    setIsLoginModalOpen(true);
-                }}
-            />
-
-        </header >
+        </header>
     );
 };

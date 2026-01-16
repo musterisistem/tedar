@@ -755,8 +755,10 @@ app.post('/api/paytr/token', async (req, res) => {
         const timeout_limit = 30; // Minutes
 
         // Callbacks
-        const merchant_ok_url = 'http://localhost:5173/order-success';
-        const merchant_fail_url = 'http://localhost:5173/checkout?error=payment_failed';
+        // Use BASE_URL from environment variables (Vercel) or fallback to localhost
+        const baseUrl = process.env.BASE_URL || 'http://localhost:5173';
+        const merchant_ok_url = `${baseUrl}/order-success`;
+        const merchant_fail_url = `${baseUrl}/checkout?error=payment_failed`;
 
         // Basket must be JSON encoded string of array of arrays: [["Name", "Price", "Qty"], ...]
         // Client sends proper array, we stringify it.
