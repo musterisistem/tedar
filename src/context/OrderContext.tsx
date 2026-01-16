@@ -87,24 +87,8 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
                 const newOrder = result.data;
                 setOrders(prev => [newOrder, ...prev]);
 
-                // Send Emails
-                try {
-                    // Customer
-                    await emailService.sendOrderReceivedEmail(newOrder.email, newOrder);
-
-                    // Admin
-                    fetch('/api/settings/notificationSettings.json')
-                        .then(res => res.ok ? res.json() : null)
-                        .then(settings => {
-                            if (settings?.adminEmails?.length > 0) {
-                                emailService.sendAdminNewOrderNotification(settings.adminEmails, newOrder);
-                            }
-                        })
-                        .catch(err => console.error("Error fetching admin emails", err));
-
-                } catch (e) {
-                    console.error("Email error", e);
-                }
+                // Emails are sent from backend when order is created
+                // (Customer confirmation + Admin notification)
 
                 return newOrder;
             } else {

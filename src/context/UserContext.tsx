@@ -263,13 +263,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 return { success: false, error: data.error || 'Kayıt başarısız' };
             }
 
+
             localStorage.setItem('auth_token', data.token);
             setCurrentUser(data.user);
 
-            // Send Welcome Email
-            import('../utils/emailService').then(({ emailService }) => {
-                emailService.sendWelcomeEmail(data.user.email, data.user.name);
-            });
+            // Welcome email is sent from backend during registration
 
             return { success: true };
         } catch (error: any) {
