@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { ReactNode } from 'react';
 
 // Types
@@ -149,6 +150,7 @@ const initialUsers: User[] = [
 ];
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const navigate = useNavigate();
     // Initialize users from localStorage if available, else use mock data
     const [users, setUsers] = useState<User[]>(() => {
         try {
@@ -256,8 +258,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const logout = () => {
         localStorage.removeItem('auth_token');
+        localStorage.removeItem('current_user'); // Also clean current_user just in case
         setCurrentUser(null);
-        window.location.href = '/giris';
+        navigate('/giris');
     };
 
     const updateUser = async (id: string | number, updatedUser: Partial<User>) => {
