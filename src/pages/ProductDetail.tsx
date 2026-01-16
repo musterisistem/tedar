@@ -103,104 +103,108 @@ export const ProductDetail: React.FC = () => {
 
     return (
         <>
-            {/* SEO Components */}
-            <SEOHead
-                title={product?.name || 'Ürün Detayı'}
-                description={product?.description?.slice(0, 160) || 'Ürün detay sayfası'}
-                image={product?.image}
-                url={`/${slug}`}
-                type="product"
-            />
-            <ProductSchema product={product} url={`/${slug}`} />
-            <BreadcrumbSchema items={breadcrumbItems} />
+            {product && (
+                <>
+                    {/* SEO Components */}
+                    <SEOHead
+                        title={product.name}
+                        description={product.description?.slice(0, 160) || 'Ürün detay sayfası'}
+                        image={product.image}
+                        url={`/${slug}`}
+                        type="product"
+                    />
+                    <ProductSchema product={product} url={`/${slug}`} />
+                    <BreadcrumbSchema items={breadcrumbItems} />
 
-            <div className="min-h-screen flex flex-col">
-                <FreeShippingBanner />
-                {/* TOP SECTION: Dark Background */}
-                <div className="bg-gray-100 pb-12">
-                    {/* Breadcrumbs */}
-                    <div className="bg-gray-100 border-b border-gray-200 py-3 mb-8">
-                        <div className="container mx-auto px-4 text-sm text-gray-500 flex items-center justify-between">
-                            <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap">
-                                <Link to="/" className="hover:text-blue-600 flex items-center gap-1">
-                                    <HomeIcon className="w-3 h-3" />
-                                    <span>Ana Sayfa</span>
-                                </Link>
-                                <ChevronRight className="w-3 h-3" />
+                    <div className="min-h-screen flex flex-col">
+                        <FreeShippingBanner />
+                        {/* TOP SECTION: Dark Background */}
+                        <div className="bg-gray-100 pb-12">
+                            {/* Breadcrumbs */}
+                            <div className="bg-gray-100 border-b border-gray-200 py-3 mb-8">
+                                <div className="container mx-auto px-4 text-sm text-gray-500 flex items-center justify-between">
+                                    <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap">
+                                        <Link to="/" className="hover:text-blue-600 flex items-center gap-1">
+                                            <HomeIcon className="w-3 h-3" />
+                                            <span>Ana Sayfa</span>
+                                        </Link>
+                                        <ChevronRight className="w-3 h-3" />
 
-                                {/* Dynamic Category Breadcrumb */}
-                                {product.categories && product.categories.length > 0 && (() => {
-                                    const categoryId = product.categories[0];
-                                    const categoriesArray = (categoriesData as any).data || categoriesData;
-                                    const category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
-                                    if (category) {
-                                        return (
-                                            <>
-                                                <Link to={`/kategori/${slugify(category.name)}`} className="hover:text-blue-600">
-                                                    {category.name}
-                                                </Link>
-                                                <ChevronRight className="w-3 h-3" />
-                                            </>
-                                        );
-                                    }
-                                    return null;
-                                })()}
+                                        {/* Dynamic Category Breadcrumb */}
+                                        {product.categories && product.categories.length > 0 && (() => {
+                                            const categoryId = product.categories[0];
+                                            const categoriesArray = (categoriesData as any).data || categoriesData;
+                                            const category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
+                                            if (category) {
+                                                return (
+                                                    <>
+                                                        <Link to={`/kategori/${slugify(category.name)}`} className="hover:text-blue-600">
+                                                            {category.name}
+                                                        </Link>
+                                                        <ChevronRight className="w-3 h-3" />
+                                                    </>
+                                                );
+                                            }
+                                            return null;
+                                        })()}
 
-                                <span className="text-gray-900 font-medium truncate max-w-[200px] sm:max-w-xs">{product.name}</span>
+                                        <span className="text-gray-900 font-medium truncate max-w-[200px] sm:max-w-xs">{product.name}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="container mx-auto px-4">
+                                {/* Main Grid - Wrapped in White Card */}
+                                <div className="bg-white rounded-xl shadow-sm p-6">
+                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                        {/* Gallery - Sticky on desktop */}
+                                        <div className="lg:col-span-5 lg:sticky lg:top-8 h-fit z-30 relative">
+                                            <ProductGallery images={product.images || [product.image]} videoUrl={product.videoUrl} />
+                                        </div>
+
+                                        {/* Product Info */}
+                                        <div className="lg:col-span-5">
+                                            <ProductInfo
+                                                product={product}
+                                                onReviewClick={handleReviewClick}
+                                                totalReviews={reviews.length}
+                                            />
+                                        </div>
+
+                                        {/* Feature Boxes & History */}
+                                        <div className="lg:col-span-2">
+                                            <ProductFeatures currentProductId={product.id.toString()} />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="container mx-auto px-4">
-                        {/* Main Grid - Wrapped in White Card */}
-                        <div className="bg-white rounded-xl shadow-sm p-6">
-                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                                {/* Gallery - Sticky on desktop */}
-                                <div className="lg:col-span-5 lg:sticky lg:top-8 h-fit z-30 relative">
-                                    <ProductGallery images={product.images || [product.image]} videoUrl={product.videoUrl} />
-                                </div>
-
-                                {/* Product Info */}
-                                <div className="lg:col-span-5">
-                                    <ProductInfo
-                                        product={product}
-                                        onReviewClick={handleReviewClick}
-                                        totalReviews={reviews.length}
+                        {/* BOTTOM SECTION: White Background */}
+                        <div className="bg-white py-12 flex-1">
+                            <div className="container mx-auto px-4">
+                                <div className="mb-16">
+                                    <ProductSection
+                                        title="İlgili Ürünler & Benzerleri"
+                                        products={relatedProducts}
                                     />
                                 </div>
 
-                                {/* Feature Boxes & History */}
-                                <div className="lg:col-span-2">
-                                    <ProductFeatures currentProductId={product.id.toString()} />
+                                {/* Tabs */}
+                                <div className="border border-gray-100 rounded-xl shadow-sm overflow-hidden">
+                                    <ProductTabs
+                                        activeTab={activeTab}
+                                        setActiveTab={setActiveTab}
+                                        product={product}
+                                        reviews={reviews}
+                                        onAddReview={handleAddReview}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                {/* BOTTOM SECTION: White Background */}
-                <div className="bg-white py-12 flex-1">
-                    <div className="container mx-auto px-4">
-                        <div className="mb-16">
-                            <ProductSection
-                                title="İlgili Ürünler & Benzerleri"
-                                products={relatedProducts}
-                            />
-                        </div>
-
-                        {/* Tabs */}
-                        <div className="border border-gray-100 rounded-xl shadow-sm overflow-hidden">
-                            <ProductTabs
-                                activeTab={activeTab}
-                                setActiveTab={setActiveTab}
-                                product={product}
-                                reviews={reviews}
-                                onAddReview={handleAddReview}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </>
+            )}
         </>
     );
 };
