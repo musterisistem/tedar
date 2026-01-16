@@ -26,18 +26,37 @@ export const Contact: React.FC = () => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setError('');
 
-        // Simulate sending
-        setTimeout(() => {
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', subject: '', message: '' });
+                setTimeout(() => setSubmitted(false), 8000); // Show success for 8 seconds
+            } else {
+                setError(result.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+            }
+        } catch (err) {
+            console.error('Contact form error:', err);
+            setError('Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+        } finally {
             setIsSubmitting(false);
-            setSubmitted(true);
-            setFormData({ name: '', email: '', subject: '', message: '' });
-            setTimeout(() => setSubmitted(false), 5000); // Hide success message after 5s
-        }, 1500);
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -78,6 +97,12 @@ export const Contact: React.FC = () => {
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900">Bize Mesaj Gönderin</h2>
                             </div>
+
+                            {error && (
+                                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 animate-fade-in">
+                                    <p className="text-sm text-red-700">{error}</p>
+                                </div>
+                            )}
 
                             {submitted ? (
                                 <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center animate-fade-in">

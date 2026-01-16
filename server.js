@@ -187,6 +187,60 @@ const getAdminNotificationTemplate = (order) => `
     </div>
 `;
 
+const getContactFormTemplate = (contactData) => `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px; border-left: 5px solid #3b82f6;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="color: #2563eb; margin: 0;">📧 Yeni İletişim Formu Mesajı</h1>
+        </div>
+        
+        <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <h2 style="color: #1e293b; margin-top: 0; margin-bottom: 15px; font-size: 18px;">İletişim Bilgileri</h2>
+            
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px 0; font-weight: bold; color: #475569; width: 30%;">Ad Soyad:</td>
+                    <td style="padding: 12px 0; color: #1e293b;">${contactData.name}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px 0; font-weight: bold; color: #475569;">E-posta:</td>
+                    <td style="padding: 12px 0; color: #1e293b;">
+                        <a href="mailto:${contactData.email}" style="color: #2563eb; text-decoration: none;">${contactData.email}</a>
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px 0; font-weight: bold; color: #475569;">Konu:</td>
+                    <td style="padding: 12px 0;">
+                        <span style="background-color: #dbeafe; color: #1e40af; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600;">
+                            ${contactData.subject}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; font-weight: bold; color: #475569;">Tarih:</td>
+                    <td style="padding: 12px 0; color: #64748b; font-size: 14px;">${new Date().toLocaleString('tr-TR')}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="background-color: #fff; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <h3 style="color: #1e293b; margin-top: 0; margin-bottom: 12px; font-size: 16px;">Mesaj İçeriği:</h3>
+            <div style="color: #475569; line-height: 1.6; white-space: pre-wrap; font-size: 14px;">
+${contactData.message}
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background-color: #f1f5f9; border-radius: 6px; text-align: center;">
+            <p style="color: #64748b; font-size: 13px; margin: 0;">
+                Bu mesaja doğrudan yanıt vermek için müşterinin e-posta adresini kullanabilirsiniz.
+            </p>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #94a3b8;">
+            © ${new Date().getFullYear()} Dörtel Tedarik. Tüm hakları saklıdır.
+        </div>
+    </div>
+`;
+
 // ----------------------------------------------------------------------
 // Routes
 // ----------------------------------------------------------------------
@@ -248,6 +302,66 @@ app.post('/api/send-email', async (req, res) => {
     }
 });
 
+
+
+
+// 2. Contact Form Submission
+app.post('/api/contact', async (req, res) => {
+    try {
+        const { name, email, subject, message } = req.body;
+
+        if (!name || !email || !subject || !message) {
+            return res.status(400).json({ success: false, message: 'Tüm alanlar zorunludur' });
+        }
+
+        // Get admin email from notification settings
+        const db = await connectDB();
+        if (!db) {
+            console.log('DB not available, using fallback email');
+        }
+
+        let adminEmail = 'info@dorteltedarik.com'; // Fallback
+
+        if (db) {
+            const settingsCollection = db.collection('notificationSettings');
+            const settings = await settingsCollection.findOne({});
+            if (settings && settings.adminEmail) {
+                adminEmail = settings.adminEmail;
+            }
+        }
+
+        // Prepare email data
+        const contactData = {
+            name,
+            email,
+            subject,
+            message
+        };
+
+        // Send email to admin
+        if (!process.env.RESEND_API_KEY) {
+            console.log('MOCK CONTACT EMAIL:', { to: adminEmail, from: email, subject });
+            return res.json({ success: true, message: 'Mesajınız alındı (Mock Mode)' });
+        }
+
+        const emailResult = await resend.emails.send({
+            from: 'İletişim Formu <iletisim@dorteltedarik.com>',
+            to: adminEmail,
+            replyTo: email, // Allow admin to reply directly
+            subject: `İletişim Formu: ${subject}`,
+            html: getContactFormTemplate(contactData),
+        });
+
+        res.json({
+            success: true,
+            message: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.',
+            data: emailResult
+        });
+    } catch (error) {
+        console.error('Contact Form Error:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
 
 
