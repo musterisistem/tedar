@@ -263,29 +263,7 @@ app.post('/api/save-settings', (req, res) => {
     }
 });
 
-import { MongoClient, ObjectId } from 'mongodb';
 
-// MongoDB Connection
-const uri = process.env.MONGODB_URI;
-let db;
-
-async function connectDB() {
-    if (db) return db;
-    try {
-        if (!uri) {
-            console.error('❌ MONGODB_URI is missing!');
-            return null;
-        }
-        const client = new MongoClient(uri);
-        await client.connect();
-        db = client.db('dortel-db');
-        console.log('✅ Connected to MongoDB');
-        return db;
-    } catch (error) {
-        console.error('❌ MongoDB Connection Error:', error);
-        return null;
-    }
-}
 
 // Ensure DB connection on start
 connectDB();
