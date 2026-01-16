@@ -206,7 +206,15 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 body: JSON.stringify({ email, password })
             });
 
-            const data = await res.json();
+            let data;
+            const responseText = await res.text();
+
+            try {
+                data = JSON.parse(responseText);
+            } catch (e) {
+                console.error('JSON Parse Error (Login). Response was:', responseText);
+                return { success: false, error: 'Sunucu hatası (JSON Parse): ' + responseText.substring(0, 100) };
+            }
 
             if (!res.ok) {
                 return { success: false, error: data.error || 'Giriş başarısız' };
@@ -215,9 +223,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             localStorage.setItem('auth_token', data.token);
             setCurrentUser(data.user);
             return { success: true };
-        } catch (error) {
+        } catch (error: any) {
             console.error('Login Fetch Error:', error);
-            return { success: false, error: 'Sunucu hatası veya bağlantı sorunu' };
+            return { success: false, error: 'Bağlantı hatası: ' + (error.message || error) };
         }
     };
 
@@ -241,7 +249,15 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 body: JSON.stringify(cleanUserData)
             });
 
-            const data = await res.json();
+            let data;
+            const responseText = await res.text();
+
+            try {
+                data = JSON.parse(responseText);
+            } catch (e) {
+                console.error('JSON Parse Error. Response was:', responseText);
+                return { success: false, error: 'Sunucu hatası (JSON Parse): ' + responseText.substring(0, 100) };
+            }
 
             if (!res.ok) {
                 return { success: false, error: data.error || 'Kayıt başarısız' };
@@ -256,9 +272,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             });
 
             return { success: true };
-        } catch (error) {
+        } catch (error: any) {
             console.error('Register Fetch Error:', error);
-            return { success: false, error: 'Sunucu hatası veya bağlantı sorunu' };
+            return { success: false, error: 'Bağlantı hatası: ' + (error.message || error) };
         }
     };
 
