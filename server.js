@@ -105,57 +105,234 @@ if (process.env.VERCEL !== '1' && !fs.existsSync(DATA_DIR)) {
 // ----------------------------------------------------------------------
 
 const getWelcomeTemplate = (name) => `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h1 style="color: #2563eb;">Dörtel Tedarik</h1>
-        </div>
-        <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px;">
-            <h2 style="color: #1e293b;">Hoş Geldiniz, ${name}!</h2>
-            <p style="color: #475569;">Aramıza katıldığınız için çok mutluyuz. Ofis ve kırtasiye ihtiyaçlarınız için en doğru yerdesiniz.</p>
-            <p style="color: #475569;">Hemen alışverişe başlamak için aşağıdaki butona tıklayın:</p>
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="http://localhost:5173" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">Alışverişe Başla</a>
+    <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; border-radius: 20px;">
+        <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <!-- Header Banner -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
+                <h1 style="color: white; font-size: 32px; margin: 0 0 10px 0; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    🎉 Hoş Geldiniz!
+                </h1>
+                <p style="color: rgba(255,255,255,0.95); font-size: 16px; margin: 0;">
+                    Dörtel Tedarik Ailesine Katıldınız
+                </p>
             </div>
-        </div>
-        <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #94a3b8;">
-            © ${new Date().getFullYear()} Dörtel Tedarik. Tüm hakları saklıdır.
+
+            <!-- Content -->
+            <div style="padding: 40px 30px;">
+                <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+                    <h2 style="color: #2d3748; font-size: 24px; margin: 0 0 15px 0;">
+                        Merhaba <span style="color: #667eea;">${name}</span>! 👋
+                    </h2>
+                    <p style="color: #4a5568; line-height: 1.6; margin: 0; font-size: 15px;">
+                        Aramıza katıldığınız için çok mutluyuz! Ofis ve kırtasiye ihtiyaçlarınız için en doğru adrestesiniz. 
+                        Binlerce ürün, hızlı teslimat ve güvenilir hizmet sizleri bekliyor.
+                    </p>
+                </div>
+
+                <!-- Features Grid -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 30px 0;">
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #48bb78;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🚚</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Hızlı Teslimat</div>
+                        <div style="color: #718096; font-size: 12px;">Aynı gün kargo seçeneği</div>
+                    </div>
+                    
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #4299e1;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">💰</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Özel İndirimler</div>
+                        <div style="color: #718096; font-size: 12px;">Üyelere özel kampanyalar</div>
+                    </div>
+                    
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #ed8936;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">📦</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Geniş Ürün Yelpazesi</div>
+                        <div style="color: #718096; font-size: 12px;">Binlerce ürün seçeneği</div>
+                    </div>
+                    
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #9f7aea;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Kolay İade</div>
+                        <div style="color: #718096; font-size: 12px;">14 gün iade garantisi</div>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div style="text-align: center; margin: 35px 0 25px 0;">
+                    <a href="${process.env.BASE_URL || 'https://dorteltedarik.com'}" 
+                       style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                              color: white; padding: 16px 40px; text-decoration: none; border-radius: 50px; 
+                              font-weight: 700; font-size: 16px; box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+                              transition: transform 0.2s;">
+                        🛒 Alışverişe Başla
+                    </a>
+                </div>
+
+                <div style="background: #edf2f7; padding: 20px; border-radius: 10px; text-align: center;">
+                    <p style="color: #4a5568; font-size: 13px; margin: 0; line-height: 1.5;">
+                        💡 <strong>İpucu:</strong> Favori ürünlerinizi ekleyerek fiyat değişikliklerinden haberdar olabilirsiniz!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background: #f7fafc; padding: 25px 30px; border-top: 1px solid #e2e8f0;">
+                <p style="color: #718096; font-size: 12px; text-align: center; margin: 0 0 10px 0;">
+                    Sorularınız için bizimle iletişime geçebilirsiniz
+                </p>
+                <p style="color: #a0aec0; font-size: 11px; text-align: center; margin: 0;">
+                    © ${new Date().getFullYear()} Dörtel Tedarik. Tüm hakları saklıdır.
+                </p>
+            </div>
         </div>
     </div>
 `;
 
 const getOrderReceivedTemplate = (order) => `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h1 style="color: #2563eb;">Siparişiniz Alındı</h1>
-        </div>
-        <div style="padding: 20px;">
-            <p style="color: #1e293b;">Sayın <strong>${order.customer}</strong>,</p>
-            <p style="color: #475569;">Siparişiniz başarıyla oluşturuldu. Özet bilgiler aşağıdadır:</p>
+    <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 650px; margin: 0 auto; background: #f8f9fa; padding: 30px 15px;">
+        <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
             
-            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-                <tr style="background-color: #f1f5f9;">
-                    <th style="padding: 10px; text-align: left; border-bottom: 1px solid #e2e8f0;">Sipariş No</th>
-                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">${order.orderNo}</td>
-                </tr>
-                <tr>
-                    <th style="padding: 10px; text-align: left; border-bottom: 1px solid #e2e8f0;">Tarih</th>
-                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">${order.date}</td>
-                </tr>
-                <tr style="background-color: #f1f5f9;">
-                    <th style="padding: 10px; text-align: left; border-bottom: 1px solid #e2e8f0;">Tutar</th>
-                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">${order.amount.toLocaleString('tr-TR')} TL</td>
-                </tr>
-            </table>
+            <!-- Success Banner -->
+            <div style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); padding: 35px 30px; text-align: center;">
+                <div style="background: white; width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div style="font-size: 48px;">✓</div>
+                </div>
+                <h1 style="color: white; font-size: 28px; margin: 0 0 10px 0; font-weight: 700;">
+                    Siparişiniz Alındı!
+                </h1>
+                <p style="color: rgba(255,255,255,0.95); font-size: 15px; margin: 0;">
+                    Sipariş No: <strong>${order.orderNo}</strong>
+                </p>
+            </div>
 
-            <h3 style="margin-top: 20px; color: #1e293b;">Ürünler</h3>
-            <ul style="list-style: none; padding: 0;">
-                ${order.items.map(item => `
-                    <li style="padding: 10px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between;">
-                        <span>${item.name} (x${item.quantity})</span>
-                        <span>${(item.price * item.quantity).toLocaleString('tr-TR')} TL</span>
-                    </li>
-                `).join('')}
-            </ul>
+            <!-- Order Status Timeline -->
+            <div style="background: #f7fafc; padding: 30px; border-bottom: 2px solid #e2e8f0;">
+                <h3 style="color: #2d3748; font-size: 16px; margin: 0 0 20px 0; text-align: center;">Sipariş Durumu</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; position: relative; max-width: 500px; margin: 0 auto;">
+                    <!-- Timeline Line -->
+                    <div style="position: absolute; top: 15px; left: 0; right: 0; height: 2px; background: #e2e8f0; z-index: 0;"></div>
+                    <div style="position: absolute; top: 15px; left: 0; width: 25%; height: 2px; background: #48bb78; z-index: 0;"></div>
+                    
+                    <!-- Step 1: Alındı (Active) -->
+                    <div style="text-align: center; z-index: 1; flex: 1;">
+                        <div style="background: #48bb78; width: 32px; height: 32px; border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(72,187,120,0.3);">
+                            <span style="color: white; font-size: 16px;">✓</span>
+                        </div>
+                        <div style="font-size: 11px; color: #2d3748; font-weight: 600;">Alındı</div>
+                    </div>
+                    
+                    <!-- Step 2: Hazırlanıyor -->
+                    <div style="text-align: center; z-index: 1; flex: 1;">
+                        <div style="background: #e2e8f0; width: 32px; height: 32px; border-radius: 50%; margin: 0 auto 8px; border: 3px solid white;">
+                            <div style="width: 100%; height: 100%; border-radius: 50%; border: 2px dashed #cbd5e0;"></div>
+                        </div>
+                        <div style="font-size: 11px; color: #a0aec0;">Hazırlanıyor</div>
+                    </div>
+                    
+                    <!-- Step 3: Kargoda -->
+                    <div style="text-align: center; z-index: 1; flex: 1;">
+                        <div style="background: #e2e8f0; width: 32px; height: 32px; border-radius: 50%; margin: 0 auto 8px; border: 3px solid white;">
+                            <div style="width: 100%; height: 100%; border-radius: 50%; border: 2px dashed #cbd5e0;"></div>
+                        </div>
+                        <div style="font-size: 11px; color: #a0aec0;">Kargoda</div>
+                    </div>
+                    
+                    <!-- Step 4: Teslim Edildi -->
+                    <div style="text-align: center; z-index: 1; flex: 1;">
+                        <div style="background: #e2e8f0; width: 32px; height: 32px; border-radius: 50%; margin: 0 auto 8px; border: 3px solid white;">
+                            <div style="width: 100%; height: 100%; border-radius: 50%; border: 2px dashed #cbd5e0;"></div>
+                        </div>
+                        <div style="font-size: 11px; color: #a0aec0;">Teslim</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer & Order Info -->
+            <div style="padding: 30px;">
+                <div style="background: #f7fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                    <p style="color: #2d3748; font-size: 16px; margin: 0 0 5px 0;">
+                        Sayın <strong style="color: #667eea;">${order.customer}</strong>,
+                    </p>
+                    <p style="color: #4a5568; font-size: 14px; margin: 0; line-height: 1.6;">
+                        Siparişiniz başarıyla alınmıştır. Kısa süre içinde hazırlanıp kargoya teslim edilecektir. 
+                        Sipariş durumunuzu hesabınızdan takip edebilirsiniz.
+                    </p>
+                </div>
+
+                <!-- Order Summary Table -->
+                <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; overflow: hidden; margin-bottom: 25px;">
+                    <div style="background: #f7fafc; padding: 15px 20px; border-bottom: 2px solid #e2e8f0;">
+                        <h3 style="color: #2d3748; font-size: 16px; margin: 0; font-weight: 600;">Sipariş Özeti</h3>
+                    </div>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 15px 20px; border-bottom: 1px solid #f1f5f9; color: #718096; font-size: 14px;">Sipariş No</td>
+                            <td style="padding: 15px 20px; border-bottom: 1px solid #f1f5f9; color: #2d3748; font-weight: 600; text-align: right;">${order.orderNo}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px 20px; border-bottom: 1px solid #f1f5f9; color: #718096; font-size: 14px;">Sipariş Tarihi</td>
+                            <td style="padding: 15px 20px; border-bottom: 1px solid #f1f5f9; color: #2d3748; text-align: right;">${order.date}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px 20px; border-bottom: 1px solid #f1f5f9; color: #718096; font-size: 14px;">Ödeme Yöntemi</td>
+                            <td style="padding: 15px 20px; border-bottom: 1px solid #f1f5f9; color: #2d3748; text-align: right;">${order.paymentMethod || 'Kredi Kartı'}</td>
+                        </tr>
+                        <tr style="background: #fef5e7;">
+                            <td style="padding: 15px 20px; color: #2d3748; font-size: 16px; font-weight: 700;">Toplam Tutar</td>
+                            <td style="padding: 15px 20px; color: #d97706; font-size: 20px; font-weight: 700; text-align: right;">${order.amount.toLocaleString('tr-TR')} TL</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Order Items -->
+                <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
+                    <div style="background: #f7fafc; padding: 15px 20px; border-bottom: 2px solid #e2e8f0;">
+                        <h3 style="color: #2d3748; font-size: 16px; margin: 0; font-weight: 600;">Sipariş Detayları</h3>
+                    </div>
+                    <div style="padding: 10px;">
+                        ${order.items.map((item, index) => `
+                            <div style="padding: 15px; border-bottom: ${index < order.items.length - 1 ? '1px solid #f1f5f9' : 'none'}; display: flex; justify-content: space-between; align-items: center;">
+                                <div style="flex: 1;">
+                                    <div style="color: #2d3748; font-weight: 600; font-size: 14px; margin-bottom: 4px;">${item.name}</div>
+                                    <div style="color: #718096; font-size: 12px;">Adet: ${item.quantity}</div>
+                                </div>
+                                <div style="color: #2d3748; font-weight: 600; font-size: 15px; text-align: right;">
+                                    ${(item.price * item.quantity).toLocaleString('tr-TR')} TL
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div style="text-align: center; margin: 30px 0 20px;">
+                    <a href="${process.env.BASE_URL || 'https://dorteltedarik.com'}/hesabim?tab=orders" 
+                       style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                              color: white; padding: 14px 35px; text-decoration: none; border-radius: 50px; 
+                              font-weight: 600; font-size: 15px; box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);">
+                        📦 Siparişlerimi Görüntüle
+                    </a>
+                </div>
+
+                <!-- Help Section -->
+                <div style="background: #edf2f7; padding: 20px; border-radius: 10px; text-align: center;">
+                    <p style="color: #4a5568; font-size: 13px; margin: 0 0 8px 0;">
+                        <strong>Yardıma mı ihtiyacınız var?</strong>
+                    </p>
+                    <p style="color: #718096; font-size: 12px; margin: 0;">
+                        Destek ekibimiz size yardımcı olmaktan mutluluk duyacaktır.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background: #f7fafc; padding: 20px 30px; border-top: 1px solid #e2e8f0; text-align: center;">
+                <p style="color: #718096; font-size: 11px; margin: 0 0 5px 0;">
+                    © ${new Date().getFullYear()} Dörtel Tedarik. Tüm hakları saklıdır.
+                </p>
+                <p style="color: #a0aec0; font-size: 10px; margin: 0;">
+                    Bu e-posta ${order.email} adresine gönderilmiştir.
+                </p>
+            </div>
         </div>
     </div>
 `;
@@ -488,6 +665,22 @@ app.post('/api/users/register', async (req, res) => {
 
         const result = await collection.insertOne(newUser);
         const token = jwt.sign({ userId: result.insertedId, email, role: 'customer' }, JWT_SECRET, { expiresIn: '7d' });
+
+        // Send welcome email
+        try {
+            if (process.env.RESEND_API_KEY) {
+                await resend.emails.send({
+                    from: 'Dörtel Tedarik <info@dorteltedarik.com>',
+                    to: email,
+                    subject: 'Aramıza Hoş Geldiniz! 🎉',
+                    html: getWelcomeTemplate(name),
+                });
+                console.log('Welcome email sent to:', email);
+            }
+        } catch (emailError) {
+            // Don't fail registration if email fails
+            console.error('Welcome email error:', emailError);
+        }
 
         return res.status(201).json({
             success: true,
