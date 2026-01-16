@@ -348,7 +348,7 @@ export const AddProduct: React.FC = () => {
                                 />
                                 <div className="h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 space-y-1 custom-scrollbar">
                                     {products
-                                        .filter(p => p.id.toString() !== id && (p.name.toLowerCase().includes(relatedSearch.toLowerCase()) || p.code?.toLowerCase().includes(relatedSearch.toLowerCase())))
+                                        .filter(p => p.id.toString() !== id && (p.name.toLowerCase().includes(relatedSearch.toLowerCase()) || String(p.code || '').toLowerCase().includes(relatedSearch.toLowerCase())))
                                         .map(p => (
                                             <div key={p.id} className="flex items-center gap-2 p-2 hover:bg-slate-50 rounded cursor-pointer" onClick={() => {
                                                 if (relatedProductIds.includes(p.id)) {

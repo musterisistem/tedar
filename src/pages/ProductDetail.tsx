@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ChevronRight, Home as HomeIcon } from 'lucide-react';
 import { FreeShippingBanner } from '../components/layout/FreeShippingBanner';
 import { SEOHead, ProductSchema, BreadcrumbSchema } from '../components/seo';
@@ -14,11 +14,31 @@ import categoriesData from '../data/categories.json';
 
 export const ProductDetail: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
+    const navigate = useNavigate();
     const { products, addReview } = useProducts();
     const [activeTab, setActiveTab] = React.useState('desc');
 
-    // Mock fetching product
-    const product = products.find(p => slugify(p.name) === slug) || products[0];
+    // Find product by slug
+    const product = products.length > 0 ? products.find(p => slugify(p.name) === slug) : null;
+
+    // Use effect to handle navigation for non-existent products
+    useEffect(() => {
+        if (products.length > 0 && !product && slug) {
+            navigate('/', { replace: true });
+        }
+    }, [products, product, slug, navigate]);
+
+    // If product is still not found or list is empty
+    if (!product) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-gray-500 font-medium">Ürün bilgileri yükleniyor...</p>
+                </div>
+            </div>
+        );
+    }
 
     // Reviews from Context
     const reviews = product.reviewItems || [];

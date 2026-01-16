@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { slugify } from '../utils/slugify';
 import { ProductFilterSidebar, type FilterState } from '../components/category/ProductFilterSidebar';
 import { ProductCard } from '../components/common/ProductCard';
@@ -10,6 +10,7 @@ import { SEOHead, BreadcrumbSchema } from '../components/seo';
 
 export const CategoryPage: React.FC = () => {
     const { slug, subSlug } = useParams();
+    const location = useLocation();
     const { products } = useProducts();
     const { categories } = useCategories();
 
@@ -36,7 +37,7 @@ export const CategoryPage: React.FC = () => {
         ? subSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
         : null;
 
-    const pageTitle = subCategoryName ? `${categoryInfo.name} > ${subCategoryName}` : categoryInfo.name;
+    const pageTitle = subCategoryName ? `${categoryInfo.name} > ${subCategoryName} ` : categoryInfo.name;
 
     // Reset filters when category changes
     useEffect(() => {
@@ -115,11 +116,17 @@ export const CategoryPage: React.FC = () => {
 
             // Rating Filter
             if (filters.rating) {
-                result = result.filter(p => (p.rating || 0) >= filters.rating!);
+                result = result.filter(p => {
+                    const productRating = p.rating || 0;
+                    // If user selects 5 stars, show only 5.0
+                    // If user selects 4 stars, show 4.0 and above
+                    // This matches the visual expectation of "X stars and above"
+                    return filters.rating !== null && productRating >= filters.rating;
+                });
             }
 
             // 4. URL Params (Discount)
-            const params = new URLSearchParams(window.location.search);
+            const params = new URLSearchParams(location.search);
             if (params.get('discount') === 'true') {
                 result = result.filter(p => (p.discount || 0) > 0);
             }
@@ -129,15 +136,15 @@ export const CategoryPage: React.FC = () => {
         }, 300); // Reduced delay for better UX
 
         return () => clearTimeout(timer);
-    }, [slug, subSlug, window.location.search, products, categoryInfo, filters]);
+    }, [slug, subSlug, location.search, products, categoryInfo, filters]);
 
     const breadcrumbItems = React.useMemo(() => {
         const items = [{ name: 'Ana Sayfa', url: '/' }];
         if (categoryInfo.name !== 'Kategori Bulunamadı') {
-            items.push({ name: categoryInfo.name, url: `/kategori/${slug}` });
+            items.push({ name: categoryInfo.name, url: `/ kategori / ${slug} ` });
         }
         if (subCategoryName) {
-            items.push({ name: subCategoryName, url: `/kategori/${slug}/${subSlug}` });
+            items.push({ name: subCategoryName, url: `/ kategori / ${slug}/${subSlug}` });
         }
         return items;
     }, [categoryInfo, slug, subCategoryName, subSlug]);

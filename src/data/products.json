@@ -1,5 +1,225 @@
 [
   {
+    "id": "SAMPLE-OFIS-001",
+    "name": "Lüks Masaüstü Düzenleyici Set",
+    "code": "OFIS-001",
+    "price": {
+      "current": 849.9,
+      "original": 999.9,
+      "currency": "TL"
+    },
+    "discount": 15,
+    "description": "Ofis masanız için şık ve kullanışlı düzenleyici.",
+    "image": "/product/images/thn10295-1.jpg",
+    "images": [
+      "/product/images/thn10295-1.jpg"
+    ],
+    "categories": [
+      "ofis-kirtasiye"
+    ],
+    "brand": "Dörtel",
+    "stock": 50,
+    "rating": 4.5,
+    "reviews": 2,
+    "badges": [
+      "Fırsat"
+    ],
+    "specs": {
+      "color": "Siyah",
+      "size": "Standart",
+      "shippingType": "Standart"
+    },
+    "isActive": true
+  },
+  {
+    "id": "SAMPLE-KALEM-001",
+    "name": "Özel Tasarım Dolma Kalem",
+    "code": "KALEM-001",
+    "price": {
+      "current": 399.9,
+      "original": 499.9,
+      "currency": "TL"
+    },
+    "discount": 20,
+    "description": "İmza ve özel yazışmalarınız için ideal.",
+    "image": "/product/images/bm-1959-1.jpg",
+    "images": [
+      "/product/images/bm-1959-1.jpg"
+    ],
+    "categories": [
+      "kalem-yazi"
+    ],
+    "brand": "Tohana",
+    "stock": 30,
+    "rating": 5,
+    "reviews": 5,
+    "badges": [],
+    "specs": {
+      "color": "Mavi",
+      "size": "Standart",
+      "shippingType": "Standart"
+    },
+    "isActive": true
+  },
+  {
+    "id": "SAMPLE-KISISEL-001",
+    "name": "Deri Kartlık Cüzdan",
+    "code": "KISISEL-001",
+    "price": {
+      "current": 269.9,
+      "original": 299.9,
+      "currency": "TL"
+    },
+    "discount": 10,
+    "description": "Gerçek deri, şık ve dayanıklı kartlık.",
+    "image": "/product/images/564885-1.jpg",
+    "images": [
+      "/product/images/564885-1.jpg"
+    ],
+    "categories": [
+      "kisisel-aksesuar"
+    ],
+    "brand": "Dörtel",
+    "stock": 100,
+    "rating": 4.8,
+    "reviews": 12,
+    "badges": [
+      "Yeni"
+    ],
+    "specs": {
+      "color": "Kahve",
+      "size": "Standart",
+      "shippingType": "Standart"
+    },
+    "isActive": true
+  },
+  {
+    "id": "SAMPLE-PROMO-001",
+    "name": "Kurumsal Logolu Termos",
+    "code": "PROMO-001",
+    "price": {
+      "current": 449.9,
+      "original": 599.9,
+      "currency": "TL"
+    },
+    "discount": 25,
+    "description": "Şirketiniz için özel promosyon ürünü.",
+    "image": "/product/images/h2o81779-1.jpg",
+    "images": [
+      "/product/images/h2o81779-1.jpg"
+    ],
+    "categories": [
+      "promosyon-kurumsal"
+    ],
+    "brand": "Tohana",
+    "stock": 200,
+    "rating": 0,
+    "reviews": 0,
+    "badges": [
+      "Toptan"
+    ],
+    "specs": {
+      "color": "Metal",
+      "size": "500ml",
+      "shippingType": "Standart"
+    },
+    "isActive": true
+  },
+  {
+    "id": "SAMPLE-TECH-001",
+    "name": "Kablosuz Şarj Standı",
+    "code": "TECH-001",
+    "price": {
+      "current": 699.9,
+      "original": 999.9,
+      "currency": "TL"
+    },
+    "discount": 30,
+    "description": "Tüm cihazlarla uyumlu hızlı şarj standı.",
+    "image": "/product/images/thn24502-1.jpg",
+    "images": [
+      "/product/images/thn24502-1.jpg"
+    ],
+    "categories": [
+      "teknoloji"
+    ],
+    "brand": "TechPro",
+    "stock": 45,
+    "rating": 4.2,
+    "reviews": 8,
+    "badges": [
+      "İndirim"
+    ],
+    "specs": {
+      "color": "Beyaz",
+      "size": "Standart",
+      "shippingType": "Standart"
+    },
+    "isActive": true
+  },
+  {
+    "id": "SAMPLE-HOBBY-001",
+    "name": "Ahşap Maket Seti",
+    "code": "HOBBY-001",
+    "price": {
+      "current": 549.9,
+      "original": 649.9,
+      "currency": "TL"
+    },
+    "discount": 15,
+    "description": "Eğlenceli ve öğretici ahşap maket.",
+    "image": "/product/images/bm-1993-1.jpg",
+    "images": [
+      "/product/images/bm-1993-1.jpg"
+    ],
+    "categories": [
+      "hobi-oyuncak"
+    ],
+    "brand": "HobbyArt",
+    "stock": 15,
+    "rating": 5,
+    "reviews": 3,
+    "badges": [],
+    "specs": {
+      "color": "Ahşap",
+      "size": "Standart",
+      "shippingType": "Standart"
+    },
+    "isActive": true
+  },
+  {
+    "id": "SAMPLE-DECOR-001",
+    "name": "Dekoratif Duvar Saati",
+    "code": "DECOR-001",
+    "price": {
+      "current": 799.9,
+      "original": 999.9,
+      "currency": "TL"
+    },
+    "discount": 20,
+    "description": "Evinize şıklık katacak modern tasarım.",
+    "image": "/product/images/thn77177-1.jpg",
+    "images": [
+      "/product/images/thn77177-1.jpg"
+    ],
+    "categories": [
+      "dekorasyon"
+    ],
+    "brand": "HomeStyle",
+    "stock": 25,
+    "rating": 4.9,
+    "reviews": 20,
+    "badges": [
+      "Favori"
+    ],
+    "specs": {
+      "color": "Gold",
+      "size": "30cm",
+      "shippingType": "Standart"
+    },
+    "isActive": true
+  },
+  {
     "id": "THN10295",
     "name": "Yeni Yıl Temalı Özel Tasarım Kağıt Paketli Porselen Kupa",
     "code": "THN10295",
@@ -37,10 +257,11 @@
     "name": "Çam Ağacı Süsleri, Yılbaşı Tacı, Gözlük, Peçete, Hediye Kartı, Kar Küresi Yeni Yıl Seti",
     "code": 564.886,
     "price": {
-      "current": 1199.9,
+      "current": 899.9,
       "original": 1199.9,
       "currency": "TL"
     },
+    "discount": 25,
     "description": "- Çin menşeli, yüksek kaliteli malzemelerden üretilmiş olup, dayanıklılığı ve şıklığı bir arada sunar.; - Çam ağacı süsleri, yılbaşı tacı, gözlük, peçete, hediye kartı ve kar küresi gibi çeşitli ürünleri içeren bu set, yılbaşı kutlamalarınızda ihtiyacınız olan her şeyi tek bir pakette toplar.; - Yeni yıl setinde bulunan her bir parça, özenle seçilmiş ve dikkatlice tasarlanmıştır; böylece yılbaşı süslemelerinizde eksiksizlik ve uyum sağlar.;",
     "image": "/product/images/564886-1.jpg",
     "images": [

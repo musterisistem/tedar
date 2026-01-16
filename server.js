@@ -8,6 +8,12 @@ import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 dotenv.config();
+if (fs.existsSync('.env.local')) {
+    const envLocal = dotenv.parse(fs.readFileSync('.env.local'));
+    for (const k in envLocal) {
+        process.env[k] = envLocal[k];
+    }
+}
 
 process.on('exit', (code) => {
     console.log(`[DEBUG] Process exiting with code: ${code}`);
@@ -177,7 +183,7 @@ app.post('/api/send-email', async (req, res) => {
         }
 
         const dataRes = await resend.emails.send({
-            from: 'Dortel <onboarding@resend.dev>', // Default Resend test sender
+            from: 'Dörtel Tedarik <siparis@dorteltedarik.com>', // Verified domain
             to: Array.isArray(to) ? to : [to],
             subject: subject,
             html: html,
@@ -212,54 +218,459 @@ app.post('/api/save-settings', (req, res) => {
     }
 });
 
-// 3. Get Settings (Optional helper)
-app.get('/api/settings/:filename', (req, res) => {
-    try {
-        const targetFile = req.params.filename;
+import { MongoClient, ObjectId } from 'mongodb';
 
-        // Block direct access to sensitive file via this generic endpoint
-        if (targetFile === 'paytrSettings.json') {
-            return res.status(403).json({ success: false, message: 'Sensitive file access denied' });
+// MongoDB Connection
+const uri = process.env.MONGODB_URI;
+let db;
+
+async function connectDB() {
+    if (db) return db;
+    try {
+        if (!uri) {
+            console.error('❌ MONGODB_URI is missing!');
+            return null;
+        }
+        const client = new MongoClient(uri);
+        await client.connect();
+        db = client.db('dortel-db');
+        console.log('✅ Connected to MongoDB');
+        return db;
+    } catch (error) {
+        console.error('❌ MongoDB Connection Error:', error);
+        return null;
+    }
+}
+
+// Ensure DB connection on start
+connectDB();
+
+// MongoDB API Routes (Mirrors Vercel Functions)
+// ----------------------------------------------------------------------
+
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
+
+// USERS & AUTH
+app.use('/api/users', async (req, res) => {
+    try {
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+        const collection = database.collection('users');
+
+        // REGISTER
+        if (req.method === 'POST' && req.path.includes('/register')) {
+            const { email, password, name, phone } = req.body;
+            console.log(`[REGISTER ATTEMPT] Email: ${email}, Name: ${name}`);
+
+            const existingUser = await collection.findOne({ email });
+            if (existingUser) {
+                console.log(`[REGISTER FAILED] User already exists: ${email}`);
+                return res.status(400).json({ error: 'Bu email adresi zaten kayıtlı' });
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const user = {
+                email,
+                password: hashedPassword,
+                name,
+                phone,
+                role: 'customer',
+                createdAt: new Date().toISOString(),
+                addresses: [],
+                orders: []
+            };
+
+            const result = await collection.insertOne(user);
+            console.log(`[REGISTER SUCCESS] User created: ${email}, ID: ${result.insertedId}`);
+
+            const token = jwt.sign({ userId: result.insertedId, email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
+            return res.status(201).json({
+                success: true,
+                token,
+                user: { id: result.insertedId, email, name, role: user.role }
+            });
         }
 
-        const filePath = path.join(DATA_DIR, targetFile);
-        if (fs.existsSync(filePath)) {
-            const data = fs.readFileSync(filePath, 'utf-8');
-            res.json(JSON.parse(data));
+        // LOGIN
+        if (req.method === 'POST' && req.path.includes('/login')) {
+            const { email, password } = req.body;
+            console.log(`[LOGIN ATTEMPT] Email: ${email}`);
+
+            const user = await collection.findOne({ email });
+            if (!user) {
+                console.log(`[LOGIN FAILED] User not found: ${email}`);
+                return res.status(401).json({ error: 'Email veya şifre hatalı (Kullanıcı yok)' });
+            }
+
+            const isValid = await bcrypt.compare(password, user.password);
+            if (!isValid) {
+                console.log(`[LOGIN FAILED] Invalid password for: ${email}`);
+                return res.status(401).json({ error: 'Email veya şifre hatalı (Şifre yanlış)' });
+            }
+
+            console.log(`[LOGIN SUCCESS] User: ${email}`);
+            const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
+            return res.status(200).json({
+                success: true,
+                token,
+                user: { id: user._id, email: user.email, name: user.name, role: user.role }
+            });
+        }
+
+        // PROFILE
+        if (req.method === 'GET' && req.path.includes('/profile')) {
+            const token = req.headers.authorization?.replace('Bearer ', '');
+            if (!token) return res.status(401).json({ error: 'Yetkisiz erişim' });
+
+            try {
+                const decoded = jwt.verify(token, JWT_SECRET);
+                const user = await collection.findOne({ _id: new ObjectId(decoded.userId) });
+                if (!user) return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+
+                return res.status(200).json({
+                    success: true,
+                    user: {
+                        id: user._id,
+                        email: user.email,
+                        name: user.name,
+                        phone: user.phone,
+                        addresses: user.addresses,
+                        role: user.role
+                    }
+                });
+            } catch (err) {
+                return res.status(401).json({ error: 'Geçersiz token' });
+            }
+        }
+
+        // UPDATE USER (PUT)
+        if (req.method === 'PUT') {
+            const token = req.headers.authorization?.replace('Bearer ', '');
+            if (!token) return res.status(401).json({ error: 'Yetkisiz erişim' });
+
+            try {
+                const decoded = jwt.verify(token, JWT_SECRET);
+                const userId = decoded.userId;
+                const { name, favorites, addresses, orders, password } = req.body;
+
+                const updateData = {};
+                if (name) updateData.name = name;
+                if (favorites) updateData.favorites = favorites;
+                if (addresses) updateData.addresses = addresses;
+                if (orders) updateData.orders = orders;
+
+                if (password) {
+                    updateData.password = await bcrypt.hash(password, 10);
+                }
+
+                const result = await collection.updateOne(
+                    { _id: new ObjectId(userId) },
+                    { $set: updateData }
+                );
+
+                if (result.matchedCount === 0) {
+                    return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+                }
+
+                // Return updated user data
+                const updatedUser = await collection.findOne({ _id: new ObjectId(userId) });
+
+                return res.status(200).json({
+                    success: true,
+                    message: 'Kullanıcı güncellendi',
+                    user: {
+                        id: updatedUser._id,
+                        email: updatedUser.email,
+                        name: updatedUser.name,
+                        phone: updatedUser.phone,
+                        addresses: updatedUser.addresses || [],
+                        favorites: updatedUser.favorites || [],
+                        orders: updatedUser.orders || [],
+                        role: updatedUser.role
+                    }
+                });
+
+            } catch (err) {
+                console.error('Update Error:', err);
+                return res.status(401).json({ error: 'İşlem başarısız: ' + err.message });
+            }
+        }
+
+        res.status(404).json({ error: 'User route not found' });
+    } catch (error) {
+        console.error('Users API Error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Price Alerts
+app.get('/api/price-alerts', async (req, res) => {
+    try {
+        const { userId } = req.query;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        const query = userId ? { userId: Number(userId) } : {};
+        const alerts = await database.collection('price-alerts').find(query).toArray();
+        res.json({ success: true, data: alerts });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/price-alerts', async (req, res) => {
+    try {
+        const alert = req.body;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        alert.createdAt = new Date().toISOString();
+        const result = await database.collection('price-alerts').insertOne(alert);
+        res.status(201).json({ success: true, data: { ...alert, _id: result.insertedId } });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.delete('/api/price-alerts', async (req, res) => {
+    try {
+        const { productId, userId } = req.query;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        await database.collection('price-alerts').deleteOne({
+            productId: productId,
+            userId: Number(userId)
+        });
+        res.json({ success: true, message: 'Alert deleted' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Orders
+app.get('/api/orders', async (req, res) => {
+    try {
+        const { userId } = req.query;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        const query = userId ? { userId: userId } : {};
+        const orders = await database.collection('orders').find(query).sort({ createdAt: -1 }).toArray();
+        res.json({ success: true, data: orders });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/orders', async (req, res) => {
+    try {
+        const order = req.body;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        order.createdAt = new Date().toISOString();
+        order.status = order.status || 'pending';
+        if (!order.orderNo) order.orderNo = `ORD-${Date.now()}`;
+        order.orderNumber = order.orderNo;
+
+        const result = await database.collection('orders').insertOne(order);
+
+        // Send notification emails (non-blocking)
+        const savedOrder = { ...order, _id: result.insertedId };
+
+        // Send emails in background (don't await to not block response)
+        (async () => {
+            try {
+                if (process.env.RESEND_API_KEY) {
+                    // 1. Send to Customer
+                    if (order.email) {
+                        await resend.emails.send({
+                            from: 'Dörtel Tedarik <siparis@dorteltedarik.com>',
+                            to: order.email,
+                            subject: `Siparişiniz Alındı: ${order.orderNo}`,
+                            html: getOrderReceivedTemplate(order)
+                        });
+                        console.log(`✅ Customer email sent to: ${order.email}`);
+                    }
+
+                    // 2. Send to Admin
+                    // Load dynamic settings from DB
+                    let adminEmails = [];
+                    try {
+                        // Use existing database connection or reconnect
+                        const db = database || await connectDB();
+                        if (db) {
+                            const settingsDoc = await db.collection('settings').findOne({ key: 'notificationSettings' });
+                            if (settingsDoc?.data?.adminEmails && Array.isArray(settingsDoc.data.adminEmails)) {
+                                adminEmails = settingsDoc.data.adminEmails;
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Failed to load notification settings from DB:', err);
+                    }
+
+                    // Fallback to env or default
+                    if (adminEmails.length === 0) {
+                        const envEmail = process.env.ADMIN_EMAIL || 'info@dorteltedarik.com';
+                        adminEmails = [envEmail];
+                    }
+
+                    await resend.emails.send({
+                        from: 'Dörtel Tedarik <siparis@dorteltedarik.com>',
+                        to: adminEmails,
+                        subject: `🛒 Yeni Sipariş: ${order.orderNo} - ${order.amount?.toLocaleString('tr-TR')} TL`,
+                        html: getAdminNotificationTemplate(order)
+                    });
+                    console.log(`✅ Admin email sent to: ${adminEmails.join(', ')}`);
+                }
+            } catch (emailError) {
+                console.error('❌ Email sending failed:', emailError);
+            }
+        })();
+
+        res.status(201).json({ success: true, data: savedOrder });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.put('/api/orders', async (req, res) => {
+    try {
+        const { orderId, status, trackingNumber } = req.body;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        const updates = { status };
+        if (trackingNumber) updates.trackingNumber = trackingNumber;
+
+        await database.collection('orders').updateOne(
+            { $or: [{ orderNo: orderId }, { orderNumber: orderId }] },
+            { $set: updates }
+        );
+        res.json({ success: true, message: 'Order updated' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/orders/track', async (req, res) => {
+    try {
+        const { orderNo } = req.body;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        if (!orderNo) return res.status(400).json({ success: false, message: 'Sipariş numarası gereklidir.' });
+
+        // Case insensitive search
+        const order = await database.collection('orders').findOne({
+            $or: [
+                { orderNo: { $regex: new RegExp(`^${orderNo}$`, 'i') } },
+                { orderNumber: { $regex: new RegExp(`^${orderNo}$`, 'i') } }
+            ]
+        });
+
+        if (!order) return res.status(404).json({ success: false, message: 'Sipariş bulunamadı.' });
+
+        // Mask customer data
+        const maskedOrder = {
+            orderNo: order.orderNo,
+            orderNumber: order.orderNumber,
+            status: order.status,
+            date: order.createdAt || order.date,
+            customerName: maskName(order.customer?.name || order.customerName || 'Müşteri'),
+            total: order.amount || order.total,
+            items: order.items || [],
+        };
+        res.json({ success: true, data: maskedOrder });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+function maskName(name) {
+    if (!name) return '*** ***';
+    const parts = name.split(' ');
+    if (parts.length === 1) return parts[0][0] + '***';
+    return parts[0][0] + '*** ' + parts[parts.length - 1][0] + '***';
+}
+
+// ----------------------------------------------------------------------
+
+// 3. Get Settings (MongoDB)
+app.get('/api/settings/:filename', async (req, res) => {
+    try {
+        const filename = req.params.filename;
+        const key = filename.replace('.json', '');
+
+        // Block sensitive keys if needed, though key-based is safer than file path
+        if (key === 'paytrSettings') {
+            return res.status(403).json({ success: false, message: 'Access denied' });
+        }
+
+        const database = await connectDB();
+        const doc = await database.collection('settings').findOne({ key: key });
+
+        if (doc && doc.data) {
+            res.json(doc.data);
         } else {
-            res.status(404).json({ success: false, message: 'File not found' });
+            res.json({}); // Default empty
         }
     } catch (error) {
+        console.error('Settings Read Error:', error);
         res.status(500).json({ success: false, message: 'Read error' });
+    }
+});
+
+// 3.1 Save Settings (MongoDB - NEW)
+app.post('/api/save-settings', async (req, res) => {
+    try {
+        const { filename, data } = req.body;
+        const key = filename.replace('.json', '');
+
+        const database = await connectDB();
+        await database.collection('settings').updateOne(
+            { key: key },
+            { $set: { key: key, data: data, updatedAt: new Date() } },
+            { upsert: true }
+        );
+        res.json({ success: true, message: 'Ayarlar kaydedildi' });
+    } catch (error) {
+        console.error('Settings Save Error:', error);
+        res.status(500).json({ success: false, message: 'Save error' });
     }
 });
 
 // --- PAYTR ADMIN ENDPOINTS ---
 
-// Get PayTR Settings (Admin Only - simplified by path)
-app.get('/api/admin/paytr-settings', (req, res) => {
+// Get PayTR Settings (Admin Only)
+app.get('/api/admin/paytr-settings', async (req, res) => {
     try {
-        const filePath = path.join(DATA_DIR, 'paytrSettings.json');
-        if (fs.existsSync(filePath)) {
-            const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-            res.json({ success: true, data });
-        } else {
-            // Return empty structure if not exists, so frontend handles it gracefully
-            res.json({ success: true, data: { merchant_id: '', merchant_key: '', merchant_salt: '' } });
-        }
+        const database = await connectDB();
+        const doc = await database.collection('settings').findOne({ key: 'paytrSettings' });
+        res.json({ success: true, data: doc?.data || { merchant_id: '', merchant_key: '', merchant_salt: '' } });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error reading PayTR settings' });
     }
 });
 
 // Save PayTR Settings
-app.post('/api/admin/paytr-settings', (req, res) => {
+app.post('/api/admin/paytr-settings', async (req, res) => {
     try {
         const { merchant_id, merchant_key, merchant_salt } = req.body;
-        const filePath = path.join(DATA_DIR, 'paytrSettings.json');
+        const data = { merchant_id, merchant_key, merchant_salt };
 
-        const settings = { merchant_id, merchant_key, merchant_salt };
-        fs.writeFileSync(filePath, JSON.stringify(settings, null, 2), 'utf-8');
+        const database = await connectDB();
+        await database.collection('settings').updateOne(
+            { key: 'paytrSettings' },
+            { $set: { key: 'paytrSettings', data: data, updatedAt: new Date() } },
+            { upsert: true }
+        );
 
         res.json({ success: true, message: 'PayTR settings saved' });
     } catch (error) {
@@ -272,23 +683,21 @@ app.post('/api/paytr/token', async (req, res) => {
     try {
         const { user_basket, email, payment_amount, user_name, user_address, user_phone, merchant_oid } = req.body;
 
-        // Try load from file first
+        // Try load from DB first, then env
         let merchant_id = process.env.PAYTR_MERCHANT_ID;
         let merchant_key = process.env.PAYTR_MERCHANT_KEY;
         let merchant_salt = process.env.PAYTR_MERCHANT_SALT;
 
-        const settingsPath = path.join(DATA_DIR, 'paytrSettings.json');
-        if (fs.existsSync(settingsPath)) {
-            try {
-                const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
-                if (settings.merchant_id && settings.merchant_key && settings.merchant_salt) {
-                    merchant_id = settings.merchant_id;
-                    merchant_key = settings.merchant_key;
-                    merchant_salt = settings.merchant_salt;
-                }
-            } catch (e) {
-                console.error('Error reading paytrSettings.json, falling back to env', e);
+        try {
+            const database = await connectDB();
+            if (database) {
+                const settings = await database.collection('settings').findOne({ key: 'paytrSettings' });
+                if (settings?.data?.merchant_id) merchant_id = settings.data.merchant_id;
+                if (settings?.data?.merchant_key) merchant_key = settings.data.merchant_key;
+                if (settings?.data?.merchant_salt) merchant_salt = settings.data.merchant_salt;
             }
+        } catch (e) {
+            console.error('Error reading paytrSettings from DB, falling back to env', e);
         }
 
         if (!merchant_id || !merchant_key || !merchant_salt) {
@@ -386,3 +795,6 @@ app.listen(port, () => {
 setInterval(() => {
     // Heartbeat
 }, 10000);
+
+// Export for Vercel
+export default app;

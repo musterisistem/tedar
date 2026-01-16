@@ -23,7 +23,12 @@ export default async function handler(
             const order = req.body;
             order.createdAt = new Date().toISOString();
             order.status = order.status || 'pending';
-            order.orderNumber = `ORD-${Date.now()}`;
+            // Use existing orderNo if frontend provided it, else generate one
+            if (!order.orderNo) {
+                order.orderNo = `ORD-${Date.now()}`;
+            }
+            // Sync orderNumber for compatibility
+            order.orderNumber = order.orderNo;
 
             const result = await collection.insertOne(order);
             return res.status(201).json({
@@ -38,8 +43,14 @@ export default async function handler(
             const updates: any = { status };
             if (trackingNumber) updates.trackingNumber = trackingNumber;
 
+            // Update matching by either field for robustness
             await collection.updateOne(
-                { orderNumber: orderId },
+                {
+                    $or: [
+                        { orderNo: orderId },
+                        { orderNumber: orderId }
+                    ]
+                },
                 { $set: updates }
             );
             return res.status(200).json({ success: true, message: 'Order updated' });

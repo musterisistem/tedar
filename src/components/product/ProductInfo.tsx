@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Heart, Share2, Minus, Plus, ShoppingCart, Settings, Percent, ChevronRight, Facebook, Mail, MessageCircle, Copy } from 'lucide-react';
+import { Star, Heart, Share2, Minus, Plus, ShoppingCart, Settings, Bell, Percent, ChevronRight, Facebook, Mail, MessageCircle, Copy } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductContext';
 import { useUsers } from '../../context/UserContext';
@@ -26,7 +26,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
     const [isShareOpen, setIsShareOpen] = useState(false);
     const shareRef = useRef<HTMLDivElement>(null);
     const [isSavingAlert, setIsSavingAlert] = useState(false);
-    const isSepetteIndirim = discountInCartProductIds.map(d => d.toString()).includes(product.id.toString());
+    const isSepetteIndirim = product?.id ? discountInCartProductIds.map(d => d.toString()).includes(product.id.toString()) : false;
     const navigate = useNavigate();
 
     // Close share menu when clicking outside
@@ -71,7 +71,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
             return;
         }
 
-        if (isAlertActive(product.id.toString(), currentUser.id)) {
+        if (product?.id && isAlertActive(product.id.toString(), currentUser.id)) {
             showToast('Fiyat alarmı bu ürün için zaten aktif.', 'info');
             return;
         }
@@ -79,7 +79,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
         setIsModalOpen(true);
     };
 
-    const isFavorite = favorites.map(id => id.toString()).includes(product.id.toString());
+    const isFavorite = product?.id ? favorites.map(id => id.toString()).includes(product.id.toString()) : false;
 
     const handleToggleFavorite = () => {
         toggleFavorite(product.id);
@@ -174,10 +174,19 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
             {/* Rating & SKU */}
             <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2 mb-6">
                 <div className="flex items-center gap-2">
-                    <div className="flex text-yellow-400">
-                        {[...Array(5)].map((_, i) => (
-                            <Star key={i} className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-current' : 'text-gray-200'}`} />
-                        ))}
+                    <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => {
+                            const reviewCount = totalReviews !== undefined ? totalReviews : (product.reviews || 0);
+                            const effectiveRating = reviewCount > 0 ? product.rating : 0;
+                            const isActive = i < Math.floor(effectiveRating);
+
+                            return (
+                                <Star
+                                    key={i}
+                                    className={`w-4 h-4 ${isActive ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`}
+                                />
+                            );
+                        })}
                     </div>
                     <span
                         onClick={onReviewClick}
@@ -203,7 +212,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
                     return Math.abs(hash);
                 };
 
-                const productIdStr = product.id.toString();
+                const productIdStr = product?.id?.toString() || '';
                 const hash = hashCode(productIdStr);
 
                 // 20% chance to show (if hash % 5 === 0)
@@ -380,16 +389,16 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
                 </button>
                 <button
                     onClick={handleToggleAlert}
-                    className={`flex items-center justify-center gap-2 py-2 border rounded-lg text-xs font-semibold transition-colors ${currentUser && isAlertActive(product.id.toString(), currentUser.id) ? 'bg-blue-50 border-blue-200 text-blue-600' : 'border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-blue-600'}`}
+                    className={`flex items-center justify-center gap-2 py-2 border rounded-lg text-xs font-semibold transition-colors ${currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? 'bg-blue-50 border-blue-200 text-blue-600' : 'border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-blue-600'}`}
                 >
                     <div className="relative">
-                        <span className={`absolute -top-1 -right-1 flex h-2 w-2 ${currentUser && isAlertActive(product.id.toString(), currentUser.id) ? '' : 'hidden'}`}>
+                        <span className={`absolute -top-1 -right-1 flex h-2 w-2 ${currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? '' : 'hidden'}`}>
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                         </span>
-                        <Settings className="w-3.5 h-3.5" />
+                        <Bell className={`w-3.5 h-3.5 ${currentUser && isAlertActive(product.id.toString(), currentUser.id) ? 'fill-blue-600' : ''}`} />
                     </div>
-                    Fiyat Alarmı
+                    {currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? 'Alarm Aktif' : 'Fiyat Alarmı'}
                 </button>
             </div>
 

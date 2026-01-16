@@ -57,6 +57,7 @@ const ContactManager = React.lazy(() => import('./pages/admin/ContactManager').t
 const OfficeSupplyManager = React.lazy(() => import('./pages/admin/home/OfficeSupplyManager').then(module => ({ default: module.OfficeSupplyManager })));
 
 const NotificationSettings = React.lazy(() => import('./pages/admin/NotificationSettings').then(module => ({ default: module.NotificationSettings })));
+const BulkStockUpdate = React.lazy(() => import('./pages/admin/BulkStockUpdate').then(module => ({ default: module.BulkStockUpdate })));
 
 
 function App() {
@@ -90,6 +91,7 @@ function App() {
                             <Route path="/admin/products/flash" element={<CollectionManager type="flash" />} />
                             <Route path="/admin/brands" element={<BrandManager />} />
                             <Route path="/admin/products/discount-in-cart" element={<DiscountInCartManager />} />
+                            <Route path="/admin/products/stock-update" element={<BulkStockUpdate />} />
                             <Route path="/admin/price-alerts" element={<PriceAlertManager />} />
                             <Route path="/admin/settings/payments" element={<PaymentMethodManager />} />
                             <Route path="/admin/settings/delivery" element={<DeliverySettingsManager />} />

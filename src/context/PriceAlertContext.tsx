@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState, useEffect, useCallback, typ
 
 export interface PriceAlert {
     id: string;
-    userId: number;
+    userId: string | number;
     email: string;
     userName: string;
-    productId: string;
+    productId: string | number;
     productName: string;
     priceAtAlert: number;
     date: string;
@@ -13,11 +13,10 @@ export interface PriceAlert {
 
 interface PriceAlertContextType {
     alerts: PriceAlert[];
-    activateAlert: (product: { id: string | number, name: string, price: number }, user: { id: number, name: string, email: string }) => Promise<{ success: boolean; message: string }>;
-    deactivateAlert: (productId: string, userId: number) => Promise<{ success: boolean; message: string }>;
-    isAlertActive: (productId: string, userId: number) => boolean;
-    saveAlerts: (newAlerts: PriceAlert[]) => Promise<{ success: boolean; message: string }>;
-    clearUserAlerts: (userId: number) => Promise<{ success: boolean; message: string }>;
+    activateAlert: (product: { id: string | number, name: string, price: number }, user: { id: string | number, name: string, email: string }) => Promise<{ success: boolean; message: string }>;
+    deactivateAlert: (productId: string | number, userId: string | number) => Promise<{ success: boolean; message: string }>;
+    isAlertActive: (productId: string | number, userId: string | number) => boolean;
+    clearUserAlerts: (userId: string | number) => Promise<{ success: boolean; message: string }>;
 }
 
 const PriceAlertContext = createContext<PriceAlertContextType | undefined>(undefined);
@@ -29,13 +28,11 @@ export const PriceAlertProvider: React.FC<{ children: ReactNode }> = ({ children
     useEffect(() => {
         const loadAlerts = async () => {
             try {
-                const response = await fetch('/src/data/priceAlerts.json');
+                const response = await fetch('/api/price-alerts');
                 if (response.ok) {
-                    const data = await response.json();
-                    if (Array.isArray(data)) {
-                        setAlerts(data);
-                    } else if (data && Array.isArray(data.data)) {
-                        setAlerts(data.data);
+                    const result = await response.json();
+                    if (result.success && Array.isArray(result.data)) {
+                        setAlerts(result.data);
                     }
                 }
             } catch (error) {
@@ -45,64 +42,89 @@ export const PriceAlertProvider: React.FC<{ children: ReactNode }> = ({ children
         loadAlerts();
     }, []);
 
-    const saveAlerts = async (newAlerts: PriceAlert[]) => {
-        try {
-            const response = await fetch('/api/save-settings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    filename: 'priceAlerts.json',
-                    data: newAlerts
-                }),
-            });
-
-            if (response.ok) {
-                setAlerts(newAlerts);
-                return { success: true, message: 'Başarıyla kaydedildi.' };
-            }
-            return { success: false, message: 'Kaydedilemedi.' };
-        } catch (error) {
-            return { success: false, message: 'Bağlantı hatası.' };
-        }
-    };
-
-    const activateAlert = useCallback(async (product: { id: string | number, name: string, price: number }, user: { id: number, name: string, email: string }) => {
+    const activateAlert = useCallback(async (product: { id: string | number, name: string, price: number }, user: { id: string | number, name: string, email: string }) => {
         const productId = product.id.toString();
-        if (alerts.some(a => a.productId === productId && a.userId === user.id)) {
+        const userId = user.id.toString();
+
+        if (alerts.some(a => a.productId?.toString() === productId && a.userId?.toString() === userId)) {
             return { success: true, message: 'Zaten aktif.' };
         }
 
-        const newAlert: PriceAlert = {
-            id: Math.random().toString(36).substring(2, 9),
-            userId: user.id,
+        const newAlert = {
+            userId: user.id, // Store as is (string or number)
             userName: user.name,
             email: user.email,
             productId: productId,
             productName: product.name,
-            priceAtAlert: product.price,
+            priceAtAlert: Number(product.price),
             date: new Date().toISOString().split('T')[0]
         };
 
-        const updatedAlerts = [...alerts, newAlert];
-        return await saveAlerts(updatedAlerts);
+        try {
+            const response = await fetch('/api/price-alerts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newAlert),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setAlerts(prev => [...prev, result.data]);
+                return { success: true, message: 'Başarıyla kuruldu.' };
+            }
+
+            // Try to parse error message
+            let errorMessage = 'Sunucu hatası.';
+            try {
+                const errorData = await response.json();
+                if (errorData.error) errorMessage = errorData.error;
+                else if (errorData.message) errorMessage = errorData.message;
+            } catch (e) {
+                // If JSON parse fails, use status text or default
+                errorMessage = response.statusText ? `Hata: ${response.status} ${response.statusText}` : 'Sunucu hatası.';
+            }
+
+            return { success: false, message: errorMessage };
+        } catch (error) {
+            return { success: false, message: 'Bağlantı hatası.' };
+        }
     }, [alerts]);
 
-    const deactivateAlert = useCallback(async (productId: string, userId: number) => {
-        const updatedAlerts = alerts.filter(a => !(a.productId === productId && a.userId === userId));
-        return await saveAlerts(updatedAlerts);
+    const deactivateAlert = useCallback(async (productId: string | number, userId: string | number) => {
+        try {
+            const response = await fetch(`/api/price-alerts?productId=${productId.toString()}&userId=${userId.toString()}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                setAlerts(prev => prev.filter(a => !(a.productId?.toString() === productId.toString() && a.userId?.toString() === userId.toString())));
+                return { success: true, message: 'İptal edildi.' };
+            }
+            return { success: false, message: 'Sunucu hatası.' };
+        } catch (error) {
+            return { success: false, message: 'Bağlantı hatası.' };
+        }
+    }, []);
+
+    const isAlertActive = useCallback((productId: string | number, userId: string | number) => {
+        if (!productId || !userId) return false;
+        return alerts.some(a =>
+            a.productId?.toString() === productId.toString() &&
+            a.userId?.toString() === userId.toString()
+        );
     }, [alerts]);
 
-    const isAlertActive = useCallback((productId: string, userId: number) => {
-        return alerts.some(a => a.productId === productId && a.userId === userId);
-    }, [alerts]);
-
-    const clearUserAlerts = useCallback(async (userId: number) => {
-        const updatedAlerts = alerts.filter(a => a.userId !== userId);
-        return await saveAlerts(updatedAlerts);
-    }, [alerts]);
+    const clearUserAlerts = useCallback(async (userId: string | number) => {
+        // This could be implemented with a bulk delete in API if needed
+        const userAlerts = alerts.filter(a => a.userId?.toString() === userId.toString());
+        for (const alert of userAlerts) {
+            await deactivateAlert(alert.productId, userId);
+        }
+        return { success: true, message: 'Temizlendi.' };
+    }, [alerts, deactivateAlert]);
 
     return (
-        <PriceAlertContext.Provider value={{ alerts, activateAlert, deactivateAlert, isAlertActive, saveAlerts, clearUserAlerts }}>
+        <PriceAlertContext.Provider value={{ alerts, activateAlert, deactivateAlert, isAlertActive, clearUserAlerts }}>
             {children}
         </PriceAlertContext.Provider>
     );

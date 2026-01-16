@@ -29,7 +29,7 @@ export interface Order {
 }
 
 export interface User {
-    id: number;
+    id: string | number;
     name: string;
     username: string; // generated from email or name
     email: string;
@@ -52,7 +52,7 @@ export interface User {
 interface UserContextType {
     users: User[];
     currentUser: User | null;
-    login: (email: string, password: string) => { success: boolean; error?: string };
+    login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
     register: (userData: {
         name: string;
         email: string;
@@ -64,9 +64,9 @@ interface UserContextType {
         password: string
     }) => void;
     logout: () => void;
-    updateUser: (id: number, updatedUser: Partial<User>) => void;
-    deleteUser: (id: number) => void;
-    blockUser: (id: number) => void;
+    updateUser: (id: string | number, updatedUser: Partial<User>) => void;
+    deleteUser: (id: string | number) => void;
+    blockUser: (id: string | number) => void;
     favorites: (string | number)[];
     toggleFavorite: (productId: string | number) => void;
     clearFavorites: () => void;
@@ -170,39 +170,55 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     });
 
-    // Update localStorage whenever users change
+    // Check Auth on Load
     useEffect(() => {
-        localStorage.setItem('site_users', JSON.stringify(users));
-    }, [users]);
+        const checkAuth = async () => {
+            const token = localStorage.getItem('auth_token');
+            if (!token) return;
 
-    // Update localStorage whenever currentUser changes
-    useEffect(() => {
-        if (currentUser) {
-            localStorage.setItem('current_user', JSON.stringify(currentUser));
-        } else {
-            localStorage.removeItem('current_user');
+            try {
+                const res = await fetch('/api/users/profile', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    setCurrentUser(data.user);
+                } else {
+                    localStorage.removeItem('auth_token');
+                    setCurrentUser(null);
+                }
+            } catch (error) {
+                localStorage.removeItem('auth_token');
+                setCurrentUser(null);
+            }
+        };
+        checkAuth();
+    }, []);
+
+    const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+        try {
+            const res = await fetch('/api/users/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                return { success: false, error: data.error || 'Giriş başarısız' };
+            }
+
+            localStorage.setItem('auth_token', data.token);
+            setCurrentUser(data.user);
+            return { success: true };
+        } catch (error) {
+            console.error('Login Fetch Error:', error);
+            return { success: false, error: 'Sunucu hatası veya bağlantı sorunu' };
         }
-    }, [currentUser]);
-
-    const login = (email: string, password: string): { success: boolean; error?: string } => {
-        const normalizedEmail = email.trim().toLowerCase();
-        const normalizedPassword = password.trim();
-
-        const user = users.find(u => u.email.toLowerCase() === normalizedEmail && u.password === normalizedPassword);
-
-        if (!user) {
-            return { success: false, error: 'E-posta veya şifre hatalı!' };
-        }
-
-        if (user.status !== 'active') {
-            return { success: false, error: 'Hesabınız askıya alınmıştır. Lütfen destek ile iletişime geçin.' };
-        }
-
-        setCurrentUser(user);
-        return { success: true };
     };
 
-    const register = (userData: {
+    const register = async (userData: {
         name: string;
         email: string;
         phone: string;
@@ -212,69 +228,86 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         zipCode: string;
         password: string
     }) => {
-        const newUser: User = {
-            id: Date.now(),
-            name: userData.name.trim(),
-            username: userData.email.trim().toLowerCase().split('@')[0],
-            email: userData.email.trim().toLowerCase(),
-            phone: userData.phone.trim(),
-            city: userData.city,
-            district: userData.district,
-            password: userData.password.trim(),
-            role: 'customer',
-            status: 'active',
-            registerDate: new Date().toISOString().split('T')[0],
-            ipAddress: '127.0.0.1',
-            orders: [],
-            addresses: [
-                {
-                    id: Date.now(),
-                    title: 'Varsayılan Adres',
-                    content: userData.address,
-                    city: userData.city,
-                    district: userData.district,
-                    zipCode: userData.zipCode,
-                    phone: userData.phone
-                }
-            ]
-        };
-        setUsers(prev => [...prev, newUser]);
-        setCurrentUser(newUser);
+        try {
+            const res = await fetch('/api/users/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
 
-        // Send Welcome Email
-        import('../utils/emailService').then(({ emailService }) => {
-            emailService.sendWelcomeEmail(newUser.email, newUser.name);
-        });
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.error || 'Kayıt başarısız');
+                return;
+            }
+
+            localStorage.setItem('auth_token', data.token);
+            setCurrentUser(data.user);
+
+            // Send Welcome Email
+            import('../utils/emailService').then(({ emailService }) => {
+                emailService.sendWelcomeEmail(data.user.email, data.user.name);
+            });
+        } catch (error) {
+            alert('Kayıt sırasında bir hata oluştu');
+        }
     };
 
     const logout = () => {
+        localStorage.removeItem('auth_token');
         setCurrentUser(null);
+        window.location.href = '/giris';
     };
 
-    const updateUser = (id: number, updatedUser: Partial<User>) => {
+    const updateUser = async (id: string | number, updatedUser: Partial<User>) => {
+        // Optimistic update
         setUsers(prev => prev.map(user => {
-            if (user.id === id) {
+            if (user.id.toString() === id.toString()) {
                 const newUserData = { ...user, ...updatedUser };
-                // Also update current user if it's the same person
-                if (currentUser && currentUser.id === id) {
+                if (currentUser && currentUser.id.toString() === id.toString()) {
                     setCurrentUser(newUserData);
                 }
                 return newUserData;
             }
             return user;
         }));
+
+        // Server update
+        if (currentUser && currentUser.id.toString() === id.toString()) {
+            try {
+                const token = localStorage.getItem('auth_token');
+                if (!token) return;
+
+                const res = await fetch('/api/users', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(updatedUser)
+                });
+
+                if (!res.ok) {
+                    console.error('Server update failed');
+                    // Revert context if needed (optional implementation)
+                }
+            } catch (error) {
+                console.error('Error updating user on server:', error);
+            }
+        }
     };
 
-    const deleteUser = (id: number) => {
-        setUsers(prev => prev.filter(user => user.id !== id));
-        if (currentUser && currentUser.id === id) {
+    const deleteUser = (id: string | number) => {
+        setUsers(prev => prev.filter(user => user.id.toString() !== id.toString()));
+        if (currentUser && currentUser.id.toString() === id.toString()) {
             logout();
         }
     };
 
-    const blockUser = (id: number) => {
+    const blockUser = (id: string | number) => {
         setUsers(prev => prev.map(user => {
-            if (user.id === id) {
+            if (user.id.toString() === id.toString()) {
                 const newStatus = user.status === 'active' ? 'blocked' : 'active';
                 // Logout if blocked
                 if (currentUser && currentUser.id === id && newStatus === 'blocked') {

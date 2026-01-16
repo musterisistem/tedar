@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
-import ordersData from '../data/orders.json';
 import { emailService } from '../utils/emailService';
 
 export interface OrderItem {
@@ -50,111 +49,122 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     // Verileri sunucudan çekme fonksiyonu
     const refreshOrders = async () => {
         try {
-            const response = await fetch('/api/settings/orders.json?t=' + Date.now());
+            const response = await fetch('/api/orders');
             if (response.ok) {
                 const result = await response.json();
-                const data = result?.data || result;
-                if (Array.isArray(data)) {
-                    setOrders(data);
+                if (result.success && Array.isArray(result.data)) {
+                    setOrders(result.data);
                 }
             }
         } catch (error) {
-            console.error('Siparişler çekilir olurken hata oluştu:', error);
+            console.error('Siparişler çekilirken hata oluştu:', error);
         }
     };
 
     // İlk yüklemede ve statik veriden başlatma
     React.useEffect(() => {
-        const data = (ordersData as any)?.data || ordersData;
-        if (Array.isArray(data)) {
-            setOrders(data);
-        }
         refreshOrders();
     }, []);
 
-    const saveOrdersToDisk = async (currentOrders: Order[]) => {
-        try {
-            await fetch('/api/save-settings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    filename: 'orders.json',
-                    data: currentOrders
-                })
-            });
-        } catch (error) {
-            console.error('Siparişler kaydedilirken hata oluştu:', error);
-        }
-    };
-
     const addOrder = async (order: Omit<Order, 'id' | 'orderNo' | 'date'>): Promise<Order> => {
-        const newOrder: Order = {
+        const orderToSave = {
             ...order,
-            id: Date.now(),
             orderNo: `DT${Math.floor(1000 + Math.random() * 9000)}`,
             date: new Date().toISOString().split('T')[0],
             time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
             status: order.status || 'pending'
         };
-        const next = [newOrder, ...orders];
-        setOrders(next);
-        await saveOrdersToDisk(next);
 
-        // Send Emails
         try {
-            // Customer
-            await emailService.sendOrderReceivedEmail(newOrder.email, newOrder);
+            const response = await fetch('/api/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderToSave)
+            });
 
-            // Admin
-            fetch('/api/settings/notificationSettings.json')
-                .then(res => res.ok ? res.json() : null)
-                .then(settings => {
-                    if (settings?.adminEmails?.length > 0) {
-                        emailService.sendAdminNewOrderNotification(settings.adminEmails, newOrder);
-                    }
-                })
-                .catch(err => console.error("Error fetching admin emails", err));
+            if (response.ok) {
+                const result = await response.json();
+                const newOrder = result.data;
+                setOrders(prev => [newOrder, ...prev]);
 
-        } catch (e) {
-            console.error("Email error", e);
+                // Send Emails
+                try {
+                    // Customer
+                    await emailService.sendOrderReceivedEmail(newOrder.email, newOrder);
+
+                    // Admin
+                    fetch('/api/settings/notificationSettings.json')
+                        .then(res => res.ok ? res.json() : null)
+                        .then(settings => {
+                            if (settings?.adminEmails?.length > 0) {
+                                emailService.sendAdminNewOrderNotification(settings.adminEmails, newOrder);
+                            }
+                        })
+                        .catch(err => console.error("Error fetching admin emails", err));
+
+                } catch (e) {
+                    console.error("Email error", e);
+                }
+
+                return newOrder;
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.error || errorData.message || 'Order creation failed');
+            }
+        } catch (error) {
+            console.error('Error adding order:', error);
+            throw error;
         }
-
-        return newOrder;
     };
 
     const updateOrder = async (id: string | number, updatedOrder: Partial<Order>) => {
-        const oldOrder = orders.find(o => o.id === id);
-        const next = orders.map(order =>
-            order.id === id ? { ...order, ...updatedOrder } : order
-        );
-        setOrders(next);
-        await saveOrdersToDisk(next);
+        const oldOrder = orders.find(o => o.id === id || (o as any)._id === id);
 
-        // Status Email
-        if (oldOrder && updatedOrder.status && updatedOrder.status !== oldOrder.status) {
-            const finalOrder = next.find(o => o.id === id);
-            if (finalOrder) {
-                const statusMap: Record<string, string> = {
-                    'pending': 'Beklemede',
-                    'processing': 'Hazırlanıyor',
-                    'shipped': 'Kargolandı',
-                    'delivered': 'Teslim Edildi',
-                    'cancelled': 'İptal Edildi'
-                };
+        try {
+            const response = await fetch('/api/orders', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId: oldOrder?.orderNo || id, ...updatedOrder })
+            });
 
-                // Use TR status if available or fallback
-                const statusText = statusMap[finalOrder.status] || finalOrder.status;
-                const orderWithTrStatus = { ...finalOrder, status: statusText };
+            if (response.ok) {
+                const next = orders.map(order =>
+                    (order.id === id || (order as any)._id === id) ? { ...order, ...updatedOrder } : order
+                );
+                setOrders(next);
 
-                emailService.sendOrderStatusUpdate(finalOrder.email, orderWithTrStatus).catch(console.error);
+                // Status Email
+                if (oldOrder && updatedOrder.status && updatedOrder.status !== oldOrder.status) {
+                    const finalOrder = next.find(o => o.id === id || (o as any)._id === id);
+                    if (finalOrder) {
+                        const statusMap: Record<string, string> = {
+                            'pending': 'Beklemede',
+                            'processing': 'Hazırlanıyor',
+                            'shipped': 'Kargolandı',
+                            'delivered': 'Teslim Edildi',
+                            'cancelled': 'İptal Edildi'
+                        };
+                        const statusText = statusMap[finalOrder.status] || finalOrder.status;
+                        emailService.sendOrderStatusUpdate(finalOrder.email, { ...finalOrder, status: statusText }).catch(console.error);
+                    }
+                }
             }
+        } catch (error) {
+            console.error('Error updating order:', error);
         }
     };
 
     const deleteOrder = async (id: string | number) => {
-        const next = orders.filter(order => order.id !== id);
-        setOrders(next);
-        await saveOrdersToDisk(next);
+        try {
+            const response = await fetch(`/api/orders?id=${id}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                setOrders(prev => prev.filter(order => order.id !== id && (order as any)._id !== id));
+            }
+        } catch (error) {
+            console.error('Error deleting order:', error);
+        }
     };
 
     return (

@@ -50,7 +50,7 @@ export const Account: React.FC = () => {
     const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
 
     if (!currentUser) {
-        navigate('/login');
+        navigate('/giris');
         return null;
     }
 
@@ -76,7 +76,7 @@ export const Account: React.FC = () => {
             id: Date.now()
         };
         updateUser(currentUser.id, {
-            addresses: [...currentUser.addresses, newAddress]
+            addresses: [...(currentUser.addresses || []), newAddress]
         });
         setAddressForm({
             title: '',
@@ -248,9 +248,9 @@ export const Account: React.FC = () => {
                                         <Package className="w-5 h-5" />
                                         Sipariş Geçmişi
                                     </h2>
-                                    {currentUser.orders.length > 0 ? (
+                                    {currentUser.orders && currentUser.orders.length > 0 ? (
                                         <div className="space-y-4">
-                                            {currentUser.orders.map((order, index) => (
+                                            {(currentUser.orders || []).map((order, index) => (
                                                 <div
                                                     key={index}
                                                     onClick={() => setSelectedOrder(order)}
@@ -455,7 +455,7 @@ export const Account: React.FC = () => {
                                     )}
 
                                     <div className="grid grid-cols-1 gap-4">
-                                        {currentUser.addresses.map((addr, index) => (
+                                        {(currentUser.addresses || []).map((addr, index) => (
                                             <div key={index} className="p-4 border border-slate-200 rounded-lg hover:border-blue-300 transition-colors relative group">
                                                 <h3 className="font-semibold text-slate-800 mb-1">{addr.title}</h3>
                                                 <p className="text-slate-600 text-sm">
@@ -475,7 +475,7 @@ export const Account: React.FC = () => {
                                                 </button>
                                             </div>
                                         ))}
-                                        {currentUser.addresses.length === 0 && !showAddressForm && (
+                                        {(!currentUser.addresses || currentUser.addresses.length === 0) && !showAddressForm && (
                                             <div className="text-center py-8 text-slate-500 border-2 border-dashed border-slate-200 rounded-lg">
                                                 <MapPin className="w-8 h-8 mx-auto mb-2 opacity-20" />
                                                 Kayıtlı adresiniz bulunmuyor.
@@ -508,59 +508,91 @@ export const Account: React.FC = () => {
                                         )}
                                     </div>
                                     {userAlerts.length > 0 ? (
-                                        <div className="grid grid-cols-1 gap-4">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {userAlerts.map((alert) => {
-                                                const product = products.find(p => p.id.toString() === alert.productId);
+                                                const product = products.find(p => p.id.toString() === alert.productId.toString());
                                                 const hasDropped = product && product.price.current < alert.priceAtAlert;
                                                 const savings = product ? alert.priceAtAlert - product.price.current : 0;
+                                                const priceDiffPercent = product ? Math.round(((alert.priceAtAlert - product.price.current) / alert.priceAtAlert) * 100) : 0;
 
                                                 return (
-                                                    <div key={alert.id} className={`p-4 border rounded-2xl transition-all flex items-center gap-4 relative group ${hasDropped ? 'bg-orange-50/50 border-orange-200 shadow-sm' : 'bg-white border-slate-200'}`}>
-                                                        <div className="w-20 h-20 bg-white rounded-xl border border-slate-100 overflow-hidden flex-shrink-0">
-                                                            <img src={product?.image} alt={alert.productName} className="w-full h-full object-contain" />
-                                                        </div>
-                                                        <div className="flex-1">
-                                                            <Link to={`/${slugify(alert.productName)}`} className="font-bold text-slate-800 hover:text-blue-600 transition-colors line-clamp-1 mb-1">
-                                                                {alert.productName}
-                                                            </Link>
-                                                            <div className="flex flex-wrap items-center gap-3">
-                                                                <div className="text-sm">
-                                                                    <span className="text-slate-400 font-medium lowercase">takip başlangıcı:</span>
-                                                                    <span className="text-slate-600 font-bold ml-1">{alert.priceAtAlert.toLocaleString('tr-TR')} TL</span>
-                                                                </div>
-                                                                {product && (
-                                                                    <div className="text-sm">
-                                                                        <span className="text-slate-400 font-medium lowercase">güncel:</span>
-                                                                        <span className={`font-black ml-1 ${hasDropped ? 'text-orange-600' : 'text-slate-900'}`}>{product.price.current.toLocaleString('tr-TR')} TL</span>
-                                                                    </div>
+                                                    <div key={alert.id} className={`group bg-white border-2 rounded-3xl p-5 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${hasDropped ? 'border-orange-200 bg-gradient-to-br from-orange-50/50 to-white' : 'border-slate-100 hover:border-blue-100'}`}>
+                                                        {/* Header: Badges & Trash */}
+                                                        <div className="flex justify-between items-start mb-4">
+                                                            <div className="flex flex-wrap gap-2">
+                                                                <span className="px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                                                    {alert.date}
+                                                                </span>
+                                                                {hasDropped && (
+                                                                    <span className="px-3 py-1 bg-orange-600 text-white text-[10px] font-black rounded-full uppercase tracking-wider animate-pulse">
+                                                                        %{priceDiffPercent} İNDİRİM
+                                                                    </span>
                                                                 )}
                                                             </div>
-                                                            {hasDropped && (
-                                                                <div className="mt-2 flex items-center gap-2">
-                                                                    <span className="bg-orange-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">İNDİRİM!</span>
-                                                                    <span className="text-orange-700 text-xs font-bold">
-                                                                        {savings.toLocaleString('tr-TR')} TL Kazancınız var
-                                                                    </span>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                        <div className="flex flex-col items-end gap-2">
                                                             <button
                                                                 onClick={() => {
                                                                     if (window.confirm('Bu ürünün fiyat takibini bırakmak istediğinize emin misiniz?')) {
                                                                         deactivateAlert(alert.productId, currentUser.id);
                                                                     }
                                                                 }}
-                                                                className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                                                                className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                                                                 title="Takibi Bırak"
                                                             >
                                                                 <Trash2 className="w-5 h-5" />
                                                             </button>
+                                                        </div>
+
+                                                        {/* Body: Image & Info */}
+                                                        <div className="flex gap-4 mb-6">
+                                                            <div className="w-24 h-24 bg-white rounded-2xl border border-slate-100 p-2 flex-shrink-0 group-hover:scale-105 transition-transform duration-500">
+                                                                <img
+                                                                    src={product?.image}
+                                                                    alt={alert.productName}
+                                                                    className="w-full h-full object-contain"
+                                                                    onError={(e) => (e.currentTarget.src = 'https://via.placeholder.com/150')}
+                                                                />
+                                                            </div>
+                                                            <div className="flex-1 min-w-0">
+                                                                <Link
+                                                                    to={`/${slugify(alert.productName)}`}
+                                                                    className="text-sm font-bold text-slate-800 hover:text-blue-600 transition-colors line-clamp-2 leading-tight mb-2"
+                                                                >
+                                                                    {alert.productName}
+                                                                </Link>
+                                                                <div className="flex flex-col gap-1">
+                                                                    <div className="flex items-center justify-between text-xs">
+                                                                        <span className="text-slate-400 font-medium">Başlangıç:</span>
+                                                                        <span className="text-slate-600 font-bold">{alert.priceAtAlert.toLocaleString('tr-TR')} TL</span>
+                                                                    </div>
+                                                                    <div className="flex items-center justify-between text-sm">
+                                                                        <span className="text-slate-400 font-medium">Güncel:</span>
+                                                                        <span className={`font-black ${hasDropped ? 'text-orange-600 text-lg' : 'text-slate-900'}`}>
+                                                                            {product?.price.current.toLocaleString('tr-TR')} TL
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Footer: Savings & Action */}
+                                                        <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
+                                                            <div>
+                                                                {hasDropped ? (
+                                                                    <div className="text-orange-700 text-xs font-bold">
+                                                                        {savings.toLocaleString('tr-TR')} TL Kazancınız var!
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="text-slate-400 text-[10px] font-medium flex items-center gap-1">
+                                                                        <Bell className="w-3 h-3" /> Fiyat düşüşü bekleniyor
+                                                                    </div>
+                                                                )}
+                                                            </div>
                                                             <Link
                                                                 to={`/${slugify(alert.productName)}`}
-                                                                className="hidden sm:flex items-center gap-1 text-[11px] font-black text-blue-600 hover:underline"
+                                                                className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 text-xs font-black rounded-xl hover:bg-blue-600 hover:text-white transition-all group/btn"
                                                             >
-                                                                ÜRÜNE GİT <ArrowRight className="w-3 h-3" />
+                                                                İNCELE
+                                                                <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                                                             </Link>
                                                         </div>
                                                     </div>

@@ -81,15 +81,14 @@ export const ProductSection: React.FC<ProductSectionProps> = ({ title, linkText 
                 {/* Carousel */}
                 <div
                     ref={scrollContainerRef}
-                    className="flex gap-6 overflow-x-auto -mx-4 px-4 scrollbar-hide snap-x"
+                    className="flex gap-4 overflow-x-auto -mx-4 px-4 scrollbar-hide snap-x snap-mandatory"
                 >
                     {displayProducts.map((product) => (
-                        <div key={product.id} className="min-w-[240px] md:min-w-[280px] snap-start flex flex-col">
-                            <ProductCard {...product} />
-                        </div>
-                    ))}
-                    {displayProducts.length > 4 && displayProducts.map((product) => (
-                        <div key={`${product.id}-dup`} className="min-w-[240px] md:min-w-[280px] snap-start flex flex-col">
+                        <div
+                            key={product.id}
+                            className="snap-start flex-shrink-0"
+                            style={{ width: 'calc((100% - 64px) / 5)' }}
+                        >
                             <ProductCard {...product} />
                         </div>
                     ))}

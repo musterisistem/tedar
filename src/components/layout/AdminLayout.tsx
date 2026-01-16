@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 // Using safe, standard icons to avoid version incompatibility crashes
-import { LayoutDashboard, Users, ShoppingBag, Settings, LogOut, Package, ChevronDown, Plus, List, Folder, Percent, Layout, Image, Clock, CreditCard, Tag, Bell, Truck, Upload, Briefcase } from 'lucide-react';
+import { LayoutDashboard, Users, ShoppingBag, Settings, LogOut, Package, ChevronDown, Plus, List, Folder, Percent, Layout, Image, Clock, CreditCard, Tag, Bell, Truck, Briefcase, RefreshCw } from 'lucide-react';
 
 export const AdminLayout: React.FC = () => {
     const location = useLocation();
@@ -34,14 +34,14 @@ export const AdminLayout: React.FC = () => {
             id: 'products',
             subItems: [
                 { string_icon: Plus, label: 'Ürün Ekle', path: '/admin/products/add' },
-                { string_icon: Upload, label: 'Toplu Ürün Ekle', path: '/admin/products/import' },
                 { string_icon: List, label: 'Ürün Listesi', path: '/admin/products/list' },
                 { string_icon: Folder, label: 'Ürün Kategorileri', path: '/admin/categories' },
                 { string_icon: ShoppingBag, label: 'Outlet Yönetimi', path: '/admin/products/outlet' },
                 { string_icon: Percent, label: 'Kampanya Yönetimi', path: '/admin/products/campaigns' },
                 { string_icon: Clock, label: 'Flaş Ürünler', path: '/admin/products/flash' },
-                { string_icon: Folder, label: 'Marka Yönetimi', path: '/admin/products/brands' },
-                { string_icon: Percent, label: 'Sepette İndirim Yönetimi', path: '/admin/products/discount-in-cart' }
+                { string_icon: Folder, label: 'Marka Yönetimi', path: '/admin/brands' },
+                { string_icon: Percent, label: 'Sepette İndirim Yönetimi', path: '/admin/products/discount-in-cart' },
+                { string_icon: RefreshCw, label: 'Stok Güncelle', path: '/admin/products/stock-update' }
             ]
         },
         { icon: ShoppingBag, label: 'Siparişler', path: '/admin/orders' },
@@ -90,7 +90,7 @@ export const AdminLayout: React.FC = () => {
                                         </button>
 
                                         {/* Submenu */}
-                                        <div className={`mt-1 ml-4 space-y-1 overflow-hidden transition-all duration-300 ${openSubmenu === item.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                                        <div className={`mt-1 ml-4 space-y-1 overflow-hidden transition-all duration-300 ${openSubmenu === item.id ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
                                             {item.subItems.map((sub: any) => {
                                                 const SubIcon = sub.string_icon;
                                                 const isSubActive = location.pathname === sub.path;

@@ -171,7 +171,9 @@ export const CheckoutPage: React.FC = () => {
         }
 
         // Create Order Object
+        // Create Order Object (Enhanced safety)
         const orderData = {
+            userId: currentUser.id, // Explicitly link to user
             customer: currentUser.name,
             email: currentUser.email,
             phone: shippingAddress.phone || addressForm.phone,
@@ -186,14 +188,14 @@ export const CheckoutPage: React.FC = () => {
                 name: item.name,
                 price: item.price,
                 quantity: item.quantity,
-                image: item.image
+                image: item.image || ''
             })),
             isActiveMember: true,
             subtotal: subtotal,
             basketDiscount: basketDiscount,
             basketDiscountRate: basketDiscountRate,
-            date: new Date().toISOString(), // Ensure date is present
-            // Generate temporary ID for PayTR reference
+            date: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+            time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
             id: Date.now(),
             orderNo: `SP-${Date.now()}`
         };
@@ -270,9 +272,9 @@ export const CheckoutPage: React.FC = () => {
                 clearCart();
                 navigate('/siparis-basarili', { state: { order: savedOrder } });
 
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Error saving order:', error);
-                alert('Sipariş kaydedilirken bir hata oluştu.');
+                alert('Sipariş kaydedilirken bir hata oluştu: ' + (error.message || 'Bilinmeyen hata'));
             } finally {
                 setIsLoading(false);
             }

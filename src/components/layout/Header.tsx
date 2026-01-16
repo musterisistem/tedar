@@ -5,7 +5,6 @@ import { useCart } from '../../context/CartContext';
 import { useCategories } from '../../context/CategoryContext';
 import { useUsers } from '../../context/UserContext';
 import { useProducts } from '../../context/ProductContext';
-import { useOrders } from '../../context/OrderContext';
 import { CategoryDropdown } from './CategoryDropdown';
 import logo from '../../assets/logo.png';
 import * as Icons from 'lucide-react';
@@ -17,8 +16,7 @@ export const Header: React.FC = () => {
     const { categories } = useCategories();
     const { currentUser, logout, favorites } = useUsers();
     const { products } = useProducts();
-    const { orders } = useOrders();
-    // const currentUser = null; const logout = () => { };
+    // const { orders } = useOrders();
     const [searchTerm, setSearchTerm] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -72,22 +70,23 @@ export const Header: React.FC = () => {
         setShowSearch(true);
     };
 
-    const handleTrackOrder = () => {
-        if (!trackingNumber.trim()) return;
+    const handleTrackOrder = async (number?: string) => {
+        const num = number || trackingNumber;
+        if (!num.trim()) return;
 
-        // Search in OrderContext (orders)
         try {
-            const foundOrder = orders.find((o: any) =>
-                o.orderNo?.toLowerCase() === trackingNumber.toLowerCase().trim() ||
-                o.id?.toString() === trackingNumber.trim()
-            );
-
-            setTrackedOrder(foundOrder || null);
+            const response = await fetch(`/api/orders/track?orderNo=${num.trim()}`);
+            if (response.ok) {
+                const result = await response.json();
+                setTrackedOrder(result.data);
+            } else {
+                setTrackedOrder(null);
+            }
             setIsTrackModalOpen(true);
         } catch (error) {
             console.error("Takip sorgusu hatası", error);
             setTrackedOrder(null);
-            setIsTrackModalOpen(true); // Show not found state in modal
+            setIsTrackModalOpen(true);
         }
     };
 
@@ -151,10 +150,13 @@ export const Header: React.FC = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/siparis-takip" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium">
+                                        <button
+                                            onClick={() => setIsTrackModalOpen(true)}
+                                            className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium text-left"
+                                        >
                                             <Truck className="w-5 h-5 text-gray-400" />
                                             Sipariş Takip
-                                        </Link>
+                                        </button>
                                     </li>
                                     <li>
                                         <Link to="/hesabim?tab=favorites" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium">
@@ -277,10 +279,10 @@ export const Header: React.FC = () => {
                         </Link>
                         {/* Order Tracking Group */}
                         <div className="relative group hidden xl:block">
-                            <Link to="/siparis-takip" className="flex items-center gap-1 hover:text-secondary py-2">
+                            <div className="flex items-center gap-1 hover:text-secondary py-2 cursor-pointer">
                                 <Truck className="w-4 h-4" />
                                 <span className="hidden xl:inline">Sipariş Takip</span>
-                            </Link>
+                            </div>
                             {/* Order Tracking Dropdown */}
                             <div className="absolute right-0 top-full w-72 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-4">
                                 <h4 className="font-bold text-gray-800 text-sm mb-2">Siparişimi Nerede?</h4>
@@ -295,7 +297,7 @@ export const Header: React.FC = () => {
                                         className="w-full h-9 px-3 border border-gray-200 rounded text-sm focus:border-secondary focus:ring-1 focus:ring-secondary/20 outline-none"
                                     />
                                     <button
-                                        onClick={handleTrackOrder}
+                                        onClick={() => handleTrackOrder()}
                                         className="w-full bg-secondary text-white font-bold text-sm h-9 rounded hover:bg-blue-700 transition-colors"
                                     >
                                         Sorgula
@@ -518,7 +520,7 @@ export const Header: React.FC = () => {
                                                             }} />
                                                             <div className="flex items-center gap-2 mt-1">
                                                                 <span className="text-xs text-gray-500">{product.badges[0] || 'Stokta'}</span>
-                                                                {product.discount > 0 && (
+                                                                {product.discount && product.discount > 0 && (
                                                                     <span className="text-[10px] bg-red-100 text-red-600 px-1.5 rounded font-bold">%{product.discount}</span>
                                                                 )}
                                                             </div>

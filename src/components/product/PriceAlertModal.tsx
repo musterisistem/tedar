@@ -66,14 +66,14 @@ export const PriceAlertModal: React.FC<PriceAlertModalProps> = ({ isOpen, onClos
                             </p>
                             <div className="grid grid-cols-2 gap-4">
                                 <button
-                                    onClick={() => { onClose(); navigate('/login'); }}
+                                    onClick={() => { onClose(); navigate('/giris'); }}
                                     className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-4 rounded-2xl transition-all"
                                 >
                                     <LogIn className="w-5 h-5" />
                                     GİRİŞ YAP
                                 </button>
                                 <button
-                                    onClick={() => { onClose(); navigate('/register'); }}
+                                    onClick={() => { onClose(); navigate('/kayit'); }}
                                     className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-100"
                                 >
                                     <UserPlus className="w-5 h-5" />

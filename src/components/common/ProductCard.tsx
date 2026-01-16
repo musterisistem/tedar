@@ -89,10 +89,25 @@ export const ProductCard = React.memo<ProductProps>(({
 
                 {/* Rating */}
                 <div className="flex items-center gap-1 mb-2">
-                    <div className="flex text-yellow-400">
-                        {[...Array(5)].map((_, i) => (
-                            <Star key={i} className={`w-3 h-3 ${i < Math.floor(productData?.reviewItems?.length ? (productData.reviewItems.reduce((a, b) => a + b.rating, 0) / productData.reviewItems.length) : (productData?.rating ?? rating)) ? 'fill-current' : 'text-gray-300'}`} />
-                        ))}
+                    <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => {
+                            const reviewCount = productData?.reviewItems?.length ?? reviews ?? 0;
+
+                            const effectiveRating = reviewCount > 0
+                                ? (productData?.reviewItems?.length
+                                    ? (productData.reviewItems.reduce((a, b) => a + b.rating, 0) / productData.reviewItems.length)
+                                    : (productData?.rating ?? rating ?? 0))
+                                : 0; // Force 0 if no reviews
+
+                            const isActive = i < Math.round(effectiveRating);
+
+                            return (
+                                <Star
+                                    key={i}
+                                    className={`w-3 h-3 ${isActive ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                                />
+                            );
+                        })}
                     </div>
                     <span className="text-xs text-gray-400">({productData?.reviewItems?.length ?? reviews})</span>
                 </div>
