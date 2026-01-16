@@ -9,13 +9,6 @@ import { fileURLToPath } from 'url';
 import { MongoClient, ObjectId } from 'mongodb';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Resend } from 'resend';
-import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-import crypto from 'crypto';
-import { fileURLToPath } from 'url';
-import { MongoClient } from 'mongodb';
 
 // MongoDB Cached Connection Setup (Critical for Vercel)
 let cachedClient = null;
