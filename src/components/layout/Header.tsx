@@ -6,6 +6,7 @@ import { useCategories } from '../../context/CategoryContext';
 import { useUsers } from '../../context/UserContext';
 import { useProducts } from '../../context/ProductContext';
 import { CategoryDropdown } from './CategoryDropdown';
+import { LoginModal } from '../auth/LoginModal';
 import logo from '../../assets/logo.png';
 import * as Icons from 'lucide-react';
 import { OrderTrackingModal } from '../order/OrderTrackingModal';
@@ -20,6 +21,9 @@ export const Header: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Login Modal State
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
     // Order Tracking State
     const [trackingNumber, setTrackingNumber] = useState('');
@@ -121,7 +125,10 @@ export const Header: React.FC = () => {
                                         <ChevronRight className="w-4 h-4 ml-auto text-blue-400 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                 ) : (
-                                    <Link to="/giris" className="flex items-center gap-3 text-blue-900 group">
+                                    <button
+                                        onClick={() => setIsLoginModalOpen(true)}
+                                        className="flex items-center gap-3 text-blue-900 group w-full text-left"
+                                    >
                                         <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                                             <User className="w-5 h-5 text-blue-600" />
                                         </div>
@@ -130,7 +137,7 @@ export const Header: React.FC = () => {
                                             <div className="font-bold text-sm">Giriş Yap / Üye Ol</div>
                                         </div>
                                         <ChevronRight className="w-4 h-4 ml-auto text-blue-400 group-hover:translate-x-1 transition-transform" />
-                                    </Link>
+                                    </button>
                                 )}
                             </div>
 
@@ -305,7 +312,12 @@ export const Header: React.FC = () => {
                                 </div>
                                 <div className="mt-3 pt-3 border-t border-gray-100 text-center">
                                     {!currentUser && (
-                                        <Link to="/giris" className="text-xs text-blue-600 font-medium hover:underline">Üye Girişi Yap</Link>
+                                        <button
+                                            onClick={() => setIsLoginModalOpen(true)}
+                                            className="text-xs text-blue-600 font-medium hover:underline"
+                                        >
+                                            Üye Girişi Yap
+                                        </button>
                                     )}
                                 </div>
                             </div>
@@ -341,9 +353,12 @@ export const Header: React.FC = () => {
                                     <>
                                         <h4 className="font-bold text-gray-800 text-center mb-4">Giriş Yap</h4>
                                         <div className="space-y-3">
-                                            <Link to="/giris" className="block w-full bg-secondary text-white font-bold text-sm py-2 rounded hover:bg-blue-700 transition-colors shadow-blue-100 shadow-lg text-center">
+                                            <button
+                                                onClick={() => setIsLoginModalOpen(true)}
+                                                className="block w-full bg-secondary text-white font-bold text-sm py-2 rounded hover:bg-blue-700 transition-colors shadow-blue-100 shadow-lg text-center"
+                                            >
                                                 Giriş Yap
-                                            </Link>
+                                            </button>
                                             <Link to="/kayit" className="block w-full bg-slate-100 text-slate-700 font-bold text-sm py-2 rounded hover:bg-slate-200 transition-colors text-center">
                                                 Kayıt Ol
                                             </Link>
@@ -559,11 +574,16 @@ export const Header: React.FC = () => {
                 </div>
             </div>
             {/* Order Tracking Modal */}
-            {/* Order Tracking Modal */}
             <OrderTrackingModal
                 isOpen={isTrackModalOpen}
                 onClose={() => setIsTrackModalOpen(false)}
                 order={trackedOrder}
+            />
+
+            {/* Login Modal */}
+            <LoginModal
+                isOpen={isLoginModalOpen}
+                onClose={() => setIsLoginModalOpen(false)}
             />
 
         </header >

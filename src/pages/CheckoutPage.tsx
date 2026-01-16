@@ -41,6 +41,8 @@ export const CheckoutPage: React.FC = () => {
     };
 
     const [paymentMethod, setPaymentMethod] = useState(getDefaultPaymentMethod());
+    const [showPayTR, setShowPayTR] = useState(false);
+    const [paytrToken, setPaytrToken] = useState('');
 
     // Detailed Address Form State
     const [addressForm, setAddressForm] = useState({
@@ -132,8 +134,7 @@ export const CheckoutPage: React.FC = () => {
         );
     }
 
-    const [showPayTR, setShowPayTR] = useState(false);
-    const [paytrToken, setPaytrToken] = useState('');
+
     // const [tempOrder, setTempOrder] = useState<any>(null);
 
     // 2. Order Placement & Address Saving Logic
