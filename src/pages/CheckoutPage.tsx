@@ -266,7 +266,7 @@ export const CheckoutPage: React.FC = () => {
                 }
 
                 updateUser(currentUser.id, {
-                    orders: [savedOrder, ...currentUser.orders],
+                    orders: [savedOrder, ...(Array.isArray(currentUser.orders) ? currentUser.orders : [])],
                     addresses: updatedAddresses
                 });
 
