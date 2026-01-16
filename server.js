@@ -353,13 +353,131 @@ const getOrderStatusTemplate = (order) => `
 `;
 
 const getAdminNotificationTemplate = (order) => `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px; border-left: 5px solid #ef4444;">
-        <h2 style="color: #b91c1c;">Yeni Sipariş Alındı!</h2>
-        <p><strong>Müşteri:</strong> ${order.customer}</p>
-        <p><strong>Tutar:</strong> ${order.amount.toLocaleString('tr-TR')} TL</p>
-        <p><strong>Sipariş No:</strong> ${order.orderNo}</p>
-        <div style="margin-top: 20px;">
-            <a href="http://localhost:5173/admin/orders" style="background-color: #ef4444; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Admin Paneline Git</a>
+    <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 650px; margin: 0 auto; background: #f8f9fa; padding: 30px 15px;">
+        <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+            
+            <!-- Alert Banner -->
+            <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); padding: 35px 30px; text-align: center;">
+                <div style="background: white; width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div style="font-size: 48px;">🛒</div>
+                </div>
+                <h1 style="color: white; font-size: 28px; margin: 0 0 10px 0; font-weight: 700;">
+                    Yeni Sipariş Alındı!
+                </h1>
+                <p style="color: rgba(255,255,255,0.95); font-size: 15px; margin: 0;">
+                    Sipariş No: <strong>${order.orderNo}</strong>
+                </p>
+            </div>
+
+            <!-- Order Summary -->
+            <div style="padding: 30px;">
+                <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #f59e0b;">
+                    <h2 style="color: #92400e; font-size: 18px; margin: 0 0 15px 0;">
+                        💰 Sipariş Tutarı
+                    </h2>
+                    <div style="color: #78350f; font-size: 32px; font-weight: 700;">
+                        ${order.amount?.toLocaleString('tr-TR') || '0'} TL
+                    </div>
+                </div>
+
+                <!-- Customer Info -->
+                <div style="background: #f7fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                    <h3 style="color: #2d3748; font-size: 16px; margin: 0 0 15px 0; font-weight: 600;">👤 Müşteri Bilgileri</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 8px 0; color: #718096; font-size: 14px; width: 30%;">Ad Soyad:</td>
+                            <td style="padding: 8px 0; color: #2d3748; font-weight: 600;">${order.customer || 'Belirtilmemiş'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #718096; font-size: 14px;">E-posta:</td>
+                            <td style="padding: 8px 0; color: #2d3748;">${order.email || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #718096; font-size: 14px;">Telefon:</td>
+                            <td style="padding: 8px 0; color: #2d3748;">${order.phone || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #718096; font-size: 14px; vertical-align: top;">Adres:</td>
+                            <td style="padding: 8px 0; color: #2d3748; line-height: 1.5;">${order.address || '-'}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Order Details -->
+                <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; overflow: hidden; margin-bottom: 25px;">
+                    <div style="background: #f7fafc; padding: 15px 20px; border-bottom: 2px solid #e2e8f0;">
+                        <h3 style="color: #2d3748; font-size: 16px; margin: 0; font-weight: 600;">📦 Sipariş Detayları</h3>
+                    </div>
+                    <div style="padding: 15px 20px;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 8px 0; color: #718096; font-size: 14px;">Sipariş Tarihi:</td>
+                                <td style="padding: 8px 0; color: #2d3748; text-align: right; font-weight: 600;">${order.date || new Date().toLocaleDateString('tr-TR')}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; color: #718096; font-size: 14px;">Ödeme Yöntemi:</td>
+                                <td style="padding: 8px 0; color: #2d3748; text-align: right;">${order.paymentType || 'Belirtilmemiş'}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; color: #718096; font-size: 14px;">Ürün Sayısı:</td>
+                                <td style="padding: 8px 0; color: #2d3748; text-align: right;">${order.items?.length || 0} adet</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Products List -->
+                ${order.items && order.items.length > 0 ? `
+                <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; overflow: hidden; margin-bottom: 25px;">
+                    <div style="background: #f7fafc; padding: 15px 20px; border-bottom: 2px solid #e2e8f0;">
+                        <h3 style="color: #2d3748; font-size: 16px; margin: 0; font-weight: 600;">📋 Sipariş Edilen Ürünler</h3>
+                    </div>
+                    <div style="padding: 10px;">
+                        ${order.items.map((item, index) => `
+                            <div style="padding: 12px; border-bottom: ${index < order.items.length - 1 ? '1px solid #f1f5f9' : 'none'}; display: flex; justify-content: space-between; align-items: center;">
+                                <div style="flex: 1;">
+                                    <div style="color: #2d3748; font-weight: 600; font-size: 14px; margin-bottom: 4px;">${item.name}</div>
+                                    <div style="color: #718096; font-size: 12px;">${item.quantity} adet × ${item.price?.toLocaleString('tr-TR')} TL</div>
+                                </div>
+                                <div style="color: #2d3748; font-weight: 600; font-size: 15px;">
+                                    ${((item.price || 0) * (item.quantity || 0)).toLocaleString('tr-TR')} TL
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Action Buttons -->
+                <div style="text-align: center; margin: 30px 0 20px;">
+                    <a href="${process.env.BASE_URL || 'https://dorteltedarik.com'}/admin/orders" 
+                       style="display: inline-block; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); 
+                              color: white; padding: 14px 35px; text-decoration: none; border-radius: 50px; 
+                              font-weight: 600; font-size: 15px; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);">
+                        🔧 Admin Paneline Git
+                    </a>
+                </div>
+
+                <!-- Quick Actions -->
+                <div style="background: #edf2f7; padding: 20px; border-radius: 10px; text-align: center;">
+                    <p style="color: #4a5568; font-size: 13px; margin: 0 0 10px 0;">
+                        <strong>Hızlı İşlemler</strong>
+                    </p>
+                    <p style="color: #718096; font-size: 12px; margin: 0; line-height: 1.5;">
+                        Sipariş durumunu güncellemek ve müşteriyi bilgilendirmek için admin paneline giriş yapın.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background: #f7fafc; padding: 20px 30px; border-top: 1px solid #e2e8f0; text-align: center;">
+                <p style="color: #718096; font-size: 11px; margin: 0 0 5px 0;">
+                    © ${new Date().getFullYear()} Dörtel Tedarik Admin Panel
+                </p>
+                <p style="color: #a0aec0; font-size: 10px; margin: 0;">
+                    Bu e-posta otomatik olarak gönderilmiştir.
+                </p>
+            </div>
         </div>
     </div>
 `;
@@ -898,26 +1016,48 @@ app.post('/api/orders', async (req, res) => {
                     }
 
                     // 2. Send to Admin
-                    // Load dynamic settings from DB
+                    // Load admin emails from notification settings (JSON file first, then MongoDB)
                     let adminEmails = [];
+
+                    // Try JSON file first
                     try {
-                        // Use existing database connection or reconnect
-                        const db = database || await connectDB();
-                        if (db) {
-                            const settingsDoc = await db.collection('settings').findOne({ key: 'notificationSettings' });
-                            if (settingsDoc?.data?.adminEmails && Array.isArray(settingsDoc.data.adminEmails)) {
-                                adminEmails = settingsDoc.data.adminEmails;
+                        const settingsPath = path.join(DATA_DIR, 'notificationSettings.json');
+                        if (fs.existsSync(settingsPath)) {
+                            const fileData = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
+                            if (Array.isArray(fileData.adminEmails)) {
+                                adminEmails.push(...fileData.adminEmails);
                             }
                         }
                     } catch (err) {
-                        console.error('Failed to load notification settings from DB:', err);
+                        console.log('Could not load notification settings from file:', err.message);
                     }
 
-                    // Fallback to env or default
+                    // Try MongoDB if no emails from file
+                    if (adminEmails.length === 0) {
+                        try {
+                            const db = database || await connectDB();
+                            if (db) {
+                                const settingsDoc = await db.collection('settings').findOne({ key: 'notificationSettings' });
+                                if (settingsDoc?.data?.adminEmails && Array.isArray(settingsDoc.data.adminEmails)) {
+                                    adminEmails.push(...settingsDoc.data.adminEmails);
+                                }
+                            }
+                        } catch (err) {
+                            console.error('Failed to load notification settings from DB:', err);
+                        }
+                    }
+
+                    // Fallback to default
                     if (adminEmails.length === 0) {
                         const envEmail = process.env.ADMIN_EMAIL || 'info@dorteltedarik.com';
                         adminEmails = [envEmail];
+                        console.log('⚠️ Using fallback admin email:', envEmail);
                     }
+
+                    // Remove duplicates
+                    adminEmails = [...new Set(adminEmails)];
+
+                    console.log('📧 Sending admin notification to:', adminEmails);
 
                     await resend.emails.send({
                         from: 'Dörtel Tedarik <siparis@dorteltedarik.com>',
