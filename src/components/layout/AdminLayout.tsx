@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 // Using safe, standard icons to avoid version incompatibility crashes
-import { LayoutDashboard, Users, ShoppingBag, Settings, LogOut, Package, ChevronDown, Plus, List, Folder, Percent, Layout, Image, Clock, CreditCard, Tag, Bell, Truck, Briefcase, RefreshCw } from 'lucide-react';
+import { LayoutDashboard, Users, ShoppingBag, Settings, LogOut, Package, ChevronDown, Plus, List, Folder, Percent, Layout, Image, Clock, CreditCard, Tag, Bell, Truck, Briefcase, RefreshCw, FileText } from 'lucide-react';
 
 export const AdminLayout: React.FC = () => {
     const location = useLocation();
@@ -56,7 +56,8 @@ export const AdminLayout: React.FC = () => {
                 { string_icon: CreditCard, label: 'Ödeme Yöntemleri', path: '/admin/settings/payments' },
                 { string_icon: Truck, label: 'Teslimat Ayarları', path: '/admin/settings/delivery' },
                 { string_icon: Bell, label: 'Bildirim Ayarları', path: '/admin/settings/notifications' },
-                { string_icon: Users, label: 'İletişim Bilgileri', path: '/admin/settings/contact' }
+                { string_icon: Users, label: 'İletişim Bilgileri', path: '/admin/settings/contact' },
+                { string_icon: FileText, label: 'Sözleşme Sayfaları', path: '/admin/settings/policies' }
             ]
         },
     ];

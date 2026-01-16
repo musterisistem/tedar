@@ -142,7 +142,20 @@ interface SiteContextType {
     updateContactPage: (data: ContactPageData) => void;
     freeShippingBanner: FreeShippingBannerSettings;
     updateFreeShippingBanner: (settings: FreeShippingBannerSettings) => void;
+    policyPages: PolicyPages;
+    updatePolicyPages: (pages: PolicyPages) => void;
     saveSiteSettings: (overrides?: any) => Promise<{ success: boolean; message: string }>;
+}
+
+export interface PolicyPage {
+    title: string;
+    content: string;
+}
+
+export interface PolicyPages {
+    distanceSalesAgreement: PolicyPage;
+    returnConditions: PolicyPage;
+    membershipAgreement: PolicyPage;
 }
 
 const SiteContext = createContext<SiteContextType | undefined>(undefined);
@@ -178,6 +191,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                     if (data.aboutPage) setAboutPage(data.aboutPage);
                     if (data.contactPage) setContactPage(data.contactPage);
                     if (data.freeShippingBanner) setFreeShippingBanner(data.freeShippingBanner);
+                    if (data.policyPages) setPolicyPages(data.policyPages);
                 }
             } catch (error) {
                 console.error('Site ayarları yüklenemedi:', error);
@@ -327,6 +341,17 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         };
     });
 
+    const [policyPages, setPolicyPages] = useState<PolicyPages>(() => {
+        const saved = localStorage.getItem('site_policy_pages');
+        if (saved) return JSON.parse(saved);
+        const data = (siteSettings as any).data || siteSettings;
+        return data.policyPages || {
+            distanceSalesAgreement: { title: 'Mesafeli Satış Sözleşmesi', content: '<p>Mesafeli satış sözleşmesi içeriği buraya gelecek.</p>' },
+            returnConditions: { title: 'İade ve Kargo Şartları', content: '<p>İade ve kargo şartları içeriği buraya gelecek.</p>' },
+            membershipAgreement: { title: 'Üyelik Sözleşmesi', content: '<p>Üyelik sözleşmesi içeriği buraya gelecek.</p>' }
+        };
+    });
+
     const updateSlides = (newSlides: Slide[]) => {
         setSlides(newSlides);
         localStorage.setItem('site_slides', JSON.stringify(newSlides));
@@ -382,6 +407,11 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         localStorage.setItem('site_free_shipping_banner', JSON.stringify(newSettings));
     };
 
+    const updatePolicyPages = (newPages: PolicyPages) => {
+        setPolicyPages(newPages);
+        localStorage.setItem('site_policy_pages', JSON.stringify(newPages));
+    }
+
     const saveSiteSettings = async (overrides?: any) => {
         const settings = {
             filename: 'siteSettings.json',
@@ -397,6 +427,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 aboutPage,
                 contactPage,
                 freeShippingBanner,
+                policyPages,
                 ...overrides
             }
         };
@@ -426,6 +457,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             aboutPage, updateAboutPage,
             contactPage, updateContactPage,
             freeShippingBanner, updateFreeShippingBanner,
+            policyPages, updatePolicyPages,
             saveSiteSettings
         }}>
             {children}

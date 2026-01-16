@@ -29,6 +29,7 @@ const Account = React.lazy(() => import('./pages/account/Account').then(module =
 const About = React.lazy(() => import('./pages/About').then(module => ({ default: module.About })));
 const Contact = React.lazy(() => import('./pages/Contact').then(module => ({ default: module.Contact })));
 const ProductCollectionPage = React.lazy(() => import('./pages/ProductCollectionPage').then(module => ({ default: module.ProductCollectionPage })));
+const StaticPage = React.lazy(() => import('./pages/StaticPage').then(module => ({ default: module.default })));
 
 // Admin Pages (Lazy)
 const AdminLayout = React.lazy(() => import('./components/layout/AdminLayout').then(module => ({ default: module.AdminLayout })));
@@ -60,6 +61,7 @@ const OfficeSupplyManager = React.lazy(() => import('./pages/admin/home/OfficeSu
 
 const NotificationSettings = React.lazy(() => import('./pages/admin/NotificationSettings').then(module => ({ default: module.NotificationSettings })));
 const BulkStockUpdate = React.lazy(() => import('./pages/admin/BulkStockUpdate').then(module => ({ default: module.BulkStockUpdate })));
+const PolicyManager = React.lazy(() => import('./pages/admin/PolicyManager').then(module => ({ default: module.PolicyManager })));
 
 
 function App() {
@@ -102,6 +104,7 @@ function App() {
                             <Route path="/admin/settings/about" element={<AboutManager />} />
                             <Route path="/admin/settings/contact" element={<ContactManager />} />
                             <Route path="/admin/settings/notifications" element={<NotificationSettings />} />
+                            <Route path="/admin/settings/policies" element={<PolicyManager />} />
                             <Route path="/admin/home/collections" element={<HomeCollectionsManager />} />
                             <Route path="/admin/home/slider" element={<SliderManager />} />
                             <Route path="/admin/home/banners" element={<BannerManager />} />
@@ -132,14 +135,19 @@ function App() {
                             <Route path="/sifre-sifirla/:token" element={<ResetPassword />} />
                             <Route path="/hesabim" element={<Account />} />
                             <Route path="/account" element={<Navigate to="/hesabim" replace />} />
-                            <Route path="/account" element={<Navigate to="/hesabim" replace />} />
                             <Route path="/hakkimizda" element={<About />} />
                             <Route path="/iletisim" element={<Contact />} />
                             <Route path="/support" element={<Navigate to="/iletisim" replace />} />
                             <Route path="/outlet" element={<ProductCollectionPage type="outlet" />} />
                             <Route path="/kampanyalar" element={<ProductCollectionPage type="campaign" />} />
                             <Route path="/ayni-gun-kargo" element={<ProductCollectionPage type="same-day-shipping" />} />
-                            <Route path="/siparis-takip" element={<OrderSuccess />} /> {/* Assuming tracking uses similar or specific page, but previously distinct routes? Re-checking context: originally it wasn't a separate route in App.tsx list I saw? Ah, line 150 in Header linked to /track-order. I need to add/update it if it existed or map it. Original App.tsx didn't show /track-order route? Let's check original. */}
+                            <Route path="/siparis-takip" element={<OrderSuccess />} />
+
+                            {/* Static Policy Pages */}
+                            <Route path="/mesafeli-satis-sozlesmesi" element={<StaticPage pageKey="distanceSalesAgreement" />} />
+                            <Route path="/iade-ve-kargo" element={<StaticPage pageKey="returnConditions" />} />
+                            <Route path="/uyelik-sozlesmesi" element={<StaticPage pageKey="membershipAgreement" />} />
+
                             {/* Product Catch-all Route - Must be last */}
                             <Route path="/:slug" element={<ProductDetail />} />
                           </Route>

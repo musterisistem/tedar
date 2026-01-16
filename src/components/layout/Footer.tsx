@@ -35,10 +35,10 @@ export const Footer: React.FC = () => {
                         <h3 className="text-white font-bold mb-6">Kurumsal</h3>
                         <ul className="space-y-3 text-sm">
                             <li><Link to="/hakkimizda" className="hover:text-secondary transition-colors">Hakkımızda</Link></li>
-                            <li><a href="#" className="hover:text-secondary transition-colors">Kariyer</a></li>
+                            <li><Link to="/mesafeli-satis-sozlesmesi" className="hover:text-secondary transition-colors">Mesafeli Satış Sözleşmesi</Link></li>
+                            <li><Link to="/iade-ve-kargo" className="hover:text-secondary transition-colors">İade ve Kargo Şartları</Link></li>
+                            <li><Link to="/uyelik-sozlesmesi" className="hover:text-secondary transition-colors">Üyelik Sözleşmesi</Link></li>
                             <li><Link to="/iletisim" className="hover:text-secondary transition-colors">İletişim</Link></li>
-                            <li><a href="#" className="hover:text-secondary transition-colors">Mağazalarımız</a></li>
-                            <li><a href="#" className="hover:text-secondary transition-colors">Blog</a></li>
                         </ul>
                     </div>
 
