@@ -302,7 +302,8 @@ app.get('/api/health', async (req, res) => {
 // REGISTER
 app.post('/api/users/register', async (req, res) => {
     try {
-        const { email, password, name, phone, address, city, district, zipCode } = req.body;
+        const { password, name, phone, address, city, district, zipCode } = req.body;
+        const email = req.body.email?.trim().toLowerCase();
 
         if (!email || !password || !name) {
             return res.status(400).json({ error: 'Email, şifre ve isim zorunludur' });
@@ -357,7 +358,8 @@ app.post('/api/users/register', async (req, res) => {
 // LOGIN
 app.post('/api/users/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { password } = req.body;
+        const email = req.body.email?.trim().toLowerCase();
 
         const db = await connectDB();
         if (!db) return res.status(500).json({ error: 'Database connection failed' });

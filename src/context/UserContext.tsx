@@ -197,8 +197,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         checkAuth();
     }, []);
 
-    const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    const login = async (emailInput: string, password: string): Promise<{ success: boolean; error?: string }> => {
         try {
+            const email = emailInput.trim().toLowerCase(); // Normalize email
             const res = await fetch('/api/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -231,10 +232,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         password: string
     }) => {
         try {
+            // Normalize email during registration
+            const cleanUserData = { ...userData, email: userData.email.trim().toLowerCase() };
+
             const res = await fetch('/api/users/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
+                body: JSON.stringify(cleanUserData)
             });
 
             const data = await res.json();
