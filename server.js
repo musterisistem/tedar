@@ -95,7 +95,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const DATA_DIR = path.join(__dirname, 'src/data');
 
 // Ensure data dir exists
-if (!fs.existsSync(DATA_DIR)) {
+// Ensure data dir exists (Local Development Only)
+if (process.env.VERCEL !== '1' && !fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
@@ -820,9 +821,12 @@ app.post('/api/paytr/token', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`API Server running at http://localhost:${port}`);
-});
+// Only listen if NOT in Vercel (Local Development)
+if (process.env.VERCEL !== '1') {
+    app.listen(port, () => {
+        console.log(`API Server running at http://localhost:${port}`);
+    });
+}
 
 // KEEP ALIVE HACK
 // Force event loop to stay open if app.listen fails to hold it in this environment
