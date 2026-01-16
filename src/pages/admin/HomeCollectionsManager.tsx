@@ -33,7 +33,7 @@ export const HomeCollectionsManager: React.FC = () => {
         });
     };
 
-    const activeCollection = homeCollections.find(c => c.id === activeCollectionId);
+    const activeCollection = Array.isArray(homeCollections) ? homeCollections.find(c => c.id === activeCollectionId) : undefined;
 
     const handleUpdateTitle = (newTitle: string) => {
         updateHomeCollection(activeCollectionId, { title: newTitle });
@@ -112,7 +112,7 @@ export const HomeCollectionsManager: React.FC = () => {
 
             {/* Tabs */}
             <div className="flex gap-4 border-b border-gray-200">
-                {homeCollections.map(c => (
+                {Array.isArray(homeCollections) && homeCollections.map(c => (
                     <button
                         key={c.id}
                         onClick={() => setActiveCollectionId(c.id)}
@@ -153,7 +153,7 @@ export const HomeCollectionsManager: React.FC = () => {
                                     className="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none focus:border-blue-500"
                                 >
                                     <option value="">Tüm Kategoriler</option>
-                                    {categoriesData.map(c => (
+                                    {categoriesData.data.map(c => (
                                         <option key={c.id} value={c.id}>{c.name}</option>
                                     ))}
                                 </select>
