@@ -10,6 +10,7 @@ import { useProducts } from '../../context/ProductContext';
 import { ProductCard } from '../../components/common/ProductCard';
 import { useLocation } from 'react-router-dom';
 import { OrderTrackingModal } from '../../components/order/OrderTrackingModal';
+import { useOrders } from '../../context/OrderContext';
 
 export const Account: React.FC = () => {
     const navigate = useNavigate();
@@ -17,6 +18,13 @@ export const Account: React.FC = () => {
     const { currentUser, logout, updateUser, favorites, clearFavorites } = useUsers();
     const { products } = useProducts();
     const { alerts, deactivateAlert, clearUserAlerts } = usePriceAlerts();
+    const { orders } = useOrders();
+
+    // Filter user orders
+    const userOrders = orders.filter(order =>
+        order.userId === currentUser?.id ||
+        order.email === currentUser?.email
+    );
 
     // URL'den tab parametresini al veya varsayılan olarak 'profile' kullan
     const searchParams = new URLSearchParams(location.search);
@@ -248,9 +256,9 @@ export const Account: React.FC = () => {
                                         <Package className="w-5 h-5" />
                                         Sipariş Geçmişi
                                     </h2>
-                                    {currentUser.orders && currentUser.orders.length > 0 ? (
+                                    {userOrders && userOrders.length > 0 ? (
                                         <div className="space-y-4">
-                                            {(currentUser.orders || []).map((order, index) => (
+                                            {userOrders.map((order, index) => (
                                                 <div
                                                     key={index}
                                                     onClick={() => setSelectedOrder(order)}

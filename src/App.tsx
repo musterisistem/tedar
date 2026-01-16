@@ -74,7 +74,7 @@ function App() {
                       <Suspense fallback={<Loading />}>
                         <Routes>
                           {/* Admin Routes */}
-                          <Route path="/admin" element={<AdminLogin />} />
+                          <Route path="/admindortel224" element={<AdminLogin />} />
                           <Route element={<AdminLayout />}>
                             <Route path="/admin/dashboard" element={<Dashboard />} />
                             <Route path="/admin/orders" element={<Orders />} />
