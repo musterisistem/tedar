@@ -54,6 +54,7 @@ export const AdminLayout: React.FC = () => {
             id: 'settings',
             subItems: [
                 { string_icon: CreditCard, label: 'Ödeme Yöntemleri', path: '/admin/settings/payments' },
+                { string_icon: Truck, label: 'Kargo Ücreti Yönetimi', path: '/admin/settings/shipping' },
                 { string_icon: Truck, label: 'Teslimat Ayarları', path: '/admin/settings/delivery' },
                 { string_icon: Bell, label: 'Bildirim Ayarları', path: '/admin/settings/notifications' },
                 { string_icon: Users, label: 'İletişim Bilgileri', path: '/admin/settings/contact' },

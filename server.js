@@ -1471,11 +1471,32 @@ app.post('/api/paytr/token', async (req, res) => {
         // Timeout (Link validity)
         const timeout_limit = 30; // Minutes
 
-        // Callbacks
-        // Use BASE_URL from environment variables (Vercel) or fallback to localhost
-        const baseUrl = process.env.BASE_URL || 'http://localhost:5173';
-        const merchant_ok_url = `${baseUrl}/order-success`;
-        const merchant_fail_url = `${baseUrl}/checkout?error=payment_failed`;
+        // Callbacks - Intelligent Base URL Detection
+        // Priority: BASE_URL (explicit) > VERCEL_URL (auto) > localhost (dev)
+        const getBaseUrl = () => {
+            // 1. Explicit BASE_URL (set in Vercel env vars)
+            if (process.env.BASE_URL) {
+                console.log('💳 PayTR using BASE_URL:', process.env.BASE_URL);
+                return process.env.BASE_URL;
+            }
+
+            // 2. Vercel automatic URL (always available in Vercel deployments)
+            if (process.env.VERCEL_URL) {
+                const url = `https://${process.env.VERCEL_URL}`;
+                console.log('💳 PayTR using VERCEL_URL:', url);
+                return url;
+            }
+
+            // 3. Local development fallback
+            console.log('💳 PayTR using localhost (development mode)');
+            return 'http://localhost:5173';
+        };
+
+        const baseUrl = getBaseUrl();
+        const merchant_ok_url = `${baseUrl}/siparis-basarili`;
+        const merchant_fail_url = `${baseUrl}/odeme?error=payment_failed`;
+
+        console.log('💳 PayTR Callback URLs:', { merchant_ok_url, merchant_fail_url });
 
         // Basket must be JSON encoded string of array of arrays: [["Name", "Price", "Qty"], ...]
         // Client sends proper array, we stringify it.

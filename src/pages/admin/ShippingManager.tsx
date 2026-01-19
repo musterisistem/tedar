@@ -103,7 +103,11 @@ export const ShippingManager: React.FC = () => {
                                         <input
                                             type="number"
                                             value={settings.freeShippingThreshold}
-                                            onChange={(e) => setSettings({ ...settings, freeShippingThreshold: Number(e.target.value) })}
+                                            onChange={(e) => {
+                                                const val = e.target.value === '' ? 0 : Number(e.target.value);
+                                                setSettings({ ...settings, freeShippingThreshold: val });
+                                            }}
+                                            onFocus={(e) => e.target.select()}
                                             className="w-full px-4 py-3 rounded-lg border-2 border-green-300 focus:border-green-500 outline-none text-lg font-bold text-green-900"
                                             placeholder="1500"
                                             min="0"
@@ -125,7 +129,11 @@ export const ShippingManager: React.FC = () => {
                                         <input
                                             type="number"
                                             value={settings.fixedShippingCost}
-                                            onChange={(e) => setSettings({ ...settings, fixedShippingCost: Number(e.target.value) })}
+                                            onChange={(e) => {
+                                                const val = e.target.value === '' ? 0 : Number(e.target.value);
+                                                setSettings({ ...settings, fixedShippingCost: val });
+                                            }}
+                                            onFocus={(e) => e.target.select()}
                                             className="w-full px-4 py-3 rounded-lg border-2 border-orange-300 focus:border-orange-500 outline-none text-lg font-bold text-orange-900"
                                             placeholder="50"
                                             min="0"
@@ -162,8 +170,8 @@ export const ShippingManager: React.FC = () => {
                                     <div
                                         key={amount}
                                         className={`p-4 rounded-xl border-2 transition-all ${isFree
-                                                ? 'bg-green-100 border-green-300'
-                                                : 'bg-white border-blue-200'
+                                            ? 'bg-green-100 border-green-300'
+                                            : 'bg-white border-blue-200'
                                             }`}
                                     >
                                         <div className="flex justify-between items-center mb-2">
