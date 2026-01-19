@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, Plus, Minus, ArrowRight, ArrowLeft, Percent, CheckCircle } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, ArrowLeft, Percent, CheckCircle, Truck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
+import { useSite } from '../context/SiteContext';
 import { slugify } from '../utils/slugify';
 
 export const CartPage: React.FC = () => {
     const {
         items, removeItem, updateQuantity, totalPrice,
-        subtotal, basketDiscount, qualifyingCount
+        subtotal, basketDiscount, qualifyingCount, shippingCost, finalTotal
     } = useCart();
     const { basketDiscountRate, discountInCartProductIds, products } = useProducts();
+    const { deliverySettings } = useSite();
     const navigate = useNavigate();
 
     // Standardize IDs for comparison
@@ -143,13 +145,38 @@ export const CartPage: React.FC = () => {
                                     <span>-{basketDiscount.toLocaleString('tr-TR')} TL</span>
                                 </div>
                             )}
-                            <div className="flex justify-between text-gray-600 text-sm">
-                                <span>Kargo</span>
-                                <span className="text-green-600 font-medium">Bedava</span>
-                            </div>
+
+                            {/* Kargo Bölümü */}
+                            {deliverySettings.isEnabled && shippingCost > 0 ? (
+                                <div className="flex justify-between text-orange-600 text-sm font-medium">
+                                    <span>Kargo Ücreti</span>
+                                    <span>{shippingCost.toLocaleString('tr-TR')} TL</span>
+                                </div>
+                            ) : (
+                                <div className="flex justify-between text-green-600 text-sm font-bold">
+                                    <span>Kargo</span>
+                                    <span>ÜCRETSİZ</span>
+                                </div>
+                            )}
+
+                            {/* Free Shipping Progress */}
+                            {deliverySettings.isEnabled && shippingCost > 0 && (
+                                <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    <p className="text-xs text-blue-800 mb-2">
+                                        <span className="font-bold">{(deliverySettings.freeShippingThreshold - totalPrice).toLocaleString('tr-TR')} TL</span> daha alışveriş yaparsanız <strong>ücretsiz kargo</strong> kazanırsınız!
+                                    </p>
+                                    <div className="w-full bg-blue-200 rounded-full h-2">
+                                        <div
+                                            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                                            style={{ width: `${Math.min((totalPrice / deliverySettings.freeShippingThreshold) * 100, 100)}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="border-t border-gray-100 pt-3 flex justify-between font-bold text-lg text-gray-900">
                                 <span>Toplam</span>
-                                <span className="text-blue-600">{totalPrice.toLocaleString('tr-TR')} TL</span>
+                                <span className="text-blue-600">{finalTotal.toLocaleString('tr-TR')} TL</span>
                             </div>
                         </div>
 

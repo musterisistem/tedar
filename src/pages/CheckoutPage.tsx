@@ -13,7 +13,7 @@ import { PayTRModal } from '../components/common/PayTRModal';
 export const CheckoutPage: React.FC = () => {
     const {
         totalPrice, clearCart, items, subtotal,
-        basketDiscount
+        basketDiscount, shippingCost, finalTotal
     } = useCart();
     const { basketDiscountRate } = useProducts();
     const { currentUser, updateUser } = useUsers();
@@ -198,7 +198,7 @@ export const CheckoutPage: React.FC = () => {
             date: new Date().toISOString().split('T')[0], // YYYY-MM-DD
             time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
             id: Date.now(),
-            orderNo: `SP-${Date.now()}`
+            orderNo: `SP${Date.now()}` // PayTR requires alphanumeric only
         };
 
         if (paymentMethod === 'Kredi Kartı') {
@@ -795,10 +795,17 @@ export const CheckoutPage: React.FC = () => {
                                     <span>-{basketDiscount.toLocaleString('tr-TR')} TL</span>
                                 </div>
                             )}
-                            <div className="flex justify-between text-green-600 text-sm">
-                                <span>Kargo</span>
-                                <span>Ücretsiz</span>
-                            </div>
+                            {shippingCost > 0 ? (
+                                <div className="flex justify-between text-orange-600 text-sm font-medium">
+                                    <span>Kargo Ücreti</span>
+                                    <span>{shippingCost.toLocaleString('tr-TR')} TL</span>
+                                </div>
+                            ) : (
+                                <div className="flex justify-between text-green-600 text-sm font-bold">
+                                    <span>Kargo</span>
+                                    <span>ÜCRETSİZ</span>
+                                </div>
+                            )}
                             {paymentMethod === 'Kapıda Ödeme' && paymentSettings.cashOnDeliveryFee > 0 && (
                                 <div className="flex justify-between text-gray-600 text-sm">
                                     <span>Kapıda Ödeme Hizmet Bedeli</span>
@@ -808,7 +815,7 @@ export const CheckoutPage: React.FC = () => {
                             <div className="flex justify-between items-center pt-2 border-t border-gray-200 mt-2">
                                 <span className="font-bold text-lg text-gray-800">Toplam</span>
                                 <span className="font-bold text-xl text-blue-600">
-                                    {(paymentMethod === 'Kapıda Ödeme' ? totalPrice + paymentSettings.cashOnDeliveryFee : totalPrice).toLocaleString('tr-TR')} TL
+                                    {(finalTotal + (paymentMethod === 'Kapıda Ödeme' ? paymentSettings.cashOnDeliveryFee : 0)).toLocaleString('tr-TR')} TL
                                 </span>
                             </div>
                         </div>

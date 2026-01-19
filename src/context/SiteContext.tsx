@@ -119,6 +119,12 @@ export interface FreeShippingBannerSettings {
     linkUrl: string;
 }
 
+export interface DeliverySettings {
+    isEnabled: boolean;              // Kargo ücreti aktif mi?
+    freeShippingThreshold: number;   // Ücretsiz kargo limiti (TL)
+    fixedShippingCost: number;       // Sabit kargo ücreti (TL)
+}
+
 interface SiteContextType {
     slides: Slide[];
     updateSlides: (slides: Slide[]) => void;
@@ -144,6 +150,8 @@ interface SiteContextType {
     updateFreeShippingBanner: (settings: FreeShippingBannerSettings) => void;
     policyPages: PolicyPages;
     updatePolicyPages: (pages: PolicyPages) => void;
+    deliverySettings: DeliverySettings;
+    updateDeliverySettings: (settings: DeliverySettings) => void;
     saveSiteSettings: (overrides?: any) => Promise<{ success: boolean; message: string }>;
 }
 
@@ -192,6 +200,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                     if (data.contactPage) setContactPage(data.contactPage);
                     if (data.freeShippingBanner) setFreeShippingBanner(data.freeShippingBanner);
                     if (data.policyPages) setPolicyPages(data.policyPages);
+                    if (data.deliverySettings) setDeliverySettings(data.deliverySettings);
                 }
             } catch (error) {
                 console.error('Site ayarları yüklenemedi:', error);
@@ -352,6 +361,17 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         };
     });
 
+    const [deliverySettings, setDeliverySettings] = useState<DeliverySettings>(() => {
+        const saved = localStorage.getItem('site_delivery_settings');
+        if (saved) return JSON.parse(saved);
+        const data = (siteSettings as any).data || siteSettings;
+        return data.deliverySettings || {
+            isEnabled: true,
+            freeShippingThreshold: 1500,
+            fixedShippingCost: 50
+        };
+    });
+
     const updateSlides = (newSlides: Slide[]) => {
         setSlides(newSlides);
         localStorage.setItem('site_slides', JSON.stringify(newSlides));
@@ -412,6 +432,11 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         localStorage.setItem('site_policy_pages', JSON.stringify(newPages));
     }
 
+    const updateDeliverySettings = (newSettings: DeliverySettings) => {
+        setDeliverySettings(newSettings);
+        localStorage.setItem('site_delivery_settings', JSON.stringify(newSettings));
+    };
+
     const saveSiteSettings = async (overrides?: any) => {
         const settings = {
             filename: 'siteSettings.json',
@@ -428,6 +453,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 contactPage,
                 freeShippingBanner,
                 policyPages,
+                deliverySettings,
                 ...overrides
             }
         };
@@ -458,6 +484,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             contactPage, updateContactPage,
             freeShippingBanner, updateFreeShippingBanner,
             policyPages, updatePolicyPages,
+            deliverySettings, updateDeliverySettings,
             saveSiteSettings
         }}>
             {children}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CheckCircle, ShoppingBag, User, Calendar, Hash, CreditCard, ChevronRight, FileText, Printer } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const printStyles = `
 @media print {
@@ -33,6 +34,12 @@ const printStyles = `
 export const OrderSuccess: React.FC = () => {
     const location = useLocation();
     const order = location.state?.order || null;
+    const { clearCart } = useCart();
+
+    // Clear cart when order success page loads
+    useEffect(() => {
+        clearCart();
+    }, [clearCart]);
 
     // Render Minimal Success if No Order Data
     const hasOrder = !!order;

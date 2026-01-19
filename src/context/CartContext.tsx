@@ -20,6 +20,8 @@ interface CartContextType {
     subtotal: number;
     basketDiscount: number;
     qualifyingCount: number;
+    shippingCost: number;          // Kargo ücreti
+    finalTotal: number;             // Toplam + Kargo
     isDrawerOpen: boolean;
     openDrawer: () => void;
     closeDrawer: () => void;
@@ -28,6 +30,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 import { useProducts } from './ProductContext';
+import { useSite } from './SiteContext';
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { discountInCartProductIds, basketDiscountRate } = useProducts();
@@ -95,6 +98,16 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const totalPrice = subtotal - basketDiscount;
 
+    // Shipping Cost Calculation
+    const { deliverySettings } = useSite();
+    const shippingCost = React.useMemo(() => {
+        if (!deliverySettings.isEnabled) return 0;
+        if (totalPrice >= deliverySettings.freeShippingThreshold) return 0;
+        return deliverySettings.fixedShippingCost;
+    }, [totalPrice, deliverySettings]);
+
+    const finalTotal = totalPrice + shippingCost;
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const openDrawer = () => setIsDrawerOpen(true);
@@ -104,7 +117,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         <CartContext.Provider value={{
             items, addItem, removeItem, updateQuantity, clearCart,
             totalItems, totalPrice, subtotal, basketDiscount,
-            qualifyingCount, isDrawerOpen, openDrawer, closeDrawer
+            qualifyingCount, shippingCost, finalTotal,
+            isDrawerOpen, openDrawer, closeDrawer
         }}>
             {children}
         </CartContext.Provider>

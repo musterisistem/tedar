@@ -62,6 +62,7 @@ const OfficeSupplyManager = React.lazy(() => import('./pages/admin/home/OfficeSu
 const NotificationSettings = React.lazy(() => import('./pages/admin/NotificationSettings').then(module => ({ default: module.NotificationSettings })));
 const BulkStockUpdate = React.lazy(() => import('./pages/admin/BulkStockUpdate').then(module => ({ default: module.BulkStockUpdate })));
 const PolicyManager = React.lazy(() => import('./pages/admin/PolicyManager').then(module => ({ default: module.PolicyManager })));
+const ShippingManager = React.lazy(() => import('./pages/admin/ShippingManager').then(module => ({ default: module.ShippingManager })));
 
 
 function App() {
@@ -72,9 +73,9 @@ function App() {
           <CategoryProvider>
             <UserProvider>
               <ProductProvider>
-                <CartProvider>
-                  <OrderProvider>
-                    <SiteProvider>
+                <SiteProvider>
+                  <CartProvider>
+                    <OrderProvider>
                       <Suspense fallback={<Loading />}>
                         <Routes>
                           {/* Admin Routes */}
@@ -98,6 +99,7 @@ function App() {
                             <Route path="/admin/products/stock-update" element={<BulkStockUpdate />} />
                             <Route path="/admin/price-alerts" element={<PriceAlertManager />} />
                             <Route path="/admin/settings/payments" element={<PaymentMethodManager />} />
+                            <Route path="/admin/settings/shipping" element={<ShippingManager />} />
                             <Route path="/admin/settings/delivery" element={<DeliverySettingsManager />} />
                             <Route path="/admin/home/popular-categories" element={<PopularCategoryManager />} />
                             <Route path="/admin/settings/office" element={<OfficeSupplyManager />} />
@@ -153,9 +155,9 @@ function App() {
                           </Route>
                         </Routes>
                       </Suspense>
-                    </SiteProvider>
-                  </OrderProvider>
-                </CartProvider>
+                    </OrderProvider>
+                  </CartProvider>
+                </SiteProvider>
               </ProductProvider>
             </UserProvider>
           </CategoryProvider>
