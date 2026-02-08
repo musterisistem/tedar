@@ -14,8 +14,8 @@ export const OfficeSupplyManager: React.FC = () => {
 
     const [isSaving, setIsSaving] = useState(false);
 
-    // Enforce 6 product limit
-    const MAX_PRODUCTS = 6;
+    // Enforce 8 product limit
+    const MAX_PRODUCTS = 8;
 
     const toggleProduct = (productId: string | number) => {
         if (!activeCollection) return;
@@ -66,14 +66,14 @@ export const OfficeSupplyManager: React.FC = () => {
                         <Briefcase className="w-8 h-8 text-indigo-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Ofisiniz İçin Seçtik</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Ofisiniz İçin Seçtik</h1>
                         <p className="text-slate-500 font-medium">Bu bölümde görüntülenecek {MAX_PRODUCTS} ürünü seçin.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleSaveToDisk}
                     disabled={isSaving}
-                    className="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-700 transition-all flex items-center gap-2 shadow-lg shadow-indigo-100 disabled:opacity-50"
+                    className="bg-indigo-600 text-white px-8 py-3 rounded-xl font-normal hover:bg-indigo-700 transition-all flex items-center gap-2 shadow-lg shadow-indigo-100 disabled:opacity-50"
                 >
                     {isSaving ? 'KAYDEDİLİYOR...' : <><Save className="w-5 h-5" /> KAYDET</>}
                 </button>
@@ -85,12 +85,12 @@ export const OfficeSupplyManager: React.FC = () => {
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
 
                         <div className="mb-6">
-                            <label className="block text-sm font-bold text-slate-700 mb-2">Bölüm Başlığı</label>
+                            <label className="block text-sm font-normal text-slate-700 mb-2">Bölüm Başlığı</label>
                             <input
                                 type="text"
                                 value={activeCollection.title}
                                 onChange={(e) => handleUpdateTitle(e.target.value)}
-                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-bold text-lg"
+                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-normal text-lg"
                             />
                         </div>
 
@@ -118,8 +118,8 @@ export const OfficeSupplyManager: React.FC = () => {
                                             <img src={p.image} className="w-full h-full object-contain p-1" alt={p.name} />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-xs font-bold text-slate-400 truncate">{p.code}</p>
-                                            <p className="text-sm font-semibold text-slate-700 truncate">{p.name}</p>
+                                            <p className="text-xs font-normal text-slate-400 truncate">{p.code}</p>
+                                            <p className="text-sm font-normal text-slate-700 truncate">{p.name}</p>
                                         </div>
                                         <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'border-slate-300 text-transparent group-hover:border-indigo-400'}`}>
                                             <Plus className={`w-4 h-4 ${isSelected ? 'rotate-45' : ''}`} />
@@ -135,13 +135,13 @@ export const OfficeSupplyManager: React.FC = () => {
                 <div className="lg:col-span-4 space-y-4">
                     <div className={`bg-white border rounded-xl shadow-sm flex flex-col h-auto min-h-[400px] ${activeCollection.productIds.length > MAX_PRODUCTS ? 'border-red-300' : 'border-slate-200'}`}>
                         <div className="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
-                            <h3 className="font-semibold text-slate-700 flex items-center gap-2">
+                            <h3 className="font-normal text-slate-700 flex items-center gap-2">
                                 Seçilen Ürünler
                                 {activeCollection.productIds.length > MAX_PRODUCTS && (
                                     <AlertCircle className="w-4 h-4 text-red-500" />
                                 )}
                             </h3>
-                            <span className={`px-3 py-1 rounded-full text-xs font-bold ${activeCollection.productIds.length > MAX_PRODUCTS ? 'bg-red-100 text-red-600' : 'bg-indigo-600 text-white'}`}>
+                            <span className={`px-3 py-1 rounded-full text-xs font-normal ${activeCollection.productIds.length > MAX_PRODUCTS ? 'bg-red-100 text-red-600' : 'bg-indigo-600 text-white'}`}>
                                 {activeCollection.productIds.length} / {MAX_PRODUCTS}
                             </span>
                         </div>
@@ -152,10 +152,10 @@ export const OfficeSupplyManager: React.FC = () => {
                                 if (!p) return null;
                                 return (
                                     <div key={id} className="flex items-center gap-3 p-2 bg-slate-50 rounded-lg group border border-slate-100">
-                                        <span className="text-xs font-bold text-slate-400 w-4">{index + 1}</span>
+                                        <span className="text-xs font-normal text-slate-400 w-4">{index + 1}</span>
                                         <img src={p.image} className="w-10 h-10 object-contain bg-white rounded border border-slate-200" alt={p.name} />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-xs font-semibold text-slate-700 truncate">{p.name}</p>
+                                            <p className="text-xs font-normal text-slate-700 truncate">{p.name}</p>
                                         </div>
                                         <button onClick={() => toggleProduct(id)} className="text-slate-300 hover:text-red-500 transition-colors">
                                             <X className="w-4 h-4" />

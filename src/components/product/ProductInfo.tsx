@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Heart, Share2, Minus, Plus, ShoppingCart, Settings, Bell, Percent, ChevronRight, Facebook, Mail, MessageCircle, Copy } from 'lucide-react';
+import { Star, Heart, Share2, Minus, Plus, ShoppingCart, Settings, Bell, ChevronRight, Facebook, Mail, MessageCircle, Copy, Percent, Hourglass, TrendingDown, Truck } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductContext';
 import { useUsers } from '../../context/UserContext';
@@ -26,7 +26,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
     const [isShareOpen, setIsShareOpen] = useState(false);
     const shareRef = useRef<HTMLDivElement>(null);
     const [isSavingAlert, setIsSavingAlert] = useState(false);
-    const isSepetteIndirim = product?.id ? discountInCartProductIds.map(d => d.toString()).includes(product.id.toString()) : false;
+
     const navigate = useNavigate();
 
     // Close share menu when clicking outside
@@ -199,106 +199,119 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
                 <span className="text-sm text-gray-500">Kodu: {product.code || product.sku || 'TR-12345'}</span>
             </div>
 
-            {/* Popular Product Notification */}
-            {(() => {
-                // Deterministic random based on product ID
-                const hashCode = (str: string) => {
-                    let hash = 0;
-                    for (let i = 0; i < str.length; i++) {
-                        const char = str.charCodeAt(i);
-                        hash = (hash << 5) - hash + char;
-                        hash = hash & hash; // Convert to 32bit integer
-                    }
-                    return Math.abs(hash);
-                };
 
-                const productIdStr = product?.id?.toString() || '';
-                const hash = hashCode(productIdStr);
 
-                // 20% chance to show (if hash % 5 === 0)
-                const shouldShow = hash % 5 === 0;
-
-                // Random count between 500-1500
-                const viewCount = 500 + (hash % 1001);
-
-                if (shouldShow) {
-                    return (
-                        <div className="mb-4 flex items-center gap-2">
-                            <span className="text-lg animate-bounce">🔥</span>
-                            <div className="text-sm text-gray-700">
-                                <span className="font-bold text-orange-600">Popüler ürün!</span> Son 24 saatte <span className="font-bold text-red-600 inline-block animate-pulse">{viewCount}</span> kişi görüntüledi!
-                            </div>
-                        </div>
-                    );
-                }
-                return null;
-            })()}
-
-            {/* Price Box */}
-            <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 mb-4">
-                <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3 mb-2 flex-wrap">
+            {/* Price Box - Compact Design */}
+            <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 mb-3">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div className="flex items-baseline gap-2">
-                        <span className="text-3xl md:text-4xl font-bold text-blue-700">{product.price.current.toLocaleString('tr-TR')} TL</span>
+                        <span className="text-2xl md:text-3xl font-bold text-blue-700">{product.price.current.toLocaleString('tr-TR')} TL</span>
                         {product.price.original > product.price.current && (
                             <span className="text-sm text-gray-400 line-through">{product.price.original.toLocaleString('tr-TR')} TL</span>
                         )}
+                        <span className="text-[10px] text-gray-400 font-normal ml-1 self-end mb-1">KDV Dahil</span>
                     </div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                        {isSepetteIndirim && (
-                            <span className="bg-green-500 text-white px-2 py-0.5 rounded text-xs font-medium flex items-center gap-1">
-                                <Percent className="w-3 h-3" /> Sepette İndirimli
-                            </span>
-                        )}
-                        {/* Aynı Gün Kargo Bildirimi - Dikkat Çekici */}
-                        {product.sameDayShipping && (() => {
-                            const now = new Date();
-                            const cutoffHour = 11;
-                            const currentHour = now.getHours();
-                            const currentMinute = now.getMinutes();
-                            const isBeforeCutoff = currentHour < cutoffHour;
 
-                            if (isBeforeCutoff) {
-                                const hoursLeft = cutoffHour - currentHour - 1;
-                                const minutesLeft = 60 - currentMinute;
+                    {/* Shipping Countdown */}
+                    {(() => {
+                        const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, isToday: false });
 
-                                return (
-                                    <div className="w-full mt-3 bg-teal-50 border border-teal-200 rounded-lg px-4 py-2.5">
-                                        <div className="flex items-center justify-between gap-2">
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-                                                    <svg className="w-4 h-4 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                                                        <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
-                                                    </svg>
-                                                </div>
-                                                <div className="text-sm">
-                                                    <div className="font-semibold text-teal-700">Bugün Kargoda</div>
-                                                    <div className="text-teal-600 text-xs">Hemen sipariş ver, bugün gönderelim</div>
-                                                </div>
-                                            </div>
-                                            <div className="text-right bg-teal-100 px-2 py-1 rounded-md">
-                                                <div className="text-[10px] text-teal-500 uppercase tracking-wider">Kalan Süre</div>
-                                                <div className="font-semibold text-sm text-teal-700 tabular-nums">
-                                                    {hoursLeft > 0 ? `${hoursLeft} saat ${minutesLeft} dk` : `${minutesLeft} dakika`}
-                                                </div>
-                                            </div>
-                                        </div>
+                        useEffect(() => {
+                            const calculateTime = () => {
+                                const now = new Date();
+                                const target = new Date();
+                                target.setHours(11, 0, 0, 0); // 11:00 AM
+
+                                let isToday = true;
+                                if (now > target) {
+                                    target.setDate(target.getDate() + 1);
+                                    isToday = false;
+                                }
+
+                                const diff = target.getTime() - now.getTime();
+                                const hours = Math.floor(diff / (1000 * 60 * 60));
+                                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                                setTimeLeft({ hours, minutes, isToday });
+                            };
+
+                            calculateTime();
+                            const timer = setInterval(calculateTime, 60000);
+                            return () => clearInterval(timer);
+                        }, []);
+
+                        return (
+                            <div className="flex items-center gap-3 bg-white border border-orange-100 rounded-lg px-6 py-2.5 shadow-sm relative overflow-hidden">
+                                <div className="bg-orange-50 p-1.5 rounded-full ring-1 ring-orange-100 relative z-10">
+                                    <Truck className="w-4 h-4 text-orange-600 animate-truck-delivery" />
+                                </div>
+                                <div className="flex flex-col relative z-10">
+                                    <div className="text-[11px] text-gray-500 font-medium whitespace-nowrap flex items-center gap-1.5">
+                                        <span className="font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded text-[10px] border border-orange-100">{timeLeft.hours} saat {timeLeft.minutes} dakika</span>
+                                        <span>içinde sipariş ver</span>
                                     </div>
-                                );
-                            } else {
-                                return (
-                                    <div className="w-full mt-3 bg-slate-100 border border-slate-200 rounded-lg px-4 py-2 text-slate-600 text-sm flex items-center gap-2">
-                                        <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <span>Yarın saat <strong>11:00</strong>'e kadar sipariş ver, aynı gün kargoda</span>
+                                    <div className="text-xs font-bold text-gray-800 tracking-wide mt-0.5">
+                                        {timeLeft.isToday ? 'BUGÜN KARGODA' : 'YARIN KARGODA'}
                                     </div>
-                                );
-                            }
-                        })()}
-                    </div>
+                                </div>
+                            </div>
+                        );
+                    })()}
                 </div>
             </div>
+
+            {/* Active Campaigns - Animated Single Line */}
+            {
+                (() => {
+                    const [currentCamp, setCurrentCamp] = useState(0);
+
+                    const campaigns = [];
+                    // 1. Sepette 2. Üründe İndirim
+                    if (product?.id && discountInCartProductIds.map(d => d.toString()).includes(product.id.toString())) {
+                        campaigns.push({ text: 'Sepette 2. Üründe İndirim', icon: <Percent className="w-5 h-5 text-orange-600" />, textCol: 'text-orange-600' });
+                    }
+                    // 2. Tükenmek Üzere
+                    if ((product?.stock ?? 0) <= 3 && (product?.stock ?? 0) > 0) {
+                        campaigns.push({ text: 'Tükenmek Üzere', icon: <Hourglass className="w-5 h-5 text-red-600" />, textCol: 'text-red-600' });
+                    }
+                    // 3. Avantajlı Fiyat Fırsatı
+                    if (product.price.original > product.price.current) {
+                        campaigns.push({ text: 'Avantajlı Fiyat Fırsatı', icon: <TrendingDown className="w-5 h-5 text-green-600" />, textCol: 'text-green-600' });
+                    }
+
+
+                    useEffect(() => {
+                        if (campaigns.length <= 1) return;
+                        const interval = setInterval(() => {
+                            setCurrentCamp(prev => (prev + 1) % campaigns.length);
+                        }, 3000);
+                        return () => clearInterval(interval);
+                    }, [campaigns.length]);
+
+                    if (campaigns.length === 0) return null;
+
+                    return (
+                        <div className="mb-6 h-10 relative overflow-hidden bg-gray-50/50 rounded-lg border border-gray-100 flex items-center px-4">
+                            <div key={currentCamp} className="animate-slide-up flex items-center gap-3 w-full">
+                                {campaigns[Math.min(currentCamp, campaigns.length - 1)].icon}
+                                <span className={`text-sm font-bold ${campaigns[Math.min(currentCamp, campaigns.length - 1)].textCol} tracking-tight`}>
+                                    {campaigns[Math.min(currentCamp, campaigns.length - 1)].text}
+                                </span>
+                            </div>
+                            <style>{`
+                            @keyframes slide-up {
+                                from { transform: translateY(100%); opacity: 0; }
+                                to { transform: translateY(0); opacity: 1; }
+                            }
+                            .animate-slide-up {
+                                animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                            }
+                        `}</style>
+                        </div>
+                    );
+                })()
+            }
+
+
 
             {/* Actions */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -368,40 +381,6 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
                 </div>
             </div>
 
-            {/* Extra Actions */}
-            <div className="grid grid-cols-3 gap-3 mb-8">
-                <button
-                    onClick={handleToggleFavorite}
-                    className={`flex items-center justify-center gap-2 py-2 border rounded-lg text-xs font-semibold transition-colors ${isFavorite
-                        ? 'bg-red-50 border-red-200 text-red-600'
-                        : 'border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-blue-600'
-                        }`}
-                >
-                    <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current' : ''}`} />
-                    {isFavorite ? 'Listeden Çıkar' : 'Listeye Ekle'}
-                </button>
-                <button
-                    onClick={onReviewClick}
-                    className="flex items-center justify-center gap-2 py-2 border border-gray-200 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-colors"
-                >
-                    <Star className="w-3.5 h-3.5" />
-                    Yorum Yap
-                </button>
-                <button
-                    onClick={handleToggleAlert}
-                    className={`flex items-center justify-center gap-2 py-2 border rounded-lg text-xs font-semibold transition-colors ${currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? 'bg-blue-50 border-blue-200 text-blue-600' : 'border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-blue-600'}`}
-                >
-                    <div className="relative">
-                        <span className={`absolute -top-1 -right-1 flex h-2 w-2 ${currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? '' : 'hidden'}`}>
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                        </span>
-                        <Bell className={`w-3.5 h-3.5 ${currentUser && isAlertActive(product.id.toString(), currentUser.id) ? 'fill-blue-600' : ''}`} />
-                    </div>
-                    {currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? 'Alarm Aktif' : 'Fiyat Alarmı'}
-                </button>
-            </div>
-
             {/* Technical Specs */}
             <div className="mt-6">
                 <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2 text-xs border-b pb-2 uppercase tracking-wide">
@@ -409,34 +388,68 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
                     Teknik Detaylar
                 </h4>
                 <div className="grid grid-cols-3 gap-3">
-                    <div className="group relative bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-gray-700 to-gray-900"></div>
+                    {/* Color - Gray/Dark Theme */}
+                    <div className="group relative bg-white p-3 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden hover:-translate-y-1">
+                        <div className="absolute top-0 left-0 w-1 h-full bg-gray-600 group-hover:bg-gray-800 transition-colors"></div>
                         <div className="flex flex-col items-center justify-center text-center relative z-10 pl-1">
-                            <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold mb-1 group-hover:text-blue-600 transition-colors">Ürün Rengi</span>
-                            <span className="font-bold text-gray-800 text-sm group-hover:scale-110 transition-transform origin-center">{product.specs?.color || "Standart"}</span>
+                            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1 group-hover:text-gray-800 transition-colors">Ürün Rengi</span>
+                            <span className="font-bold text-gray-900 text-sm group-hover:scale-105 transition-transform origin-center">{product.specs?.color || "Standart"}</span>
                         </div>
-                        <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-900 opacity-5 group-hover:opacity-10 rounded-full transition-opacity"></div>
+                        <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-gray-100 rounded-full transition-transform group-hover:scale-150 z-0"></div>
                     </div>
 
-                    <div className="group relative bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-blue-600"></div>
+                    {/* Shipping - Orange Theme */}
+                    <div className="group relative bg-white p-3 rounded-xl border border-orange-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden hover:-translate-y-1">
+                        <div className="absolute top-0 left-0 w-1 h-full bg-orange-500 group-hover:bg-orange-600 transition-colors"></div>
                         <div className="flex flex-col items-center justify-center text-center relative z-10 pl-1">
-                            <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold mb-1 group-hover:text-blue-600 transition-colors">Sevkiyat Tipi</span>
-                            <span className="font-bold text-gray-800 text-sm group-hover:scale-110 transition-transform origin-center">{product.specs?.shippingType || "Standart"}</span>
+                            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1 group-hover:text-orange-600 transition-colors">Sevkiyat Tipi</span>
+                            <span className="font-bold text-gray-900 text-sm group-hover:scale-105 transition-transform origin-center">{product.specs?.shippingType || "Standart"}</span>
                         </div>
-                        <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 opacity-5 group-hover:opacity-10 rounded-full transition-opacity"></div>
+                        <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-orange-50 rounded-full transition-transform group-hover:scale-150 z-0"></div>
                     </div>
 
-                    <div className="group relative bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-400 to-purple-600"></div>
+                    {/* Size - Blue Theme */}
+                    <div className="group relative bg-white p-3 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden hover:-translate-y-1">
+                        <div className="absolute top-0 left-0 w-1 h-full bg-blue-500 group-hover:bg-blue-600 transition-colors"></div>
                         <div className="flex flex-col items-center justify-center text-center relative z-10 pl-1">
-                            <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold mb-1 group-hover:text-blue-600 transition-colors">Boyut / Ebat</span>
-                            <span className="font-bold text-gray-800 text-sm group-hover:scale-110 transition-transform origin-center">{product.specs?.size || "Standart"}</span>
+                            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1 group-hover:text-blue-600 transition-colors">Boyut / Ebat</span>
+                            <span className="font-bold text-gray-900 text-sm group-hover:scale-105 transition-transform origin-center">{product.specs?.size || "Standart"}</span>
                         </div>
-                        <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 opacity-5 group-hover:opacity-10 rounded-full transition-opacity"></div>
+                        <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-blue-50 rounded-full transition-transform group-hover:scale-150 z-0"></div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {/* Extra Actions */}
+            <div className="grid grid-cols-3 gap-3 mt-6">
+                <button
+                    onClick={handleToggleFavorite}
+                    className="flex items-center justify-center gap-1.5 py-2 px-3 border border-gray-200 bg-gray-50 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100 hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-200 hover:shadow-md"
+                >
+                    <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current text-red-500' : ''}`} />
+                    {isFavorite ? 'Listeden Çıkar' : 'Listeye Ekle'}
+                </button>
+                <button
+                    onClick={onReviewClick}
+                    className="flex items-center justify-center gap-1.5 py-2 px-3 border border-gray-200 bg-gray-50 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100 hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-200 hover:shadow-md"
+                >
+                    <Star className="w-3.5 h-3.5" />
+                    Yorum Yap
+                </button>
+                <button
+                    onClick={handleToggleAlert}
+                    className="flex items-center justify-center gap-1.5 py-2 px-3 border border-gray-200 bg-gray-50 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100 hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-200 hover:shadow-md"
+                >
+                    <div className="relative">
+                        <span className={`absolute -top-1 -right-1 flex h-2 w-2 ${currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? '' : 'hidden'}`}>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                        </span>
+                        <Bell className={`w-3.5 h-3.5 ${currentUser && isAlertActive(product.id.toString(), currentUser.id) ? 'fill-current text-orange-500' : ''}`} />
+                    </div>
+                    {currentUser && product?.id && isAlertActive(product.id.toString(), currentUser.id) ? 'Alarm Aktif' : 'Fiyat Alarmı'}
+                </button>
+            </div>
+        </div >
     );
 };

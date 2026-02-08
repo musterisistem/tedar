@@ -48,11 +48,27 @@
         "DT517",
         "552.015.017",
         "KRMDT54555",
-        "608.018.488"
+        "608.018.488",
+        "SAMPLE-OFIS-001",
+        "SAMPLE-KALEM-001"
       ],
       "smartSettings": {
         "categoryId": "kalem-yazi",
         "count": 12
+      }
+    },
+    {
+      "id": "best-sellers",
+      "title": "En Çok Satanlar",
+      "productIds": [
+        "DT65486",
+        "ITH-CMK-218",
+        "TY8681272042103",
+        "TY8681272049954"
+      ],
+      "smartSettings": {
+        "categoryId": "",
+        "count": 10
       }
     },
     {

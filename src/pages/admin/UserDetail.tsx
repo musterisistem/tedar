@@ -73,7 +73,7 @@ export const UserDetail: React.FC = () => {
                         <ArrowLeft className="w-6 h-6" />
                     </button>
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-800">Kullanıcı Düzenle</h1>
+                        <h1 className="text-3xl font-normal text-slate-800">Kullanıcı Düzenle</h1>
                         <p className="text-slate-500 mt-1">#{user.id} - {user.name}</p>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ export const UserDetail: React.FC = () => {
                 <div className="lg:col-span-2 space-y-6">
                     {/* Public Profile */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <h2 className="text-lg font-normal text-slate-800 mb-4 flex items-center gap-2">
                             <UserIcon className="w-5 h-5 text-blue-500" />
                             Kişisel Bilgiler
                         </h2>
@@ -150,7 +150,7 @@ export const UserDetail: React.FC = () => {
                             </div>
 
                             <div className="pt-4 border-t border-slate-100 mt-2">
-                                <h3 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                <h3 className="text-sm font-normal text-slate-800 mb-3 flex items-center gap-2">
                                     <Key className="w-4 h-4 text-orange-500" />
                                     Şifre Değiştir
                                 </h3>
@@ -167,7 +167,7 @@ export const UserDetail: React.FC = () => {
                             </div>
 
                             <div className="flex justify-end pt-4">
-                                <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center gap-2">
+                                <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg font-normal hover:bg-blue-700 transition-colors flex items-center gap-2">
                                     <Save className="w-4 h-4" />
                                     Kaydet
                                 </button>
@@ -177,7 +177,7 @@ export const UserDetail: React.FC = () => {
 
                     {/* Address Info */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <h2 className="text-lg font-normal text-slate-800 mb-4 flex items-center gap-2">
                             <MapPin className="w-5 h-5 text-red-500" />
                             Fatura Adresi
                         </h2>
@@ -208,7 +208,7 @@ export const UserDetail: React.FC = () => {
                 <div className="space-y-6">
                     {/* Status Card */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <h2 className="text-lg font-normal text-slate-800 mb-4 flex items-center gap-2">
                             <Shield className="w-5 h-5 text-indigo-500" />
                             Hesap Durumu
                         </h2>
@@ -216,20 +216,20 @@ export const UserDetail: React.FC = () => {
                             <span className="text-sm text-slate-500">Durum:</span>
                             <div className="flex items-center gap-2">
                                 {user.isOnline ? (
-                                    <span className="flex items-center gap-1 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">
+                                    <span className="flex items-center gap-1 text-xs font-normal text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">
                                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                                         Online
                                     </span>
                                 ) : (
-                                    <span className="flex items-center gap-1 text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-full border border-slate-200">
+                                    <span className="flex items-center gap-1 text-xs font-normal text-slate-500 bg-slate-100 px-2 py-1 rounded-full border border-slate-200">
                                         <span className="w-2 h-2 rounded-full bg-slate-400"></span>
                                         Offline
                                     </span>
                                 )}
                                 {user.status === 'active' ? (
-                                    <span className="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">Aktif</span>
+                                    <span className="bg-green-100 text-green-800 text-xs font-normal px-2 py-1 rounded">Aktif</span>
                                 ) : (
-                                    <span className="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">Engelli</span>
+                                    <span className="bg-red-100 text-red-800 text-xs font-normal px-2 py-1 rounded">Engelli</span>
                                 )}
                             </div>
                         </div>
@@ -246,7 +246,7 @@ export const UserDetail: React.FC = () => {
 
                         {user.ipHistory && user.ipHistory.length > 0 && (
                             <div className="mt-4 pt-4 border-t border-slate-100">
-                                <span className="text-xs font-bold text-slate-400 uppercase mb-2 block">Giriş Kayıtları (IP)</span>
+                                <span className="text-xs font-normal text-slate-400 uppercase mb-2 block">Giriş Kayıtları (IP)</span>
                                 <div className="max-h-24 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                     {user.ipHistory.map((ip, idx) => (
                                         <div key={idx} className="flex justify-between text-xs text-slate-600 px-2 py-1 hover:bg-slate-50 rounded">
@@ -266,7 +266,7 @@ export const UserDetail: React.FC = () => {
 
                     {/* Order History */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <h2 className="text-lg font-normal text-slate-800 mb-4 flex items-center gap-2">
                             <Package className="w-5 h-5 text-orange-500" />
                             Sipariş Geçmişi
                         </h2>
@@ -275,11 +275,11 @@ export const UserDetail: React.FC = () => {
                                 {user.orders.map(order => (
                                     <Link to={`/admin/orders/${order.id}`} key={order.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100 hover:border-blue-300 hover:shadow-sm transition-all group cursor-pointer">
                                         <div>
-                                            <div className="text-xs font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{order.id}</div>
+                                            <div className="text-xs font-normal text-slate-700 group-hover:text-blue-600 transition-colors">{order.id}</div>
                                             <div className="text-[10px] text-slate-400">{order.date}</div>
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-sm font-bold text-slate-800">{order.total} TL</div>
+                                            <div className="text-sm font-normal text-slate-800">{order.total} TL</div>
                                             <div className="text-[10px] text-green-600 font-medium">{order.status}</div>
                                         </div>
                                     </Link>

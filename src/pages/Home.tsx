@@ -1,12 +1,12 @@
 import React from 'react';
 import { DeferredContent } from '../components/common/DeferredContent';
-import { FreeShippingBanner } from '../components/layout/FreeShippingBanner';
+
 import { HeroSlider } from '../components/home/HeroSlider';
 import { CategoryQuickAccess } from '../components/home/CategoryQuickAccess';
 import { ProductSection } from '../components/home/ProductSection';
 import { HomeProductSection } from '../components/home/HomeProductSection';
-import { CampaignBanner } from '../components/home/CampaignBanner';
-import { PopularCategories } from '../components/home/PopularCategories';
+
+import { StoryMenu } from '../components/home/StoryMenu';
 import { VerticalProductScroller } from '../components/home/VerticalProductScroller';
 import { FlashSaleSection } from '../components/home/FlashSaleSection';
 import { SiteSidebar } from '../components/home/SiteSidebar';
@@ -15,12 +15,21 @@ import { useProducts } from '../context/ProductContext';
 import { SEOHead, OrganizationSchema, WebSiteSchema } from '../components/seo';
 
 export const Home: React.FC = () => {
-    const { homeCollections } = useProducts();
+    const { homeCollections, products } = useProducts();
 
     // Find dynamic collections info for titles
     const officeCol = homeCollections.find(c => c.id === 'office');
     const kirtasiyeCol = homeCollections.find(c => c.id === 'kirtasiye');
-    const teknolojiCol = homeCollections.find(c => c.id === 'teknoloji');
+    const teknolojiCol = homeCollections.find(c => c.id === 'teknoloji'); // This is now "Defter Çeşitleri"
+    const bestSellersCol = homeCollections.find(c => c.id === 'best-sellers');
+
+    // Filter Best Seller products
+    const bestSellerProducts = React.useMemo(() => {
+        if (bestSellersCol && bestSellersCol.productIds) {
+            return products.filter(p => bestSellersCol.productIds.includes(p.id));
+        }
+        return [];
+    }, [products, bestSellersCol]);
 
     return (
         <div className="min-h-screen pb-12">
@@ -32,14 +41,14 @@ export const Home: React.FC = () => {
             <OrganizationSchema />
             <WebSiteSchema />
 
-            <FreeShippingBanner />
+
 
             <div className="container mx-auto px-4 pt-1 pb-2">
                 <div className="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:h-auto min-h-[500px]">
                     {/* Center Slider & Popular Categories */}
                     <div className="col-span-1 lg:col-span-8 flex flex-col gap-4">
                         <div className="flex-shrink-0">
-                            <PopularCategories />
+                            <StoryMenu />
                         </div>
                         <div className="flex-1 min-h-[400px]">
                             <HeroSlider />
@@ -66,7 +75,8 @@ export const Home: React.FC = () => {
                         title="Yeni Gelenler"
                         productCount={12}
                         columns={6}
-                        shuffle={true}
+                        shuffleDaily={true}
+                        maxProducts={12}
                     />
                 </div>
             </DeferredContent>
@@ -95,8 +105,8 @@ export const Home: React.FC = () => {
                                 type="collection"
                                 collectionId="office"
                                 title={officeCol?.title || "Ofisiniz İçin Seçtik"}
-                                productCount={6}
-                                columns={6}
+                                productCount={12}
+                                columns={4}
                                 variant="banded"
                                 headerClassName="bg-blue-900 bg-opacity-90 relative overflow-hidden"
                                 headerStyle={{
@@ -106,7 +116,8 @@ export const Home: React.FC = () => {
                                     backgroundBlendMode: 'overlay'
                                 }}
                                 containerClassName="bg-indigo-50 p-4 border border-indigo-100"
-                                shuffle={true}
+                                shuffleDaily={true}
+                                maxProducts={12}
                             />
                         </DeferredContent>
 
@@ -115,34 +126,39 @@ export const Home: React.FC = () => {
                                 type="collection"
                                 collectionId="kirtasiye"
                                 title={kirtasiyeCol?.title || "Kırtasiye Dünyası"}
-                                productCount={10}
-                                columns={5}
+                                productCount={12}
+                                columns={4}
                                 viewAllLink="/kategori/ofis-kirtasiye-urunleri"
                                 variant="banded"
                                 headerClassName="bg-gradient-to-r from-orange-600 to-red-600"
                                 containerClassName="bg-indigo-50 p-4 border border-indigo-100"
+                                shuffleDaily={true}
+                                maxProducts={12}
                             />
                         </DeferredContent>
 
-                        <CampaignBanner />
+
 
                         <DeferredContent height="400px">
                             <HomeProductSection
                                 type="collection"
                                 collectionId="teknoloji"
-                                title={teknolojiCol?.title || "Teknoloji & Elektronik"}
-                                productCount={10}
-                                columns={5}
-                                viewAllLink="/kategori/teknoloji-elektronik-aksesuarlar"
+                                title={teknolojiCol?.title || "Defter Çeşitleri"}
+                                productCount={12}
+                                columns={4}
+                                viewAllLink="/kategori/not-kagitlari-ve-bloknot"
                                 variant="banded"
                                 headerClassName="bg-gradient-to-r from-cyan-600 to-blue-600"
                                 containerClassName="bg-indigo-50 p-4 border border-indigo-100"
+                                shuffleDaily={true}
+                                maxProducts={12}
                             />
                         </DeferredContent>
 
                         <DeferredContent height="300px">
                             <ProductSection
-                                title="En Çok Satanlar"
+                                title={bestSellersCol?.title || "En Çok Satanlar"}
+                                products={bestSellerProducts.length > 0 ? bestSellerProducts : undefined}
                                 linkUrl="/best-sellers"
                                 className="bg-gradient-to-r from-amber-50 to-orange-50 border-orange-200"
                             />

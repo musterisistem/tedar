@@ -37,13 +37,13 @@ export const DeliverySettingsManager: React.FC = () => {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-slate-800">Teslimat ve İade Ayarları</h1>
+                <h1 className="text-2xl font-normal text-slate-800">Teslimat ve İade Ayarları</h1>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Sol Taraf: Liste */}
                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <h2 className="text-lg font-normal text-slate-800 mb-4 flex items-center gap-2">
                         <Truck className="w-5 h-5 text-blue-600" />
                         Mevcut Koşullar
                     </h2>
@@ -51,7 +51,7 @@ export const DeliverySettingsManager: React.FC = () => {
                     <div className="space-y-3">
                         {conditions.map((condition, index) => (
                             <div key={index} className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg border border-slate-200 group">
-                                <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xs mt-0.5">
+                                <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-normal text-xs mt-0.5">
                                     {index + 1}
                                 </span>
                                 <p className="text-slate-700 text-sm flex-1">{condition}</p>
@@ -76,7 +76,7 @@ export const DeliverySettingsManager: React.FC = () => {
                 {/* Sağ Taraf: Ekleme Formu */}
                 <div className="space-y-6">
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <h2 className="text-lg font-normal text-slate-800 mb-4 flex items-center gap-2">
                             <Plus className="w-5 h-5 text-green-600" />
                             Yeni Koşul Ekle
                         </h2>
@@ -109,7 +109,7 @@ export const DeliverySettingsManager: React.FC = () => {
                     {/* Kaydet Butonu */}
                     <button
                         onClick={handleSave}
-                        className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:shadow-blue-700/30 transition-all flex items-center justify-center gap-2"
+                        className="w-full bg-blue-600 text-white py-4 rounded-xl font-normal shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:shadow-blue-700/30 transition-all flex items-center justify-center gap-2"
                     >
                         <Save className="w-5 h-5" />
                         Ayarları Kaydet

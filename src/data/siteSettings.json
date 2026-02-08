@@ -94,9 +94,9 @@
   ],
   "promoBox": {
     "title": "Hızlı Kargo",
-    "description": "Saat 14:00'e kadar verilen siparişler aynı gün kargoda!",
+    "description": "00:00 ile 11:00 arası verilen siparişlerde kargo aynı gün",
     "icon": "Truck",
-    "buttonText": "🚀 Hemen Sipariş Ver",
+    "buttonText": "Hemen Sipariş Ver",
     "bgColor": "bg-blue-600",
     "iconBgColor": "bg-white/20",
     "textColor": "text-white",

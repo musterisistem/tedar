@@ -97,14 +97,14 @@ export const HomeCollectionsManager: React.FC = () => {
                         <PenLine className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Ana Sayfa Ürün Grupları</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Ana Sayfa Ürün Grupları</h1>
                         <p className="text-slate-500 font-medium">Bölüm başlıklarını ve seçili ürün gruplarını yönetin.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleSaveToDisk}
                     disabled={isSaving}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100 disabled:opacity-50"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-normal hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100 disabled:opacity-50"
                 >
                     {isSaving ? 'KAYDEDİLİYOR...' : <><Save className="w-5 h-5" /> TÜMÜNÜ KAYDET</>}
                 </button>
@@ -116,7 +116,7 @@ export const HomeCollectionsManager: React.FC = () => {
                     <button
                         key={c.id}
                         onClick={() => setActiveCollectionId(c.id)}
-                        className={`pb-3 px-4 text-sm font-semibold transition-all ${activeCollectionId === c.id ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                        className={`pb-3 px-4 text-sm font-normal transition-all ${activeCollectionId === c.id ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
                     >
                         {c.title}
                     </button>
@@ -128,7 +128,7 @@ export const HomeCollectionsManager: React.FC = () => {
                 <div className="lg:col-span-8 space-y-6">
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                         <div className="mb-6">
-                            <label className="block text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
+                            <label className="block text-sm font-normal text-slate-700 mb-2 flex items-center gap-2">
                                 <PenLine className="w-4 h-4 text-blue-600" />
                                 Bölüm Başlığı
                             </label>
@@ -136,13 +136,13 @@ export const HomeCollectionsManager: React.FC = () => {
                                 type="text"
                                 value={activeCollection?.title || ''}
                                 onChange={(e) => handleUpdateTitle(e.target.value)}
-                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-bold text-lg"
+                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-normal text-lg"
                             />
                         </div>
 
                         {/* Random Selection Tools */}
                         <div className="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
-                            <h3 className="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
+                            <h3 className="text-sm font-normal text-slate-700 mb-3 flex items-center gap-2">
                                 <Shuffle className="w-4 h-4 text-purple-600" />
                                 Hızlı Ürün Seçimi
                             </h3>
@@ -162,7 +162,7 @@ export const HomeCollectionsManager: React.FC = () => {
                                     <input
                                         type="number"
                                         min="1"
-                                        max="50"
+                                        max="100"
                                         value={randomCount}
                                         onChange={(e) => handleUpdateSettings(selectedCategoryId, Number(e.target.value))}
                                         className="w-20 px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none focus:border-blue-500"
@@ -170,7 +170,7 @@ export const HomeCollectionsManager: React.FC = () => {
                                 </div>
                                 <button
                                     onClick={handleRandomize}
-                                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition-colors flex items-center gap-2"
+                                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-normal hover:bg-purple-700 transition-colors flex items-center gap-2"
                                 >
                                     <Shuffle className="w-4 h-4" />
                                     Rastgele Listele
@@ -206,8 +206,8 @@ export const HomeCollectionsManager: React.FC = () => {
                                             <img src={p.image} className="w-full h-full object-contain p-1" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-xs font-bold text-slate-400 truncate">{p.code}</p>
-                                            <p className="text-sm font-semibold text-slate-700 truncate">{p.name}</p>
+                                            <p className="text-xs font-normal text-slate-400 truncate">{p.code}</p>
+                                            <p className="text-sm font-normal text-slate-700 truncate">{p.name}</p>
                                         </div>
                                         <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${isSelected ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-300 text-transparent group-hover:border-blue-400'}`}>
                                             <Plus className={`w-4 h-4 ${isSelected ? 'rotate-45' : ''}`} />
@@ -223,8 +223,8 @@ export const HomeCollectionsManager: React.FC = () => {
                 <div className="lg:col-span-4 space-y-4">
                     <div className="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col h-[700px]">
                         <div className="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
-                            <h3 className="font-semibold text-slate-700">Seçilen Ürünler</h3>
-                            <span className="bg-blue-600 text-white px-2 py-0.5 rounded-full text-xs font-bold">{activeCollection?.productIds.length || 0}</span>
+                            <h3 className="font-normal text-slate-700">Seçilen Ürünler</h3>
+                            <span className="bg-blue-600 text-white px-2 py-0.5 rounded-full text-xs font-normal">{activeCollection?.productIds.length || 0}</span>
                         </div>
                         <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
                             {activeCollection?.productIds.map((id, index) => {
@@ -232,10 +232,10 @@ export const HomeCollectionsManager: React.FC = () => {
                                 if (!p) return null;
                                 return (
                                     <div key={id} className="flex items-center gap-3 p-2 bg-slate-50 rounded-lg group">
-                                        <span className="text-xs font-bold text-slate-400 w-4">{index + 1}</span>
+                                        <span className="text-xs font-normal text-slate-400 w-4">{index + 1}</span>
                                         <img src={p.image} className="w-10 h-10 object-contain bg-white rounded border border-slate-200" />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-xs font-semibold text-slate-700 truncate">{p.name}</p>
+                                            <p className="text-xs font-normal text-slate-700 truncate">{p.name}</p>
                                         </div>
                                         <button onClick={() => toggleProduct(id)} className="text-slate-300 hover:text-red-500 transition-colors">
                                             <X className="w-4 h-4" />
@@ -250,7 +250,7 @@ export const HomeCollectionsManager: React.FC = () => {
                             )}
                         </div>
                         <div className="p-4 border-t border-slate-100 bg-slate-50">
-                            <button onClick={handleSaveToDisk} disabled={isSaving} className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 disabled:opacity-50">
+                            <button onClick={handleSaveToDisk} disabled={isSaving} className="w-full py-3 bg-blue-600 text-white rounded-xl font-normal flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 disabled:opacity-50">
                                 <Save className="w-5 h-5" />
                                 {isSaving ? 'Kaydediliyor...' : 'Değişiklikleri Tamamla'}
                             </button>

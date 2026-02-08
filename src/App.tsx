@@ -52,12 +52,13 @@ const PopularCategoryManager = React.lazy(() => import('./pages/admin/PopularCat
 const HomeCollectionsManager = React.lazy(() => import('./pages/admin/HomeCollectionsManager').then(module => ({ default: module.HomeCollectionsManager })));
 const SliderManager = React.lazy(() => import('./pages/admin/home/SliderManager').then(module => ({ default: module.SliderManager })));
 const BannerManager = React.lazy(() => import('./pages/admin/home/BannerManager').then(module => ({ default: module.BannerManager })));
-const FreeShippingBannerManager = React.lazy(() => import('./pages/admin/home/FreeShippingBannerManager').then(module => ({ default: module.FreeShippingBannerManager })));
+
 const FeatureBoxManager = React.lazy(() => import('./pages/admin/home/FeatureBoxManager').then(module => ({ default: module.FeatureBoxManager })));
 const BulkImport = React.lazy(() => import('./pages/admin/products/BulkImport').then(module => ({ default: module.BulkImport })));
 const AboutManager = React.lazy(() => import('./pages/admin/AboutManager').then(module => ({ default: module.AboutManager })));
 const ContactManager = React.lazy(() => import('./pages/admin/ContactManager').then(module => ({ default: module.ContactManager })));
 const OfficeSupplyManager = React.lazy(() => import('./pages/admin/home/OfficeSupplyManager').then(module => ({ default: module.OfficeSupplyManager })));
+const TopCampaignManager = React.lazy(() => import('./pages/admin/home/TopCampaignManager').then(module => ({ default: module.TopCampaignManager })));
 
 const NotificationSettings = React.lazy(() => import('./pages/admin/NotificationSettings').then(module => ({ default: module.NotificationSettings })));
 const BulkStockUpdate = React.lazy(() => import('./pages/admin/BulkStockUpdate').then(module => ({ default: module.BulkStockUpdate })));
@@ -110,7 +111,7 @@ function App() {
                             <Route path="/admin/home/collections" element={<HomeCollectionsManager />} />
                             <Route path="/admin/home/slider" element={<SliderManager />} />
                             <Route path="/admin/home/banners" element={<BannerManager />} />
-                            <Route path="/admin/home/free-shipping-banner" element={<FreeShippingBannerManager />} />
+                            <Route path="/admin/home/top-campaign" element={<TopCampaignManager />} />
                             <Route path="/admin/home/features" element={<FeatureBoxManager />} />
                           </Route>
 

@@ -2,115 +2,158 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSite } from '../../context/SiteContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const HeroSlider: React.FC = () => {
     const { slides } = useSite();
     const [current, setCurrent] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [direction, setDirection] = useState(0);
 
-    const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
-    const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+    const swipeConfidenceThreshold = 10000;
+    const swipePower = (offset: number, velocity: number) => {
+        return Math.abs(offset) * velocity;
+    };
+
+    const paginate = (newDirection: number) => {
+        setDirection(newDirection);
+        if (newDirection > 0) {
+            setCurrent((prev) => (prev + 1) % slides.length);
+        } else {
+            setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+        }
+    };
+
+    const nextSlide = () => paginate(1);
+    const prevSlide = () => paginate(-1);
 
     useEffect(() => {
         if (isPaused) return;
         if (slides.length === 0) return;
 
-        const timer = setInterval(nextSlide, 6000);
+        const timer = setInterval(nextSlide, 3000);
         return () => clearInterval(timer);
     }, [isPaused, slides.length]);
 
     if (!slides || slides.length === 0) {
         return (
-            <div className="w-full h-[520px] bg-gray-100 flex items-center justify-center text-gray-400 rounded-xl overflow-hidden">
+            <div className="w-full h-[520px] bg-gray-100 flex items-center justify-center text-gray-400 overflow-hidden shadow-2xl">
                 <p>Henüz slayt eklenmemiş.</p>
             </div>
         );
     }
 
+    const slideVariants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? '100%' : '-100%',
+            opacity: 1,
+            zIndex: 0
+        }),
+        center: {
+            zIndex: 1,
+            x: 0,
+            opacity: 1
+        },
+        exit: (direction: number) => ({
+            zIndex: 0,
+            x: direction < 0 ? '100%' : '-100%',
+            opacity: 1
+        })
+    };
+
     return (
         <div
-            className="relative w-full h-[520px] bg-gray-100 overflow-hidden group rounded-xl shadow-lg"
+            className="relative w-full h-[520px] bg-gray-900 overflow-hidden group"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
-            {/* Slides Container */}
-            <div
-                className="h-full flex transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${current * 100}%)` }}
-            >
-                {slides.map((slide) => (
-                    <div
-                        key={slide.id}
-                        className="w-full h-full flex-shrink-0 relative"
-                    >
-                        {slide.link ? (
-                            <Link to={slide.link} className="block w-full h-full">
-                                <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
-                                {slide.showText !== false && (
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-start pb-12 pl-12">
-                                        <div className="text-left text-white max-w-lg">
-                                            <h2 className="text-4xl md:text-5xl font-bold mb-4 transform translate-y-4 opacity-0 transition-all duration-700 ease-out"
-                                                style={{ opacity: 1, transform: current === slides.indexOf(slide) ? 'translateY(0)' : 'translateY(20px)' }}>
-                                                {slide.title}
-                                            </h2>
-                                            <p className="text-xl md:text-2xl transform translate-y-4 opacity-0 transition-all duration-700 ease-out delay-200"
-                                                style={{ opacity: 1, transform: current === slides.indexOf(slide) ? 'translateY(0)' : 'translateY(20px)' }}>
-                                                {slide.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                )}
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                <motion.div
+                    key={current}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                        x: { type: "tween", ease: "easeInOut", duration: 0.5 },
+                        opacity: { duration: 0.2 }
+                    }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={1}
+                    onDragEnd={(_, { offset, velocity }) => {
+                        const swipe = swipePower(offset.x, velocity.x);
+
+                        if (swipe < -swipeConfidenceThreshold) {
+                            paginate(1);
+                        } else if (swipe > swipeConfidenceThreshold) {
+                            paginate(-1);
+                        }
+                    }}
+                    className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
+                >
+                    {/* Background Image - Static (No Zoom) */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        {slides[current].link ? (
+                            <Link to={slides[current].link} className="block w-full h-full" draggable="false">
+                                <img
+                                    src={slides[current].image}
+                                    alt={slides[current].title}
+                                    className="w-full h-full object-cover pointer-events-none"
+                                />
                             </Link>
                         ) : (
-                            <>
-                                <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
-                                {slide.showText !== false && (
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-start pb-12 pl-12">
-                                        <div className="text-left text-white max-w-lg">
-                                            <h2 className="text-4xl md:text-5xl font-bold mb-4 transform translate-y-4 opacity-0 transition-all duration-700 ease-out"
-                                                style={{ opacity: 1, transform: current === slides.indexOf(slide) ? 'translateY(0)' : 'translateY(20px)' }}>
-                                                {slide.title}
-                                            </h2>
-                                            <p className="text-xl md:text-2xl transform translate-y-4 opacity-0 transition-all duration-700 ease-out delay-200"
-                                                style={{ opacity: 1, transform: current === slides.indexOf(slide) ? 'translateY(0)' : 'translateY(20px)' }}>
-                                                {slide.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                )}
-                            </>
+                            <img
+                                src={slides[current].image}
+                                alt={slides[current].title}
+                                className="w-full h-full object-cover pointer-events-none"
+                            />
                         )}
+                        {/* No Overlay or Text */}
                     </div>
-                ))}
-            </div>
+                </motion.div>
+            </AnimatePresence>
 
-            {/* Navigation */}
+            {/* Navigation Buttons */}
             {slides.length > 1 && (
                 <>
                     <button
                         onClick={prevSlide}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:scale-110"
+                        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all duration-300 z-30 hover:scale-110 border border-white/20 group-hover:opacity-100 opacity-0"
                     >
-                        <ChevronLeft className="w-6 h-6" />
+                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
                     <button
                         onClick={nextSlide}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:scale-110"
+                        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all duration-300 z-30 hover:scale-110 border border-white/20 group-hover:opacity-100 opacity-0"
                     >
-                        <ChevronRight className="w-6 h-6" />
+                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
                 </>
             )}
 
-            {/* Dots */}
+            {/* Pagination Dots */}
             {slides.length > 1 && (
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-30">
                     {slides.map((_, i) => (
                         <button
                             key={i}
-                            onClick={() => setCurrent(i)}
-                            className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/80'}`}
-                        />
+                            onClick={() => {
+                                setDirection(i > current ? 1 : -1);
+                                setCurrent(i);
+                            }}
+                            className="relative h-2 rounded-full overflow-hidden transition-all duration-500 bg-white/30 hover:bg-white/60"
+                            style={{ width: i === current ? '60px' : '15px' }}
+                        >
+                            {i === current && (
+                                <motion.div
+                                    className="absolute inset-0 bg-white"
+                                    layoutId="activeDot"
+                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                />
+                            )}
+                        </button>
                     ))}
                 </div>
             )}

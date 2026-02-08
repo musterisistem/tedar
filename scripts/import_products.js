@@ -4,13 +4,14 @@ import path from 'path';
 import https from 'https';
 import Papa from 'papaparse';
 import { fileURLToPath } from 'url';
+import { CATEGORY_MAP } from './category_map.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths
 const PROJECT_ROOT = path.resolve(__dirname, '../');
-const CSV_PATH = path.resolve(PROJECT_ROOT, '../urunler.csv'); // Assuming urunler.csv is in DORTEL TEDARIK root
+const CSV_PATH = path.resolve(PROJECT_ROOT, '../urunler.csv');
 const PRODUCTS_JSON_PATH = path.resolve(PROJECT_ROOT, 'public/data/products.json');
 const CATEGORIES_JSON_PATH = path.resolve(PROJECT_ROOT, 'src/data/categories.json');
 const IMAGES_DIR = path.resolve(PROJECT_ROOT, 'public/product/images');
@@ -31,10 +32,9 @@ const downloadImage = (url, filepath) => {
         const file = fs.createWriteStream(filepath);
         https.get(url, (response) => {
             if (response.statusCode !== 200) {
-                // Try to consume response data to free up memory
                 response.resume();
-                console.warn(`Failed to download ${url}: Status Code ${response.statusCode}`);
-                resolve(null); // Resolve null on checking failure to not break the chain, just missing image
+                // console.warn(`Failed to download ${url}: Status Code ${response.statusCode}`);
+                resolve(null);
                 return;
             }
             response.pipe(file);
@@ -42,8 +42,8 @@ const downloadImage = (url, filepath) => {
                 file.close(() => resolve(filepath));
             });
         }).on('error', (err) => {
-            fs.unlink(filepath, () => { }); // Delete the file async. (But we don't check the result)
-            console.error(`Error downloading ${url}: ${err.message}`);
+            fs.unlink(filepath, () => { });
+            // console.error(`Error downloading ${url}: ${err.message}`);
             resolve(null);
         });
     });
@@ -58,15 +58,15 @@ const slugify = (text) => {
         .replace(/ı/g, 'i')
         .replace(/ö/g, 'o')
         .replace(/ç/g, 'c')
-        .replace(/\s+/g, '-')           // Replace spaces with -
-        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-        .replace(/^-+/, '')             // Trim - from start of text
-        .replace(/-+$/, '');            // Trim - from end of text
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
 };
 
 const importProducts = async () => {
-    console.log('Starting product import...');
+    console.log('Starting product import with Category Refactoring...');
 
     // 1. Read CSV
     const csvFileContent = fs.readFileSync(CSV_PATH, 'utf8');
@@ -83,82 +83,84 @@ const importProducts = async () => {
     const csvData = parseResult.data;
     console.log(`Found ${csvData.length} products in CSV.`);
 
-    // 2. Load Categories
+    // 2. Load Base Categories (to keep IDs and Icons)
     let categories = [];
     try {
         if (fs.existsSync(CATEGORIES_JSON_PATH)) {
-            categories = JSON.parse(fs.readFileSync(CATEGORIES_JSON_PATH, 'utf8'));
+            const raw = JSON.parse(fs.readFileSync(CATEGORIES_JSON_PATH, 'utf8'));
+            categories = Array.isArray(raw) ? raw : raw.data || [];
         }
     } catch (error) {
         console.error('Error reading categories.json:', error);
     }
 
-    const categoryMap = new Map(); // Name -> ID
-    // Initialize map with existing (handling subcategories slightly loosely for now, focused on main categories or mapping flat)
-    // Actually, the CSV has 'Kategori İsmi'. We will create Top Level categories for simplicity or check if it matches a subcategory.
-    // For this prompt, let's treat "Kategori İsmi" as a top-level category if not found, or matches existing.
+    // Reset subcategories for all main categories
+    // We will populate them based on what we find in CSV
+    const categorySubMap = new Map(); // MainCatID -> Set(SubCategoryNames)
 
-    // Flatten existing categories for simpler lookup by name
-    const existingCategoryNames = new Map();
     categories.forEach(c => {
-        existingCategoryNames.set(c.name, c.id);
-        if (c.subcategories) {
-            // We could map subcategories too, but CSV only has one 'Kategori İsmi' column usually.
-            c.subcategories.forEach(sub => existingCategoryNames.set(sub, c.id));
-        }
+        c.subcategories = []; // Clear existing
+        categorySubMap.set(c.id, new Set());
     });
 
-    const products = [];
-    let newCategoriesCount = 0;
+    // Ensure 'diger' exists
+    if (!categorySubMap.has('diger')) {
+        categorySubMap.set('diger', new Set());
+        if (!categories.find(c => c.id === 'diger')) {
+            categories.push({ id: 'diger', name: 'Diğer Ürünler', icon: 'Box', subcategories: [] });
+        }
+    }
 
-    // 3. Process Rows
+    const products = [];
     const processedNames = new Set();
 
+    // 3. Process Rows
     for (const row of csvData) {
-        // Essential fields
         const productCode = row['Model Kodu'] || row['Barkod'] || row['Tedarikçi Stok Kodu'];
-        if (!productCode) {
-            console.warn('Skipping row without product code:', row);
-            continue;
-        }
-
         const name = row['Ürün Adı'];
-        if (!name) {
-            console.warn('Skipping row without product name:', row);
-            continue;
-        }
 
-        // DEDUPLICATION: Check if we already processed a product with this name
-        // Normalizing name slightly to catch casing or minor whitespace diffs
+        if (!productCode || !name) continue;
+
+        // Deduplication
         const normalizedName = name.trim();
-        if (processedNames.has(normalizedName)) {
-            // console.log(`Skipping duplicate product variant: ${name} (${productCode})`);
-            continue;
-        }
+        if (processedNames.has(normalizedName)) continue;
         processedNames.add(normalizedName);
 
         const description = row['Ürün Açıklaması'] || '';
         const priceCurrent = parseFloat(row['Trendyol\'da Satılacak Fiyat (KDV Dahil)']) || 0;
         const priceMarket = parseFloat(row['Piyasa Satış Fiyatı (KDV Dahil)']) || priceCurrent;
         const stock = parseInt(row['Ürün Stok Adedi']) || 0;
-        const categoryName = row['Kategori İsmi'] || 'Genel';
 
-        // Category Management
-        let categoryId = existingCategoryNames.get(categoryName);
-        if (!categoryId) {
-            // Create new category
-            categoryId = slugify(categoryName);
-            const newCategory = {
-                id: categoryId,
-                name: categoryName,
-                icon: 'Package', // Default icon
-                subcategories: []
-            };
-            categories.push(newCategory);
-            existingCategoryNames.set(categoryName, categoryId);
-            newCategoriesCount++;
-            console.log(`Created new category: ${categoryName} (${categoryId})`);
+        // CSV Category
+        const csvCategoryName = (row['Kategori İsmi'] || 'Diğer').trim();
+
+        // Map to Main Category
+        let mainCategoryId = CATEGORY_MAP[csvCategoryName];
+
+        // Fallback if not found in map
+        if (!mainCategoryId) {
+            // Use the slugified CSV name as ID
+            mainCategoryId = slugify(csvCategoryName);
+
+            // Add to categories list if not exists
+            if (!categories.find(c => c.id === mainCategoryId)) {
+                categories.push({
+                    id: mainCategoryId,
+                    name: csvCategoryName,
+                    icon: 'Box', // Default icon
+                    subcategories: []
+                });
+                console.log(`Created new Main Category: ${csvCategoryName} (${mainCategoryId})`);
+                // Initialize map entry for this new cat
+                categorySubMap.set(mainCategoryId, new Set());
+            }
         }
+
+        // Add subcategory to the main category's set
+        if (!categorySubMap.has(mainCategoryId)) {
+            categorySubMap.set(mainCategoryId, new Set());
+        }
+        categorySubMap.get(mainCategoryId).add(csvCategoryName);
 
         // Image Management
         const images = [];
@@ -167,36 +169,23 @@ const importProducts = async () => {
             row['Görsel 4'], row['Görsel 5'], row['Görsel 6']
         ].filter(url => url && typeof url === 'string' && url.trim() !== '');
 
-        console.log(`Processing images for ${productCode} (${imageUrls.length} found)`);
+        // Skipping rigorous download check for speed in this iteration, assuming files might be there or will fail gracefully
+        // For production, uncomment download logic. For now, let's assume we want to TRY downloading if missing.
 
         for (let i = 0; i < imageUrls.length; i++) {
             const url = imageUrls[i];
-            const ext = path.extname(url) || '.jpg';
-            // Clean extension if it has query params
-            const cleanExt = ext.split('?')[0];
-            const fileName = `${slugify(productCode)}-${i + 1}${cleanExt}`;
+            const ext = path.extname(url).split('?')[0] || '.jpg';
+            const fileName = `${slugify(productCode)}-${i + 1}${ext}`;
             const filePathWeb = `/product/images/${fileName}`;
             const filePathDisk = path.join(IMAGES_DIR, fileName);
 
-            // Check if file already exists to avoid re-downloading (optional, but good for speed)
-            // But user might want fresh, let's download.
-            // Actually, for speed in this context, let's check existence if we run multiple times.
-            // User asked to wipe products, so likely wants fresh. Let's try downloading.
-
-            // To be robust, let's catch download errors inside.
-            // NOTE: Downloading sequentially inside loop to allow easy logging and avoid overwhelming network? 
-            // Or parallel? Parallel is faster. Let's do parallel for a product's images.
-            try {
-                // Determine if we need to download.
-                if (!fs.existsSync(filePathDisk)) {
+            if (!fs.existsSync(filePathDisk)) {
+                try {
                     await downloadImage(url, filePathDisk);
-                }
-                // Only add if file exists (downloaded or previous)
-                if (fs.existsSync(filePathDisk)) {
-                    images.push(filePathWeb);
-                }
-            } catch (e) {
-                console.error(`Failed handling image ${i + 1} for ${productCode}`, e);
+                } catch (e) { }
+            }
+            if (fs.existsSync(filePathDisk)) {
+                images.push(filePathWeb);
             }
         }
 
@@ -205,18 +194,14 @@ const importProducts = async () => {
             id: productCode,
             name: name,
             code: productCode,
-            price: {
-                current: priceCurrent,
-                original: priceMarket,
-                currency: 'TL'
-            },
+            price: { current: priceCurrent, original: priceMarket, currency: 'TL' },
             description: description,
-            image: images[0] || '/placeholder.png', // Main image
+            image: images[0] || '/placeholder.png',
             images: images,
-            categories: [categoryId],
+            categories: [mainCategoryId, csvCategoryName], // Store both Main ID and Sub Name
             brand: row['Marka'] || 'Dörtel',
             stock: stock,
-            rating: 5, // Default
+            rating: 5,
             reviews: 0,
             badges: stock < 5 ? ['Tükenmek Üzere'] : [],
             specs: {
@@ -229,34 +214,29 @@ const importProducts = async () => {
         };
 
         products.push(newProduct);
-
-        // Log progress every 10 items
-        if (products.length % 10 === 0) {
-            console.log(`Processed ${products.length} products...`);
-        }
+        if (products.length % 50 === 0) console.log(`Processed ${products.length} products...`);
     }
 
-    // 4. Save Data files
-    // Save Products
-    // Wrap in the structure expected by ProductProvider (or standard json)
-    // The current file seems to be just { data: [] } or array. Let's check format. 
-    // The previous view_file showed standard JSON structure or wrapper. 
-    // Let's use { data: products } to be safe and consistent with some patterns found, or just array.
-    // Looking at previous tools, it was "{ data: [] }".
+    // 4. Update Categories with collected subcategories
+    let totalSubcategories = 0;
+    categories.forEach(c => {
+        if (categorySubMap.has(c.id)) {
+            // Sort subcategories alphabetically
+            const subs = Array.from(categorySubMap.get(c.id)).sort();
+            c.subcategories = subs;
+            totalSubcategories += subs.length;
+        }
+    });
 
+    // 5. Save Files
     const finalProductsData = { data: products };
     fs.writeFileSync(PRODUCTS_JSON_PATH, JSON.stringify(finalProductsData, null, 2), 'utf8');
     console.log(`Saved ${products.length} products to products.json`);
 
-    // Save Categories
-    if (newCategoriesCount > 0) {
-        fs.writeFileSync(CATEGORIES_JSON_PATH, JSON.stringify(categories, null, 2), 'utf8');
-        console.log(`Saved ${categories.length} categories to categories.json (Added ${newCategoriesCount} new)`);
-    } else {
-        console.log('No new categories added.');
-    }
+    fs.writeFileSync(CATEGORIES_JSON_PATH, JSON.stringify({ data: categories }, null, 2), 'utf8');
+    console.log(`Saved categories.json with ${totalSubcategories} active subcategories.`);
 
-    console.log('Import completed successfully!');
+    console.log('Import & Refactor completed successfully!');
 };
 
 importProducts().catch(err => console.error('Import failed:', err));

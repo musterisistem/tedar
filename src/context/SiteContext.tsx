@@ -9,6 +9,7 @@ export interface Slide {
     link?: string;
     order: number;
     showText?: boolean;
+    buttonText?: string;
 }
 
 export interface Banner {
@@ -50,6 +51,7 @@ export interface PromoBox {
     textColor: string;
     btnBgColor: string;
     btnTextColor: string;
+    image?: string; // Optional custom illustration
 }
 
 export interface BankDetail {
@@ -125,6 +127,19 @@ export interface DeliverySettings {
     fixedShippingCost: number;       // Sabit kargo ücreti (TL)
 }
 
+export interface TopCampaignItem {
+    id: string;
+    text: string;
+    link: string;
+    isActive: boolean;
+    order: number;
+}
+
+export interface TopCampaignBarSettings {
+    isActive: boolean;
+    items: TopCampaignItem[];
+}
+
 interface SiteContextType {
     slides: Slide[];
     updateSlides: (slides: Slide[]) => void;
@@ -152,6 +167,8 @@ interface SiteContextType {
     updatePolicyPages: (pages: PolicyPages) => void;
     deliverySettings: DeliverySettings;
     updateDeliverySettings: (settings: DeliverySettings) => void;
+    topCampaignBar: TopCampaignBarSettings;
+    updateTopCampaignBar: (settings: TopCampaignBarSettings) => void;
     saveSiteSettings: (overrides?: any) => Promise<{ success: boolean; message: string }>;
 }
 
@@ -201,6 +218,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                     if (data.freeShippingBanner) setFreeShippingBanner(data.freeShippingBanner);
                     if (data.policyPages) setPolicyPages(data.policyPages);
                     if (data.deliverySettings) setDeliverySettings(data.deliverySettings);
+                    if (data.topCampaignBar) setTopCampaignBar(data.topCampaignBar);
                 }
             } catch (error) {
                 console.error('Site ayarları yüklenemedi:', error);
@@ -372,6 +390,20 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         };
     });
 
+    const [topCampaignBar, setTopCampaignBar] = useState<TopCampaignBarSettings>(() => {
+        const saved = localStorage.getItem('site_top_campaign_bar');
+        if (saved) return JSON.parse(saved);
+        const data = (siteSettings as any).data || siteSettings;
+        return data.topCampaignBar || {
+            isActive: true,
+            items: [
+                { id: '1', text: "1500 TL VE ÜZERİ SİPARİŞLERDE KARGO BEDAVA!", link: "/kampanyalar", isActive: true, order: 1 },
+                { id: '2', text: "OFİS & KIRTASİYE ÜRÜNLERİNDE SEPETTE İNDİRİM FIRSATI", link: "/kampanyalar", isActive: true, order: 2 },
+                { id: '3', text: "AYNI GÜN KARGO İŞARETLİ ÜRÜNLERDE SİPARİŞİNİZ 1 GÜNDE KAPINIZDA", link: "/ayni-gun-kargo", isActive: true, order: 3 }
+            ]
+        };
+    });
+
     const updateSlides = (newSlides: Slide[]) => {
         setSlides(newSlides);
         localStorage.setItem('site_slides', JSON.stringify(newSlides));
@@ -437,6 +469,11 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         localStorage.setItem('site_delivery_settings', JSON.stringify(newSettings));
     };
 
+    const updateTopCampaignBar = (newSettings: TopCampaignBarSettings) => {
+        setTopCampaignBar(newSettings);
+        localStorage.setItem('site_top_campaign_bar', JSON.stringify(newSettings));
+    };
+
     const saveSiteSettings = async (overrides?: any) => {
         const settings = {
             filename: 'siteSettings.json',
@@ -454,6 +491,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 freeShippingBanner,
                 policyPages,
                 deliverySettings,
+                topCampaignBar,
                 ...overrides
             }
         };
@@ -485,6 +523,7 @@ export const SiteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             freeShippingBanner, updateFreeShippingBanner,
             policyPages, updatePolicyPages,
             deliverySettings, updateDeliverySettings,
+            topCampaignBar, updateTopCampaignBar,
             saveSiteSettings
         }}>
             {children}

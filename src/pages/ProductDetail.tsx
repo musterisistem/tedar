@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ChevronRight, Home as HomeIcon } from 'lucide-react';
-import { FreeShippingBanner } from '../components/layout/FreeShippingBanner';
+
 import { SEOHead, ProductSchema, BreadcrumbSchema } from '../components/seo';
 import { ProductGallery } from '../components/product/ProductGallery';
 import { ProductInfo } from '../components/product/ProductInfo';
@@ -60,7 +60,16 @@ export const ProductDetail: React.FC = () => {
         if (product?.categories && product.categories.length > 0) {
             const categoryId = product.categories[0];
             const categoriesArray = (categoriesData as any).data || categoriesData;
-            const category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
+            // 1. Try finding by ID
+            let category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
+
+            // 2. If not found, try finding by matching subcategory slug
+            if (!category && Array.isArray(categoriesArray)) {
+                category = categoriesArray.find((c: any) =>
+                    c.subcategories?.some((sub: string) => slugify(sub) === categoryId)
+                );
+            }
+
             if (category) {
                 items.push({ name: category.name, url: `/kategori/${category.id}` });
             }
@@ -119,7 +128,7 @@ export const ProductDetail: React.FC = () => {
                     <BreadcrumbSchema items={breadcrumbItems} />
 
                     <div className="min-h-screen flex flex-col">
-                        <FreeShippingBanner />
+
                         {/* TOP SECTION: Dark Background */}
                         <div className="bg-gray-100 pb-12">
                             {/* Breadcrumbs */}
@@ -136,11 +145,21 @@ export const ProductDetail: React.FC = () => {
                                         {product.categories && product.categories.length > 0 && (() => {
                                             const categoryId = product.categories[0];
                                             const categoriesArray = (categoriesData as any).data || categoriesData;
-                                            const category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
+
+                                            // 1. Try finding by ID
+                                            let category = Array.isArray(categoriesArray) ? categoriesArray.find((c: any) => c.id === categoryId) : null;
+
+                                            // 2. If not found, try finding by matching subcategory slug
+                                            if (!category && Array.isArray(categoriesArray)) {
+                                                category = categoriesArray.find((c: any) =>
+                                                    c.subcategories?.some((sub: string) => slugify(sub) === categoryId)
+                                                );
+                                            }
+
                                             if (category) {
                                                 return (
                                                     <>
-                                                        <Link to={`/kategori/${slugify(category.name)}`} className="hover:text-blue-600">
+                                                        <Link to={`/kategori/${category.id}`} className="hover:text-blue-600">
                                                             {category.name}
                                                         </Link>
                                                         <ChevronRight className="w-3 h-3" />
@@ -189,6 +208,7 @@ export const ProductDetail: React.FC = () => {
                                     <ProductSection
                                         title="İlgili Ürünler & Benzerleri"
                                         products={relatedProducts}
+                                        columns={5}
                                     />
                                 </div>
 

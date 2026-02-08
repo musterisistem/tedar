@@ -60,7 +60,7 @@ export const PolicyManager: React.FC = () => {
     return (
         <div className="space-y-6 pb-24">
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-gray-800">Sözleşme Sayfaları Yönetimi</h1>
+                <h1 className="text-2xl font-normal text-gray-800">Sözleşme Sayfaları Yönetimi</h1>
                 <button
                     onClick={handleSave}
                     disabled={saving}

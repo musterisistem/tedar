@@ -131,11 +131,11 @@ export const Dashboard: React.FC = () => {
         <div className="space-y-8">
             <div className="flex justify-between items-center bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
                 <div>
-                    <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Dashboard</h1>
+                    <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Dashboard</h1>
                     <p className="text-slate-500 font-medium">Hoşgeldiniz, işletmenizin anlık durumu.</p>
                 </div>
                 <div className="flex gap-2">
-                    <span className="bg-slate-50 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 border border-slate-100 uppercase">
+                    <span className="bg-slate-50 px-4 py-2 rounded-xl text-xs font-normal text-slate-600 border border-slate-100 uppercase">
                         SON GÜNCELLEME: {lastUpdate.toLocaleTimeString('tr-TR')}
                     </span>
                 </div>
@@ -154,15 +154,15 @@ export const Dashboard: React.FC = () => {
                     </div>
                     <div className="space-y-3 mb-6">
                         <div className="flex justify-between items-end">
-                            <span className="text-slate-500 text-sm font-semibold">Toplam Kullanıcı</span>
+                            <span className="text-slate-500 text-sm font-normal">Toplam Kullanıcı</span>
                             <div className="flex items-baseline gap-2">
-                                <span className="text-3xl font-bold text-slate-800">{stats.totalUsers}</span>
+                                <span className="text-3xl font-normal text-slate-800">{stats.totalUsers}</span>
                             </div>
                         </div>
                         <div className="w-full bg-slate-50 h-px"></div>
                         <div className="flex justify-between items-end">
-                            <span className="text-slate-500 text-sm font-semibold">Aktif (Çevrimiçi)</span>
-                            <span className="text-xl font-bold text-green-600">{activeVisitors}</span>
+                            <span className="text-slate-500 text-sm font-normal">Aktif (Çevrimiçi)</span>
+                            <span className="text-xl font-normal text-green-600">{activeVisitors}</span>
                         </div>
                     </div>
                     <div className="h-28 w-full opacity-80 group-hover:opacity-100 transition-opacity">
@@ -177,8 +177,8 @@ export const Dashboard: React.FC = () => {
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-emerald-500"></div>
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex flex-col">
-                            <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider">Satış Analizi</h3>
-                            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Son 30 Gün / Kategoriler</span>
+                            <h3 className="font-normal text-slate-800 text-sm uppercase tracking-wider">Satış Analizi</h3>
+                            <span className="text-[10px] text-slate-400 font-normal uppercase tracking-widest">Son 30 Gün / Kategoriler</span>
                         </div>
                         <div className="p-2 bg-emerald-50 rounded-lg">
                             <TrendingUp className="w-4 h-4 text-emerald-600" />
@@ -207,8 +207,8 @@ export const Dashboard: React.FC = () => {
                                 </div>
                             </div>
                             <div>
-                                <span className="text-3xl font-bold text-slate-800 block mb-1">{stats.pendingOrders}</span>
-                                <span className="text-xs font-bold text-slate-500">Onay Bekleyen</span>
+                                <span className="text-3xl font-normal text-slate-800 block mb-1">{stats.pendingOrders}</span>
+                                <span className="text-xs font-normal text-slate-500">Onay Bekleyen</span>
                             </div>
                         </div>
                         <div className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all group cursor-pointer border border-transparent hover:border-blue-100">
@@ -218,8 +218,8 @@ export const Dashboard: React.FC = () => {
                                 </div>
                             </div>
                             <div>
-                                <span className="text-3xl font-bold text-slate-800 block mb-1">{stats.toShipOrders}</span>
-                                <span className="text-xs font-bold text-slate-500">Gönderilecek</span>
+                                <span className="text-3xl font-normal text-slate-800 block mb-1">{stats.toShipOrders}</span>
+                                <span className="text-xs font-normal text-slate-500">Gönderilecek</span>
                             </div>
                         </div>
                     </div>
@@ -227,9 +227,9 @@ export const Dashboard: React.FC = () => {
                     <div className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex-1 flex flex-col">
                         <div className="flex justify-between items-center mb-4">
                             <div className="flex flex-col">
-                                <h3 className="font-semibold text-slate-700 text-sm uppercase tracking-wider">Katalog Durumu</h3>
+                                <h3 className="font-normal text-slate-700 text-sm uppercase tracking-wider">Katalog Durumu</h3>
                             </div>
-                            <span className="text-2xl font-bold text-slate-800">{stats.totalProducts}</span>
+                            <span className="text-2xl font-normal text-slate-800">{stats.totalProducts}</span>
                         </div>
                         <div className="flex-1 flex items-center justify-center">
                             <div className="text-center">
@@ -297,7 +297,7 @@ export const Dashboard: React.FC = () => {
                 {/* Son Siparişler */}
                 <div className="lg:col-span-12 bg-white rounded-2xl p-6 shadow-sm border border-transparent flex flex-col">
                     <div className="flex justify-between items-center mb-6">
-                        <h3 className="font-bold text-slate-800 text-lg uppercase tracking-tight">Son Siparişler</h3>
+                        <h3 className="font-normal text-slate-800 text-lg uppercase tracking-tight">Son Siparişler</h3>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
@@ -316,7 +316,7 @@ export const Dashboard: React.FC = () => {
                                         className="hover:bg-blue-50 transition-colors cursor-pointer"
                                         onClick={() => window.location.href = `/admin/orders/${order.id}`}
                                     >
-                                        <td className="px-4 py-3 font-bold text-slate-800">{order.customer}</td>
+                                        <td className="px-4 py-3 font-normal text-slate-800">{order.customer}</td>
                                         <td className="px-4 py-3 text-slate-500">
                                             {order.date} {order.time && <span className="text-slate-400 text-xs">({order.time})</span>}
                                         </td>
@@ -332,7 +332,7 @@ export const Dashboard: React.FC = () => {
                                                 };
                                                 const s = statusMap[order.status] || { label: order.status, bg: 'bg-gray-50', text: 'text-gray-600' };
                                                 return (
-                                                    <span className={`px-2 py-1 rounded-lg text-xs font-bold ${s.bg} ${s.text}`}>
+                                                    <span className={`px-2 py-1 rounded-lg text-xs font-normal ${s.bg} ${s.text}`}>
                                                         {s.label}
                                                     </span>
                                                 );

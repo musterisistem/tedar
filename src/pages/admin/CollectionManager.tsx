@@ -101,14 +101,14 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ type }) =>
                         <Icon className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">{title}</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">{title}</h1>
                         <p className="text-slate-500 font-medium">{description}</p>
                     </div>
                 </div>
                 <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100 disabled:opacity-50"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-normal hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100 disabled:opacity-50"
                 >
                     {isSaving ? 'KAYDEDİLİYOR...' : <><Save className="w-5 h-5" /> KAYDET</>}
                 </button>
@@ -148,9 +148,9 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ type }) =>
                                                 <img src={product.image} alt={product.name} className="w-full h-full object-contain p-1" />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="text-xs font-bold text-slate-400 mb-0.5">{product.code || 'KOD YOK'}</div>
-                                                <div className="font-semibold text-slate-700 text-sm truncate">{product.name}</div>
-                                                <div className="text-blue-600 font-bold text-xs">{product.price.current} TL</div>
+                                                <div className="text-xs font-normal text-slate-400 mb-0.5">{product.code || 'KOD YOK'}</div>
+                                                <div className="font-normal text-slate-700 text-sm truncate">{product.name}</div>
+                                                <div className="text-blue-600 font-normal text-xs">{product.price.current} TL</div>
                                             </div>
                                             <div className={`w-6 h-6 rounded-full flex items-center justify-center border transition-colors
                                                 ${isSelected
@@ -177,8 +177,8 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ type }) =>
                 {/* Selected Products List */}
                 <div className="w-96 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col overflow-hidden">
                     <div className="p-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                        <h3 className="font-semibold text-slate-700">Seçilen Ürünler</h3>
-                        <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs font-bold">
+                        <h3 className="font-normal text-slate-700">Seçilen Ürünler</h3>
+                        <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs font-normal">
                             {selectedIds.length}
                         </span>
                     </div>
@@ -187,12 +187,12 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ type }) =>
                         {selectedProductsInfo.length > 0 ? (
                             selectedProductsInfo.map((p, idx) => (
                                 <div key={p.id} className="flex gap-3 p-3 bg-white border border-slate-100 rounded-lg group hover:border-red-200 hover:bg-red-50/20 transition-colors">
-                                    <div className="font-mono text-xs font-bold text-slate-300 w-5 flex items-center justify-center">{idx + 1}</div>
+                                    <div className="font-mono text-xs font-normal text-slate-300 w-5 flex items-center justify-center">{idx + 1}</div>
                                     <div className="w-10 h-10 bg-white border border-slate-200 rounded flex-shrink-0">
                                         <img src={p.image} alt={p.name} className="w-full h-full object-contain p-0.5" />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="text-sm font-semibold text-slate-700 truncate">{p.name}</div>
+                                        <div className="text-sm font-normal text-slate-700 truncate">{p.name}</div>
                                         <div className="text-xs text-slate-400">{p.code}</div>
                                     </div>
                                     <button

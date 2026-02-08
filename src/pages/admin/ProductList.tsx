@@ -14,6 +14,10 @@ export const ProductList: React.FC = () => {
     // Selection State
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
+    // Delete Modal State
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [productToDelete, setProductToDelete] = useState<string | number | null>(null);
+
     // Filter Logic
     const filteredProducts = useMemo(() => {
         return products.filter((product: Product) =>
@@ -31,9 +35,21 @@ export const ProductList: React.FC = () => {
 
     // Handlers
     const handleDelete = (id: string | number) => {
-        if (window.confirm('Bu ürünü silmek istediğinize emin misiniz?')) {
-            deleteProduct(id);
+        setProductToDelete(id);
+        setDeleteModalOpen(true);
+    };
+
+    const confirmDelete = () => {
+        if (productToDelete !== null) {
+            deleteProduct(productToDelete);
+            setDeleteModalOpen(false);
+            setProductToDelete(null);
         }
+    };
+
+    const cancelDelete = () => {
+        setDeleteModalOpen(false);
+        setProductToDelete(null);
     };
 
     const handleBulkDelete = async () => {
@@ -81,9 +97,9 @@ export const ProductList: React.FC = () => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-800">Ürün Listesi</h1>
+                    <h1 className="text-2xl font-normal text-slate-800">Ürün Listesi</h1>
                     <p className="text-slate-500 text-sm mt-1">
-                        Toplam <span className="font-bold text-slate-800">{products.length}</span> ürün bulunmaktadır.
+                        Toplam <span className="font-normal text-slate-800">{products.length}</span> ürün bulunmaktadır.
                     </p>
                 </div>
                 <div className="flex gap-2">
@@ -134,7 +150,7 @@ export const ProductList: React.FC = () => {
             <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-slate-600">
-                        <thead className="bg-slate-100 text-slate-800 font-bold border-b border-slate-200 uppercase text-xs">
+                        <thead className="bg-slate-100 text-slate-800 font-normal border-b border-slate-200 uppercase text-xs">
                             <tr>
                                 <th className="px-4 py-3 w-10 text-center">
                                     <button onClick={toggleSelectAll} className="flex items-center justify-center">
@@ -169,22 +185,31 @@ export const ProductList: React.FC = () => {
                                                 <img src={product.image} alt="" className="w-full h-full object-cover" />
                                             </div>
                                         </td>
-                                        <td className="px-4 py-3 font-medium text-slate-800 max-w-xs truncate" title={product.name}>
-                                            {product.name}
+                                        <td className="px-4 py-3">
+                                            <div className="max-w-xs">
+                                                <p className="font-medium text-slate-800 truncate" title={product.name}>
+                                                    {product.name}
+                                                </p>
+                                                {product.createdAt && (
+                                                    <p className="text-[10px] text-slate-400 mt-0.5">
+                                                        Eklenme: {new Date(product.createdAt).toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                                    </p>
+                                                )}
+                                            </div>
                                         </td>
                                         <td className="px-4 py-3 text-xs">
                                             {product.categories?.slice(0, 2).join(', ') || 'Kategorisiz'}
                                         </td>
-                                        <td className={`px-4 py-3 font-bold ${product.stock < 10 ? 'text-red-600' : 'text-slate-600'}`}>
+                                        <td className={`px-4 py-3 font-normal ${product.stock < 10 ? 'text-red-600' : 'text-slate-600'}`}>
                                             {product.stock}
                                         </td>
-                                        <td className="px-4 py-3 font-bold text-slate-800">
+                                        <td className="px-4 py-3 font-normal text-slate-800">
                                             {product.price.current.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL
                                         </td>
                                         <td className="px-4 py-3">
                                             <button
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-2 py-1 text-[10px] font-bold border rounded ${product.isActive ? 'bg-green-50 text-green-700 border-green-200' : 'bg-slate-100 text-slate-500 border-slate-200'}`}
+                                                className={`px-2 py-1 text-[10px] font-normal border rounded ${product.isActive ? 'bg-green-50 text-green-700 border-green-200' : 'bg-slate-100 text-slate-500 border-slate-200'}`}
                                             >
                                                 {product.isActive ? 'AKTİF' : 'PASİF'}
                                             </button>
@@ -214,7 +239,7 @@ export const ProductList: React.FC = () => {
                 {totalPages > 1 && (
                     <div className="bg-slate-50 px-4 py-3 border-t border-slate-200 flex items-center justify-between">
                         <div className="text-sm text-slate-500 hidden md:block">
-                            Toplam <span className="font-bold">{filteredProducts.length}</span> üründen <span className="font-bold">{(currentPage - 1) * itemsPerPage + 1}</span> - <span className="font-bold">{Math.min(currentPage * itemsPerPage, filteredProducts.length)}</span> arası gösteriliyor.
+                            Toplam <span className="font-normal">{filteredProducts.length}</span> üründen <span className="font-normal">{(currentPage - 1) * itemsPerPage + 1}</span> - <span className="font-normal">{Math.min(currentPage * itemsPerPage, filteredProducts.length)}</span> arası gösteriliyor.
                         </div>
                         <div className="flex gap-2">
                             <button
@@ -241,6 +266,32 @@ export const ProductList: React.FC = () => {
                     </div>
                 )}
             </div>
+
+            {/* Delete Confirmation Modal */}
+            {deleteModalOpen && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={cancelDelete}>
+                    <div className="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4" onClick={(e) => e.stopPropagation()}>
+                        <h3 className="text-lg font-normal text-slate-800 mb-2">Ürünü Sil</h3>
+                        <p className="text-slate-600 text-sm mb-6">
+                            Bu ürünü silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+                        </p>
+                        <div className="flex gap-3 justify-end">
+                            <button
+                                onClick={cancelDelete}
+                                className="px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
+                            >
+                                İptal
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+                            >
+                                Sil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

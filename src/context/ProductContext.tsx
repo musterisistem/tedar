@@ -470,8 +470,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
     };
 
     const saveProductSettings = async () => {
-        const settings = {
-            filename: 'productSettings.json',
+        const data = {
             outletProductIds,
             campaignProductIds,
             flashProductIds,
@@ -485,7 +484,10 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
             const response = await fetch('/api/save-settings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings)
+                body: JSON.stringify({
+                    filename: 'productSettings.json',
+                    data
+                })
             });
             return await response.json();
         } catch (error) {

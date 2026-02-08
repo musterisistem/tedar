@@ -100,6 +100,34 @@ if (process.env.VERCEL !== '1' && !fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
+// Load Turkey Location Data (Legacy - for Neighborhoods)
+let turkeyData = null;
+const turkeyDataPath = path.join(DATA_DIR, 'turkiye.json');
+try {
+    if (fs.existsSync(turkeyDataPath)) {
+        turkeyData = JSON.parse(fs.readFileSync(turkeyDataPath, 'utf-8'));
+        console.log('✅ Loaded Turkey Location Data (Legacy)');
+    } else {
+        console.warn('⚠️ Turkey Location Data not found at:', turkeyDataPath);
+    }
+} catch (e) {
+    console.error('❌ Failed to load Turkey Location Data:', e);
+}
+
+// Load Mernis Cities & Districts Data (New Source)
+let mernisData = null;
+const mernisDataPath = path.join(DATA_DIR, 'turkey_cities_districts.json');
+try {
+    if (fs.existsSync(mernisDataPath)) {
+        mernisData = JSON.parse(fs.readFileSync(mernisDataPath, 'utf-8'));
+        console.log('✅ Loaded Mernis Location Data (Cities & Districts)');
+    } else {
+        console.warn('⚠️ Mernis Data not found at:', mernisDataPath);
+    }
+} catch (e) {
+    console.error('❌ Failed to load Mernis Data:', e);
+}
+
 // ----------------------------------------------------------------------
 // Email Templates
 // ----------------------------------------------------------------------
@@ -571,41 +599,205 @@ ${contactData.message}
     </div>
 `;
 
+const getPriceAlertTemplate = (data) => `
+    <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 650px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; border-radius: 20px;">
+        <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <!-- Header Banner -->
+            <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 40px 30px; text-align: center;">
+                <div style="background: white; width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div style="font-size: 48px;">🔔</div>
+                </div>
+                <h1 style="color: white; font-size: 32px; margin: 0 0 10px 0; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    ${data.title || 'Özel Fiyat Bildirimi'}
+                </h1>
+                <p style="color: rgba(255,255,255,0.95); font-size: 16px; margin: 0;">
+                    Dörtel Tedarik'ten Sizin İçin Özel Fırsatlar
+                </p>
+            </div>
+
+            <!-- Content -->
+            <div style="padding: 40px 30px;">
+                <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid #f59e0b;">
+                    <h2 style="color: #92400e; font-size: 24px; margin: 0 0 15px 0;">
+                        Merhaba <span style="color: #d97706;">${data.userName || 'Değerli Müşterimiz'}</span>! 👋
+                    </h2>
+                    <div style="color: #78350f; line-height: 1.8; margin: 0; font-size: 15px; white-space: pre-wrap;">
+${data.content || 'Takip ettiğiniz ürünlerde özel indirimler başladı!'}
+                    </div>
+                </div>
+
+                <!-- Features Grid -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 30px 0;">
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #48bb78;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🚚</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Hızlı Teslimat</div>
+                        <div style="color: #718096; font-size: 12px;">Aynı gün kargo seçeneği</div>
+                    </div>
+                    
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #4299e1;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">💰</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Özel İndirimler</div>
+                        <div style="color: #718096; font-size: 12px;">Sizin için hazırlandı</div>
+                    </div>
+                    
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #ed8936;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">📦</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Geniş Ürün Yelpazesi</div>
+                        <div style="color: #718096; font-size: 12px;">Binlerce ürün seçeneği</div>
+                    </div>
+                    
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #9f7aea;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+                        <div style="font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px;">Kolay İade</div>
+                        <div style="color: #718096; font-size: 12px;">14 gün iade garantisi</div>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div style="text-align: center; margin: 35px 0 25px 0;">
+                    <a href="${process.env.BASE_URL || 'https://dorteltedarik.com'}/hesabim?tab=alerts" 
+                       style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+                              color: white; padding: 16px 40px; text-decoration: none; border-radius: 50px; 
+                              font-weight: 700; font-size: 16px; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+                              transition: transform 0.2s;">
+                        🛒 Fırsatları İncele
+                    </a>
+                </div>
+
+                <div style="background: #edf2f7; padding: 20px; border-radius: 10px; text-align: center;">
+                    <p style="color: #4a5568; font-size: 13px; margin: 0; line-height: 1.5;">
+                        💡 <strong>İpucu:</strong> Favori ürünlerinizi takip ederek fiyat değişikliklerinden anında haberdar olun!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background: #f7fafc; padding: 25px 30px; border-top: 1px solid #e2e8f0;">
+                <p style="color: #718096; font-size: 12px; text-align: center; margin: 0 0 10px 0;">
+                    Bu e-posta fiyat takip listeniz için gönderilmiştir
+                </p>
+                <p style="color: #a0aec0; font-size: 11px; text-align: center; margin: 0;">
+                    © ${new Date().getFullYear()} Dörtel Tedarik. Tüm hakları saklıdır.
+                </p>
+            </div>
+        </div>
+    </div>
+`;
+
 // ----------------------------------------------------------------------
 // Routes
 // ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+// Location Routes
+// ----------------------------------------------------------------------
+
+app.get('/api/location/cities', (req, res) => {
+    if (mernisData) {
+        // Use new Mernis data if available
+        const cities = Object.values(mernisData).map(c => c.province).sort((a, b) => a.localeCompare(b, 'tr'));
+        return res.json(cities);
+    }
+    // Fallback to old data
+    if (!turkeyData) return res.json([]);
+    const cities = turkeyData.map(c => c.name).sort();
+    res.json(cities);
+});
+
+app.get('/api/location/districts', (req, res) => {
+    const { city } = req.query;
+    if (!city) return res.json([]);
+
+    if (mernisData) {
+        // Find city in Mernis data
+        const cityEntry = Object.values(mernisData).find(c => c.province === city);
+        if (cityEntry) {
+            const districts = cityEntry.districts.map(d => d.name).sort((a, b) => a.localeCompare(b, 'tr'));
+            return res.json(districts);
+        }
+    }
+
+    // Fallback
+    if (!turkeyData) return res.json([]);
+    const cityData = turkeyData.find(c => c.name === city);
+    if (!cityData) return res.json([]);
+    // In this JSON, 'counties' maps to Districts (İlçe)
+    const districts = cityData.counties.map(c => c.name).sort();
+    res.json(districts);
+});
+
+app.get('/api/location/neighborhoods', (req, res) => {
+    const { city, district } = req.query;
+    if (!turkeyData || !city || !district) return res.json([]);
+
+    const cityData = turkeyData.find(c => c.name === city);
+    if (!cityData) return res.json([]);
+
+    const countyData = cityData.counties.find(d => d.name === district);
+    if (!countyData) return res.json([]);
+
+    // Collect neighborhoods from all sub-districts (semts/bucaks)
+    let allNeighborhoods = [];
+    if (countyData.districts) {
+        countyData.districts.forEach(subDistrict => {
+            if (subDistrict.neighborhoods) {
+                allNeighborhoods.push(...subDistrict.neighborhoods.map(n => n.name));
+            }
+        });
+    }
+
+    // Unique and sort
+    allNeighborhoods = [...new Set(allNeighborhoods)].sort();
+    res.json(allNeighborhoods);
+});
 
 // 1. Send Email
 app.post('/api/send-email', async (req, res) => {
     try {
         const { type, to, data } = req.body;
+        const cleanType = type?.trim();
 
-        if (!to || !type) {
-            return res.status(400).json({ success: false, message: 'Missing parameters' });
+        console.log('📬 [EMAIL DEBUG] Full Request Body:', JSON.stringify(req.body, null, 2));
+
+        if (!to || !cleanType) {
+            console.error('❌ [EMAIL ERROR] Missing parameters:', { to: !!to, type: !!cleanType });
+            return res.status(400).json({
+                success: false,
+                message: 'E-posta adresi veya gönderim tipi eksik.',
+                received: { to, type: cleanType }
+            });
         }
 
         let subject = '';
         let html = '';
 
-        switch (type) {
+        switch (cleanType) {
             case 'welcome':
                 subject = 'Dörtel Tedarik\'e Hoş Geldiniz';
-                html = getWelcomeTemplate(data.name);
+                html = getWelcomeTemplate(data?.name);
                 break;
             case 'order-new':
-                subject = `Sipariş Alındı: ${data.orderNo}`;
+                subject = `Sipariş Alındı: ${data?.orderNo}`;
                 html = getOrderReceivedTemplate(data);
                 break;
             case 'order-status':
-                subject = `Sipariş Durumu Güncellemesi: ${data.orderNo}`;
+                subject = `Sipariş Durumu Güncellemesi: ${data?.orderNo}`;
                 html = getOrderStatusTemplate(data);
                 break;
             case 'admin-alert':
-                subject = `Yeni Sipariş: ${data.orderNo} - ${data.amount} TL`;
+                subject = `Yeni Sipariş: ${data?.orderNo} - ${data?.amount} TL`;
                 html = getAdminNotificationTemplate(data);
                 break;
+            case 'price-alert':
+                subject = data?.title || 'Özel Fiyat Bildirimi - Dörtel Tedarik';
+                html = getPriceAlertTemplate(data);
+                break;
             default:
-                return res.status(400).json({ success: false, message: 'Invalid email type' });
+                console.error('❌ Invalid email type:', cleanType);
+                return res.status(400).json({
+                    success: false,
+                    message: `Invalid email type: ${cleanType}`
+                });
         }
 
         /* 
@@ -614,26 +806,31 @@ app.post('/api/send-email', async (req, res) => {
         */
 
         if (!process.env.RESEND_API_KEY) {
-            console.log('MOCK EMAIL SENT:', { to, subject });
+            console.log('📢 [MOCK EMAIL] No API Key, simulated success:', { to, subject });
             return res.json({ success: true, message: 'Mock email sent (No API Key)' });
         }
 
-        const dataRes = await resend.emails.send({
-            from: 'Dörtel Tedarik <siparis@dorteltedarik.com>', // Verified domain
+        const response = await resend.emails.send({
+            from: 'Dörtel Tedarik <siparis@dorteltedarik.com>',
             to: Array.isArray(to) ? to : [to],
             subject: subject,
             html: html,
         });
 
-        res.json({ success: true, data: dataRes });
+        if (response.error) {
+            console.error('❌ [RESEND ERROR]:', response.error);
+            return res.status(400).json({ success: false, error: response.error });
+        }
+
+        console.log('✅ [EMAIL SUCCESS] Resend Response:', response);
+        res.json({ success: true, data: response });
     } catch (error) {
         console.error('Email Error:', error);
         res.status(500).json({ success: false, error: error.message });
     }
 });
 
-
-
+// 1.1 List Users (Endpoint moved and refactored below at line 1343)
 
 // 2. Contact Form Submission
 app.post('/api/contact', async (req, res) => {
@@ -1117,6 +1314,33 @@ app.put('/api/users', async (req, res) => {
     }
 });
 
+// GET ALL USERS (ADMIN)
+app.get('/api/users', async (req, res) => {
+    try {
+        // Ideally checking for admin role here from JWT token
+        const db = await connectDB();
+        if (!db) return res.status(500).json({ error: 'Database connection failed' });
+
+        const users = await db.collection('users').find({}).toArray();
+        // Remove passwords before sending to frontend
+        const safeUsers = users.map(u => {
+            const { password, ...safeUser } = u;
+            return {
+                ...safeUser,
+                id: u._id,
+                username: u.username || u.email.split('@')[0], // Fallback if username missing
+                status: u.status || 'active',
+                registerDate: u.createdAt || u.registerDate || new Date().toISOString()
+            };
+        });
+
+        res.json({ success: true, data: safeUsers });
+    } catch (error) {
+        console.error('Fetch Users Error:', error);
+        res.status(500).json({ error: 'Kullanıcılar getirilemedi: ' + error.message });
+    }
+});
+
 
 // Price Alerts
 app.get('/api/price-alerts', async (req, res) => {
@@ -1558,6 +1782,114 @@ app.post('/api/paytr/token', async (req, res) => {
     } catch (error) {
         console.error('PayTR Token Error:', error);
         res.status(500).json({ status: 'failed', reason: error.message });
+    }
+});
+
+// ----------------------------------------------------------------------
+// Product Management Routes
+// ----------------------------------------------------------------------
+
+// GET All Products
+app.get('/api/products', async (req, res) => {
+    try {
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+        const products = await database.collection('products').find({}).toArray();
+        res.json({ success: true, data: products });
+    } catch (error) {
+        console.error('Get Products Error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// ADD Product
+app.post('/api/products', async (req, res) => {
+    try {
+        const product = req.body;
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        product.createdAt = new Date().toISOString();
+        if (!product.id) product.id = Date.now().toString();
+
+        const result = await database.collection('products').insertOne(product);
+        res.status(201).json({ success: true, data: { ...product, _id: result.insertedId } });
+    } catch (error) {
+        console.error('Add Product Error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// UPDATE Product
+app.put('/api/products', async (req, res) => {
+    try {
+        const { id, ...updates } = req.body;
+        if (!id) return res.status(400).json({ success: false, message: 'ID is required' });
+
+        const database = await connectDB();
+        if (!database) return res.status(500).json({ error: 'Database connection failed' });
+
+        const productsCollection = database.collection('products');
+
+        let query;
+        try {
+            query = { $or: [{ _id: new ObjectId(id) }, { id: id }, { id: parseInt(id) }, { id: id.toString() }] };
+        } catch (e) {
+            query = { $or: [{ id: id }, { id: parseInt(id) }, { id: id.toString() }] };
+        }
+
+        const result = await productsCollection.updateOne(query, { $set: updates });
+
+        if (result.matchedCount > 0) {
+            res.json({ success: true, message: 'Product updated' });
+        } else {
+            res.status(404).json({ success: false, message: 'Product not found' });
+        }
+    } catch (error) {
+        console.error('Update Product Error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// DELETE Product
+app.delete('/api/products', async (req, res) => {
+    try {
+        const { id } = req.query;
+
+        if (!id) {
+            return res.status(400).json({ success: false, message: 'Product ID is required' });
+        }
+
+        const db = await connectDB();
+        if (!db) {
+            return res.status(500).json({ success: false, message: 'Database connection failed' });
+        }
+
+        const productsCollection = db.collection('products');
+
+        // Try to delete by ObjectId first, then by string id
+        let result;
+        try {
+            result = await productsCollection.deleteOne({ _id: new ObjectId(id) });
+        } catch (e) {
+            // If ObjectId fails, try as string or number
+            result = await productsCollection.deleteOne({
+                $or: [
+                    { id: id },
+                    { id: parseInt(id) },
+                    { id: id.toString() }
+                ]
+            });
+        }
+
+        if (result.deletedCount > 0) {
+            res.json({ success: true, message: 'Product deleted successfully' });
+        } else {
+            res.status(404).json({ success: false, message: 'Product not found' });
+        }
+    } catch (error) {
+        console.error('Delete Product Error:', error);
+        res.status(500).json({ success: false, message: error.message });
     }
 });
 

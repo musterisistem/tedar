@@ -208,7 +208,7 @@ export const BulkImport: React.FC = () => {
 
     return (
         <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-normal mb-6 flex items-center gap-2">
                 <FileText className="w-6 h-6 text-indigo-600" />
                 Toplu Ürün Yükleme (CSV)
             </h2>
@@ -254,7 +254,7 @@ export const BulkImport: React.FC = () => {
                         </span>
                     </label>
                     <div className="mt-8 text-left max-w-md mx-auto bg-blue-50 p-4 rounded text-sm text-blue-800">
-                        <p className="font-semibold mb-1 flex items-center gap-1"><AlertCircle className="w-4 h-4" /> İpucu:</p>
+                        <p className="font-normal mb-1 flex items-center gap-1"><AlertCircle className="w-4 h-4" /> İpucu:</p>
                         <p>Dosyanızın ilk satırı başlık (header) içermelidir (Örn: Ürün Adı, Fiyat, Stok).</p>
                     </div>
                 </div>
@@ -332,10 +332,10 @@ export const BulkImport: React.FC = () => {
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Check className="w-8 h-8 text-green-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">İçe Aktarma Tamamlandı!</h3>
+                    <h3 className="text-xl font-normal text-gray-900 mb-2">İçe Aktarma Tamamlandı!</h3>
                     <p className="text-gray-600 mb-8">
-                        <span className="text-green-600 font-bold">{importResult.success}</span> ürün başarıyla eklendi.<br />
-                        <span className="text-red-500 font-bold">{importResult.failed}</span> ürün atlandı (tekrarlanan veya geçersiz).
+                        <span className="text-green-600 font-normal">{importResult.success}</span> ürün başarıyla eklendi.<br />
+                        <span className="text-red-500 font-normal">{importResult.failed}</span> ürün atlandı (tekrarlanan veya geçersiz).
                     </p>
                     <button
                         onClick={reset}

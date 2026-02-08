@@ -96,15 +96,18 @@ export const FlashSaleSection: React.FC = () => {
                     <div
                         className="flex gap-4 transition-transform ease-in-out"
                         style={{
-                            transform: `translateX(-${currentIndex * 196}px)`,
+                            transform: `translateX(-${currentIndex * 256}px)`, // increased width + gap (240+16)
                             transitionDuration: isTransitioning ? '500ms' : '0ms'
                         }}
                     >
                         {duplicatedProducts.map((product, index) => (
                             <div
                                 key={`${product.id}-${index}`}
-                                className="w-[180px] flex-shrink-0 bg-white rounded-lg p-2 hover:shadow-xl transition-shadow duration-300"
+                                className="w-[240px] flex-shrink-0 bg-white rounded-xl p-3 border-2 border-red-100 hover:border-red-400 shadow-sm hover:shadow-xl transition-all duration-300 relative group"
                             >
+                                <div className="absolute top-2 right-2 z-10 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-md overflow-hidden">
+                                    <span className="block animate-slide-up-loop">Fırsat Ürün</span>
+                                </div>
                                 <ProductCard
                                     {...product}
                                     hideBadges={true}

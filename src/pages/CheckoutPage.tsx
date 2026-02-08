@@ -5,9 +5,10 @@ import { useProducts } from '../context/ProductContext';
 import { useUsers } from '../context/UserContext';
 import { useSite } from '../context/SiteContext';
 import { useOrders } from '../context/OrderContext';
-import { locationData } from '../data/locationData';
+import { useLocation } from '../hooks/useLocation';
 import { CheckCircle, CreditCard, Truck, User, LogIn, Lock, AlertCircle, MapPin, Home, Phone, Mail, ChevronDown, Plus, Landmark, Copy, Info } from 'lucide-react';
 import { slugify } from '../utils/slugify';
+import { formatPhoneNumber } from '../utils/formatPhone';
 import { PayTRModal } from '../components/common/PayTRModal';
 
 export const CheckoutPage: React.FC = () => {
@@ -56,6 +57,9 @@ export const CheckoutPage: React.FC = () => {
         phone: currentUser?.phone || '',
         note: ''
     });
+
+    // Location Hook
+    const { cities, districts, neighborhoods } = useLocation(addressForm.city, addressForm.district);
 
     const [isBillingSame, setIsBillingSame] = useState(true);
     const [billingAddressForm, setBillingAddressForm] = useState({
@@ -363,7 +367,12 @@ export const CheckoutPage: React.FC = () => {
                                                 placeholder="05__ ___ __ __"
                                                 className="w-full h-10 border border-gray-300 rounded pl-10 pr-3 focus:outline-none focus:border-blue-500 text-sm transition-all shadow-sm"
                                                 value={addressForm.phone}
-                                                onChange={(e) => setAddressForm({ ...addressForm, phone: e.target.value })}
+                                                onChange={(e) => {
+                                                    const formatted = formatPhoneNumber(e.target.value);
+                                                    if (formatted.length <= 17) {
+                                                        setAddressForm({ ...addressForm, phone: formatted });
+                                                    }
+                                                }}
                                             />
                                         </div>
                                         <p className="text-[10px] text-gray-400 mt-1">Sipariş durumu hakkında SMS ile bilgilendirileceksiniz.</p>
@@ -448,7 +457,7 @@ export const CheckoutPage: React.FC = () => {
                                                             required
                                                         >
                                                             <option value="">İl Seçiniz</option>
-                                                            {Object.keys(locationData).map(city => (
+                                                            {cities.sort().map(city => (
                                                                 <option key={city} value={city}>{city}</option>
                                                             ))}
                                                         </select>
@@ -467,7 +476,7 @@ export const CheckoutPage: React.FC = () => {
                                                             required
                                                         >
                                                             <option value="">{addressForm.city ? 'İlçe Seçiniz' : 'Önce İl Seçin'}</option>
-                                                            {addressForm.city && locationData[addressForm.city] && Object.keys(locationData[addressForm.city]).map(district => (
+                                                            {districts.map(district => (
                                                                 <option key={district} value={district}>{district}</option>
                                                             ))}
                                                         </select>
@@ -486,7 +495,7 @@ export const CheckoutPage: React.FC = () => {
                                                             required
                                                         >
                                                             <option value="">{addressForm.district ? 'Mahalle Seçiniz' : 'Önce İlçe Seçin'}</option>
-                                                            {addressForm.city && addressForm.district && locationData[addressForm.city][addressForm.district] && locationData[addressForm.city][addressForm.district].map(neighborhood => (
+                                                            {neighborhoods.map(neighborhood => (
                                                                 <option key={neighborhood} value={neighborhood}>{neighborhood}</option>
                                                             ))}
                                                         </select>

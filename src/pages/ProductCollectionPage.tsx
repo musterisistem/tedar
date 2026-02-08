@@ -26,7 +26,7 @@ export const ProductCollectionPage: React.FC<ProductCollectionPageProps> = ({ ty
         bannerColor = 'bg-gradient-to-r from-red-600 to-red-800';
     } else if (isSameDay) {
         title = 'Aynı Gün Kargo';
-        description = 'Saat 14:00\'e kadar verilen siparişlerde aynı gün kargo fırsatı!';
+        description = '00:00 ile 11:00 arası verilen siparişlerde kargo aynı gün';
         Icon = Truck; // Will need import
         bannerColor = 'bg-gradient-to-r from-green-600 to-emerald-800';
     }

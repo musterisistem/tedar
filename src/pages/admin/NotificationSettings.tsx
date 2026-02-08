@@ -74,7 +74,7 @@ export const NotificationSettings: React.FC = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Bildirim Ayarları</h1>
+                    <h1 className="text-2xl font-normal text-gray-800">Bildirim Ayarları</h1>
                     <p className="text-gray-500">Sipariş bildirimlerinin gönderileceği e-posta adreslerini yönetin.</p>
                 </div>
                 <button
@@ -94,7 +94,7 @@ export const NotificationSettings: React.FC = () => {
             )}
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <h2 className="text-lg font-normal mb-4 flex items-center gap-2">
                     <Mail className="w-5 h-5 text-gray-400" />
                     Admin E-posta Adresleri
                 </h2>

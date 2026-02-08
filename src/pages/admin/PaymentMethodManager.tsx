@@ -102,14 +102,14 @@ export const PaymentMethodManager: React.FC = () => {
                         <CreditCard className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Ödeme Yöntemleri</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Ödeme Yöntemleri</h1>
                         <p className="text-slate-500 font-medium">Sitedeki ödeme ve teslimat seçeneklerini yönetin.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center gap-2 disabled:bg-blue-300 shadow-lg shadow-blue-100"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-normal hover:bg-blue-700 transition-all flex items-center gap-2 disabled:bg-blue-300 shadow-lg shadow-blue-100"
                 >
                     {isSaving ? 'KAYDEDİLİYOR...' : <><Save className="w-5 h-5" /> DEĞİŞİKLİKLERİ KAYDET</>}
                 </button>
@@ -120,7 +120,7 @@ export const PaymentMethodManager: React.FC = () => {
             <div className="space-y-6">
                 {/* Method Toggles */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <h2 className="text-lg font-normal mb-4 flex items-center gap-2">
                         <Check className="w-5 h-5 text-blue-600" /> Aktif Ödeme Yöntemleri
                     </h2>
                     <div className="grid grid-cols-1 gap-6">
@@ -131,11 +131,11 @@ export const PaymentMethodManager: React.FC = () => {
                                     <div className={`p-2 rounded-lg ${settings.isCreditCardActive ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-500'}`}>
                                         <CreditCard className="w-6 h-6" />
                                     </div>
-                                    <span className={`font-semibold text-lg ${settings.isCreditCardActive ? 'text-slate-800' : 'text-slate-400'}`}>Kredi Kartı</span>
+                                    <span className={`font-normal text-lg ${settings.isCreditCardActive ? 'text-slate-800' : 'text-slate-400'}`}>Kredi Kartı</span>
                                 </div>
                                 <button
                                     onClick={() => handleToggle('isCreditCardActive')}
-                                    className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${settings.isCreditCardActive ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
+                                    className={`px-4 py-1.5 rounded-full text-xs font-normal transition-all ${settings.isCreditCardActive ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
                                 >
                                     {settings.isCreditCardActive ? 'AKTİF' : 'PASİF YAP'}
                                 </button>
@@ -154,12 +154,12 @@ export const PaymentMethodManager: React.FC = () => {
 
                                     {/* PayTR Credentials Section */}
                                     <div className="border-t border-dashed border-gray-200 pt-4 mt-4">
-                                        <h3 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                        <h3 className="text-sm font-normal text-slate-800 mb-3 flex items-center gap-2">
                                             <div className="w-2 h-2 rounded-full bg-blue-600"></div> PayTR Entegrasyon Bilgileri
                                         </h3>
                                         <div className="grid grid-cols-1 gap-4 bg-blue-50/50 p-4 rounded-xl border border-blue-100">
                                             <div>
-                                                <label className="block text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider">Merchant ID</label>
+                                                <label className="block text-xs font-normal text-slate-500 mb-1 uppercase tracking-wider">Merchant ID</label>
                                                 <input
                                                     type="text"
                                                     value={paytrSettings.merchant_id}
@@ -169,7 +169,7 @@ export const PaymentMethodManager: React.FC = () => {
                                                 />
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider">Merchant Key</label>
+                                                <label className="block text-xs font-normal text-slate-500 mb-1 uppercase tracking-wider">Merchant Key</label>
                                                 <input
                                                     type="password"
                                                     value={paytrSettings.merchant_key}
@@ -179,7 +179,7 @@ export const PaymentMethodManager: React.FC = () => {
                                                 />
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider">Merchant Salt</label>
+                                                <label className="block text-xs font-normal text-slate-500 mb-1 uppercase tracking-wider">Merchant Salt</label>
                                                 <input
                                                     type="password"
                                                     value={paytrSettings.merchant_salt}
@@ -204,11 +204,11 @@ export const PaymentMethodManager: React.FC = () => {
                                     <div className={`p-2 rounded-lg ${settings.isCashOnDeliveryActive ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-500'}`}>
                                         <Truck className="w-6 h-6" />
                                     </div>
-                                    <span className={`font-bold text-lg ${settings.isCashOnDeliveryActive ? 'text-slate-800' : 'text-slate-400'}`}>Kapıda Ödeme</span>
+                                    <span className={`font-normal text-lg ${settings.isCashOnDeliveryActive ? 'text-slate-800' : 'text-slate-400'}`}>Kapıda Ödeme</span>
                                 </div>
                                 <button
                                     onClick={() => handleToggle('isCashOnDeliveryActive')}
-                                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${settings.isCashOnDeliveryActive ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
+                                    className={`px-4 py-1.5 rounded-full text-xs font-normal transition-all ${settings.isCashOnDeliveryActive ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
                                 >
                                     {settings.isCashOnDeliveryActive ? 'AKTİF' : 'PASİF YAP'}
                                 </button>
@@ -246,11 +246,11 @@ export const PaymentMethodManager: React.FC = () => {
                                     <div className={`p-2 rounded-lg ${settings.isBankTransferActive ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-500'}`}>
                                         <Landmark className="w-6 h-6" />
                                     </div>
-                                    <span className={`font-bold text-lg ${settings.isBankTransferActive ? 'text-slate-800' : 'text-slate-400'}`}>Havale / EFT</span>
+                                    <span className={`font-normal text-lg ${settings.isBankTransferActive ? 'text-slate-800' : 'text-slate-400'}`}>Havale / EFT</span>
                                 </div>
                                 <button
                                     onClick={() => handleToggle('isBankTransferActive')}
-                                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${settings.isBankTransferActive ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
+                                    className={`px-4 py-1.5 rounded-full text-xs font-normal transition-all ${settings.isBankTransferActive ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
                                 >
                                     {settings.isBankTransferActive ? 'AKTİF' : 'PASİF YAP'}
                                 </button>
@@ -276,12 +276,12 @@ export const PaymentMethodManager: React.FC = () => {
                 {settings.isBankTransferActive && (
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fadeIn">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-lg font-bold flex items-center gap-2">
+                            <h2 className="text-lg font-normal flex items-center gap-2">
                                 <Landmark className="w-5 h-5 text-blue-600" /> Banka Hesap Bilgileri
                             </h2>
                             <button
                                 onClick={handleAddBank}
-                                className="text-sm bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 transition-colors flex items-center gap-2"
+                                className="text-sm bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-normal hover:bg-blue-100 transition-colors flex items-center gap-2"
                             >
                                 <Plus className="w-4 h-4" /> Banka Ekle
                             </button>
@@ -298,7 +298,7 @@ export const PaymentMethodManager: React.FC = () => {
                                     </button>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-400 mb-1 uppercase tracking-wider">Banka Adı</label>
+                                            <label className="block text-xs font-normal text-gray-400 mb-1 uppercase tracking-wider">Banka Adı</label>
                                             <input
                                                 type="text"
                                                 value={bank.bankName}
@@ -308,7 +308,7 @@ export const PaymentMethodManager: React.FC = () => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-400 mb-1 uppercase tracking-wider">Hesap Sahibi</label>
+                                            <label className="block text-xs font-normal text-gray-400 mb-1 uppercase tracking-wider">Hesap Sahibi</label>
                                             <input
                                                 type="text"
                                                 value={bank.accountHolder}
@@ -318,7 +318,7 @@ export const PaymentMethodManager: React.FC = () => {
                                             />
                                         </div>
                                         <div className="md:col-span-2">
-                                            <label className="block text-xs font-bold text-gray-400 mb-1 uppercase tracking-wider">IBAN Numarası</label>
+                                            <label className="block text-xs font-normal text-gray-400 mb-1 uppercase tracking-wider">IBAN Numarası</label>
                                             <input
                                                 type="text"
                                                 value={bank.iban}

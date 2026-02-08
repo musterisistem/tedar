@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Phone, MapPin, ChevronDown } from 'lucide-react';
 import { useUsers } from '../../context/UserContext';
-import { locationData } from '../../data/locationData';
+import { useLocation } from '../../hooks/useLocation';
 
 interface RegisterModalProps {
     isOpen: boolean;
@@ -26,7 +26,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
         address: ''
     });
 
-    const [availableDistricts, setAvailableDistricts] = useState<string[]>([]);
+    const { cities, districts, loading: locationLoading } = useLocation(formData.city);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({
@@ -42,12 +42,6 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
             city: selectedCity,
             district: ''
         });
-
-        if (selectedCity && locationData[selectedCity]) {
-            setAvailableDistricts(Object.keys(locationData[selectedCity]));
-        } else {
-            setAvailableDistricts([]);
-        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -174,7 +168,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
                                         className="w-full h-11 pl-10 pr-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all appearance-none bg-white"
                                     >
                                         <option value="">Seçiniz</option>
-                                        {Object.keys(locationData).sort((a, b) => a.localeCompare(b, 'tr')).map(city => (
+                                        {cities.sort().map(city => (
                                             <option key={city} value={city}>{city}</option>
                                         ))}
                                     </select>
@@ -194,7 +188,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
                                         className="w-full h-11 px-4 pr-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all appearance-none bg-white disabled:bg-gray-50"
                                     >
                                         <option value="">İlçe Seçiniz</option>
-                                        {availableDistricts.map(dist => (
+                                        {districts.map(dist => (
                                             <option key={dist} value={dist}>{dist}</option>
                                         ))}
                                     </select>

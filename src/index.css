@@ -54,3 +54,14 @@
     animation-play-state: paused;
   }
 }
+.animate-slide-up-loop { animation: slide-up-loop 5s infinite; }
+@keyframes slide-up-loop { 0%, 20% { transform: translateY(100%); opacity: 0; } 30%, 80% { transform: translateY(0); opacity: 1; } 90%, 100% { transform: translateY(-100%); opacity: 0; } }
+
+@keyframes slide-up-visible { 0% { transform: translateY(100%); opacity: 0; } 10% { transform: translateY(0); opacity: 1; } 90% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100%); opacity: 0; } } .animate-slide-up-loop { animation: slide-up-visible 4s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+
+@keyframes bounce-horizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2px); } } .animate-bounce-horizontal { animation: bounce-horizontal 2s infinite; }
+@keyframes shimmer { 100% { transform: translateX(200%) skewX(12deg); } }
+
+@keyframes slide-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(8px); } } .animate-slide-right { animation: slide-right 2s ease-in-out infinite; }
+
+@keyframes truck-delivery { 0%, 20% { transform: translateX(0); opacity: 1; } 40% { transform: translateX(20px); opacity: 0; } 50% { transform: translateX(-20px); opacity: 0; } 55% { transform: translateX(-20px); opacity: 1; } 75%, 100% { transform: translateX(0); opacity: 1; } } .animate-truck-delivery { animation: truck-delivery 4s ease-in-out infinite; }

@@ -29,7 +29,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true
+    "isActive": true, "sameDayShipping": true
   },
   {
     "id": "SAMPLE-KALEM-001",
@@ -59,7 +59,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true
+    "isActive": true, "sameDayShipping": true
   },
   {
     "id": "SAMPLE-KISISEL-001",
@@ -91,7 +91,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true
+    "isActive": true, "sameDayShipping": true
   },
   {
     "id": "SAMPLE-PROMO-001",
@@ -123,7 +123,7 @@
       "size": "500ml",
       "shippingType": "Standart"
     },
-    "isActive": true
+    "isActive": true, "sameDayShipping": true
   },
   {
     "id": "SAMPLE-TECH-001",
@@ -155,7 +155,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true
+    "isActive": true, "sameDayShipping": true
   },
   {
     "id": "SAMPLE-HOBBY-001",
@@ -185,7 +185,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true
+    "isActive": true, "sameDayShipping": true
   },
   {
     "id": "SAMPLE-DECOR-001",
@@ -217,7 +217,7 @@
       "size": "30cm",
       "shippingType": "Standart"
     },
-    "isActive": true
+    "isActive": true, "sameDayShipping": true
   },
   {
     "id": "THN10295",
@@ -247,7 +247,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "sameDayShipping": true,
     "createdAt": "2025-12-28T17:54:49.989Z",
     "reviewItems": []
@@ -281,7 +281,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "sameDayShipping": true,
     "createdAt": "2025-12-20T20:54:06.150Z",
     "reviewItems": []
@@ -318,7 +318,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T11:34:18.014Z",
     "reviewItems": []
   },
@@ -355,7 +355,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T12:55:19.325Z",
     "reviewItems": []
   },
@@ -387,7 +387,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T08:20:28.972Z",
     "reviewItems": []
   },
@@ -419,7 +419,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T11:37:16.456Z",
     "reviewItems": []
   },
@@ -451,7 +451,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T17:52:43.508Z",
     "reviewItems": []
   },
@@ -486,7 +486,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T09:31:44.984Z",
     "reviewItems": []
   },
@@ -523,7 +523,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T12:49:23.345Z",
     "reviewItems": []
   },
@@ -559,7 +559,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T11:04:28.185Z",
     "reviewItems": []
   },
@@ -595,7 +595,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T09:16:40.501Z",
     "reviewItems": []
   },
@@ -629,7 +629,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T14:36:02.696Z",
     "reviewItems": []
   },
@@ -662,7 +662,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T13:14:59.209Z",
     "reviewItems": []
   },
@@ -700,7 +700,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T01:17:33.775Z",
     "reviewItems": []
   },
@@ -736,7 +736,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T07:04:36.434Z",
     "reviewItems": []
   },
@@ -772,7 +772,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T14:21:29.106Z",
     "reviewItems": []
   },
@@ -804,7 +804,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T02:37:12.058Z",
     "reviewItems": []
   },
@@ -837,7 +837,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T13:21:08.775Z",
     "reviewItems": []
   },
@@ -869,7 +869,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T20:28:04.989Z",
     "reviewItems": []
   },
@@ -901,7 +901,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T16:02:12.238Z",
     "reviewItems": []
   },
@@ -934,7 +934,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T09:12:53.777Z",
     "reviewItems": []
   },
@@ -967,7 +967,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T14:50:38.925Z",
     "reviewItems": []
   },
@@ -1001,7 +1001,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T13:11:38.749Z",
     "reviewItems": []
   },
@@ -1037,7 +1037,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T16:16:58.131Z",
     "reviewItems": []
   },
@@ -1070,7 +1070,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T08:08:37.591Z",
     "reviewItems": []
   },
@@ -1105,7 +1105,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T15:43:09.877Z",
     "reviewItems": []
   },
@@ -1139,7 +1139,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T23:04:51.004Z",
     "reviewItems": []
   },
@@ -1174,7 +1174,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T05:32:14.982Z",
     "reviewItems": []
   },
@@ -1205,7 +1205,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T03:02:05.020Z",
     "reviewItems": []
   },
@@ -1236,7 +1236,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T18:58:49.855Z",
     "reviewItems": []
   },
@@ -1271,7 +1271,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T09:01:42.524Z",
     "reviewItems": []
   },
@@ -1305,7 +1305,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T04:45:34.531Z",
     "reviewItems": []
   },
@@ -1339,7 +1339,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T07:25:27.054Z",
     "reviewItems": []
   },
@@ -1373,7 +1373,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T13:43:17.700Z",
     "reviewItems": []
   },
@@ -1407,7 +1407,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T12:38:50.193Z",
     "reviewItems": []
   },
@@ -1439,7 +1439,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T07:34:52.108Z",
     "reviewItems": []
   },
@@ -1475,7 +1475,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T06:15:14.199Z",
     "reviewItems": []
   },
@@ -1510,7 +1510,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T00:12:10.709Z",
     "reviewItems": []
   },
@@ -1546,7 +1546,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T19:48:22.638Z",
     "reviewItems": []
   },
@@ -1579,7 +1579,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T09:19:02.670Z",
     "reviewItems": []
   },
@@ -1612,7 +1612,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T18:54:08.404Z",
     "reviewItems": []
   },
@@ -1646,7 +1646,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T20:22:36.138Z",
     "reviewItems": []
   },
@@ -1681,7 +1681,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T05:42:25.248Z",
     "reviewItems": []
   },
@@ -1714,7 +1714,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T04:22:56.913Z",
     "reviewItems": []
   },
@@ -1749,7 +1749,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T20:38:04.111Z",
     "reviewItems": []
   },
@@ -1785,7 +1785,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T02:07:38.844Z",
     "reviewItems": []
   },
@@ -1818,7 +1818,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T15:44:13.182Z",
     "reviewItems": []
   },
@@ -1853,7 +1853,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T17:42:40.605Z",
     "reviewItems": []
   },
@@ -1889,7 +1889,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T09:18:21.289Z",
     "reviewItems": []
   },
@@ -1925,7 +1925,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T23:19:04.431Z",
     "reviewItems": []
   },
@@ -1960,7 +1960,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T01:00:20.260Z",
     "reviewItems": []
   },
@@ -1996,7 +1996,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T10:38:28.961Z",
     "reviewItems": []
   },
@@ -2032,7 +2032,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T18:13:44.644Z",
     "reviewItems": []
   },
@@ -2068,7 +2068,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T12:36:40.922Z",
     "reviewItems": []
   },
@@ -2102,7 +2102,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T17:13:34.483Z",
     "reviewItems": []
   },
@@ -2136,7 +2136,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T20:03:03.738Z",
     "reviewItems": []
   },
@@ -2169,7 +2169,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T23:51:33.744Z",
     "reviewItems": []
   },
@@ -2204,7 +2204,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T22:45:18.295Z",
     "reviewItems": []
   },
@@ -2239,7 +2239,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T01:31:03.850Z",
     "reviewItems": []
   },
@@ -2274,7 +2274,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T04:24:12.740Z",
     "reviewItems": []
   },
@@ -2310,7 +2310,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T18:13:37.735Z",
     "reviewItems": []
   },
@@ -2346,7 +2346,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T19:10:52.323Z",
     "reviewItems": []
   },
@@ -2382,7 +2382,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T19:44:27.214Z",
     "reviewItems": []
   },
@@ -2418,7 +2418,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T22:47:51.523Z",
     "reviewItems": []
   },
@@ -2451,7 +2451,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T23:58:34.928Z",
     "reviewItems": []
   },
@@ -2484,7 +2484,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T23:04:33.104Z",
     "reviewItems": []
   },
@@ -2520,7 +2520,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T07:02:30.004Z",
     "reviewItems": []
   },
@@ -2556,7 +2556,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T14:00:05.252Z",
     "reviewItems": []
   },
@@ -2592,7 +2592,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T18:48:18.766Z",
     "reviewItems": []
   },
@@ -2625,7 +2625,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T20:06:08.498Z",
     "reviewItems": []
   },
@@ -2661,7 +2661,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T22:24:23.052Z",
     "reviewItems": []
   },
@@ -2697,7 +2697,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T22:18:29.656Z",
     "reviewItems": []
   },
@@ -2732,7 +2732,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T00:32:52.863Z",
     "reviewItems": []
   },
@@ -2768,7 +2768,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T01:54:45.187Z",
     "reviewItems": []
   },
@@ -2804,7 +2804,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T07:30:58.520Z",
     "reviewItems": []
   },
@@ -2837,7 +2837,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T03:32:28.573Z",
     "reviewItems": []
   },
@@ -2872,7 +2872,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T23:45:03.526Z",
     "reviewItems": []
   },
@@ -2906,7 +2906,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T01:26:48.290Z",
     "reviewItems": []
   },
@@ -2941,7 +2941,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T22:44:21.172Z",
     "reviewItems": []
   },
@@ -2976,7 +2976,7 @@
       "size": "8 x 8",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T01:09:36.091Z",
     "reviewItems": []
   },
@@ -3010,7 +3010,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T11:29:45.453Z",
     "reviewItems": []
   },
@@ -3042,7 +3042,7 @@
       "size": "10 x 11",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T18:51:32.334Z",
     "reviewItems": []
   },
@@ -3076,7 +3076,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T16:57:41.891Z",
     "reviewItems": []
   },
@@ -3110,7 +3110,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T16:51:26.222Z",
     "reviewItems": []
   },
@@ -3146,7 +3146,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T11:44:38.128Z",
     "reviewItems": []
   },
@@ -3182,7 +3182,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T22:17:18.460Z",
     "reviewItems": []
   },
@@ -3216,7 +3216,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T21:00:59.430Z",
     "reviewItems": []
   },
@@ -3251,7 +3251,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T13:41:00.445Z",
     "reviewItems": []
   },
@@ -3285,7 +3285,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T03:40:23.979Z",
     "reviewItems": []
   },
@@ -3321,7 +3321,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T17:57:52.087Z",
     "reviewItems": []
   },
@@ -3357,7 +3357,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T22:20:39.669Z",
     "reviewItems": []
   },
@@ -3391,7 +3391,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T12:32:50.400Z",
     "reviewItems": []
   },
@@ -3425,7 +3425,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T13:34:01.309Z",
     "reviewItems": []
   },
@@ -3459,7 +3459,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T18:41:11.526Z",
     "reviewItems": []
   },
@@ -3494,7 +3494,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T22:36:28.610Z",
     "reviewItems": []
   },
@@ -3530,7 +3530,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T12:40:07.521Z",
     "reviewItems": []
   },
@@ -3563,7 +3563,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T05:01:46.447Z",
     "reviewItems": []
   },
@@ -3596,7 +3596,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T23:43:17.470Z",
     "reviewItems": []
   },
@@ -3629,7 +3629,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T14:30:55.460Z",
     "reviewItems": []
   },
@@ -3662,7 +3662,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T08:42:21.515Z",
     "reviewItems": []
   },
@@ -3698,7 +3698,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T06:28:23.838Z",
     "reviewItems": []
   },
@@ -3734,7 +3734,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T16:43:25.714Z",
     "reviewItems": []
   },
@@ -3768,7 +3768,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T14:30:13.125Z",
     "reviewItems": []
   },
@@ -3801,7 +3801,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T15:49:28.587Z",
     "reviewItems": []
   },
@@ -3835,7 +3835,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T12:39:20.259Z",
     "reviewItems": []
   },
@@ -3871,7 +3871,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T02:34:55.972Z",
     "reviewItems": []
   },
@@ -3907,7 +3907,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T07:16:04.617Z",
     "reviewItems": []
   },
@@ -3943,7 +3943,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T05:50:51.230Z",
     "reviewItems": []
   },
@@ -3977,7 +3977,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T21:17:02.741Z",
     "reviewItems": []
   },
@@ -4011,7 +4011,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T01:17:39.437Z",
     "reviewItems": []
   },
@@ -4044,7 +4044,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T04:19:03.446Z",
     "reviewItems": []
   },
@@ -4078,7 +4078,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T23:41:36.089Z",
     "reviewItems": []
   },
@@ -4112,7 +4112,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T09:07:32.092Z",
     "reviewItems": []
   },
@@ -4148,7 +4148,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T09:54:12.069Z",
     "reviewItems": []
   },
@@ -4184,7 +4184,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T06:48:58.779Z",
     "reviewItems": []
   },
@@ -4220,7 +4220,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T22:49:29.510Z",
     "reviewItems": []
   },
@@ -4256,7 +4256,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T08:39:52.333Z",
     "reviewItems": []
   },
@@ -4292,7 +4292,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T23:29:12.139Z",
     "reviewItems": []
   },
@@ -4325,7 +4325,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T07:33:22.119Z",
     "reviewItems": []
   },
@@ -4363,7 +4363,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T08:18:19.766Z",
     "reviewItems": []
   },
@@ -4399,7 +4399,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T16:29:40.336Z",
     "reviewItems": []
   },
@@ -4432,7 +4432,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T05:25:21.137Z",
     "reviewItems": []
   },
@@ -4468,7 +4468,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T01:12:29.197Z",
     "reviewItems": []
   },
@@ -4504,7 +4504,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T05:48:16.480Z",
     "reviewItems": []
   },
@@ -4539,7 +4539,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T17:45:38.630Z",
     "reviewItems": []
   },
@@ -4573,7 +4573,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T04:05:31.000Z",
     "reviewItems": []
   },
@@ -4608,7 +4608,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T23:20:37.289Z",
     "reviewItems": []
   },
@@ -4644,7 +4644,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T00:41:43.701Z",
     "reviewItems": []
   },
@@ -4677,7 +4677,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T21:31:22.890Z",
     "reviewItems": []
   },
@@ -4713,7 +4713,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T07:27:38.958Z",
     "reviewItems": []
   },
@@ -4745,7 +4745,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T22:42:59.528Z",
     "reviewItems": []
   },
@@ -4780,7 +4780,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T03:18:43.467Z",
     "reviewItems": []
   },
@@ -4812,7 +4812,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T18:57:51.923Z",
     "reviewItems": []
   },
@@ -4846,7 +4846,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T09:31:32.418Z",
     "reviewItems": []
   },
@@ -4882,7 +4882,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T03:24:27.366Z",
     "reviewItems": []
   },
@@ -4918,7 +4918,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T23:51:22.945Z",
     "reviewItems": []
   },
@@ -4956,7 +4956,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T04:13:38.902Z",
     "reviewItems": []
   },
@@ -4990,7 +4990,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T05:12:45.217Z",
     "reviewItems": []
   },
@@ -5022,7 +5022,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T01:31:58.528Z",
     "reviewItems": []
   },
@@ -5054,7 +5054,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T08:59:10.585Z",
     "reviewItems": []
   },
@@ -5086,7 +5086,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T03:09:45.438Z",
     "reviewItems": []
   },
@@ -5120,7 +5120,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T00:40:13.646Z",
     "reviewItems": []
   },
@@ -5152,7 +5152,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T08:24:49.801Z",
     "reviewItems": []
   },
@@ -5188,7 +5188,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T08:58:15.430Z",
     "reviewItems": []
   },
@@ -5225,7 +5225,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T09:11:18.687Z",
     "reviewItems": []
   },
@@ -5258,7 +5258,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T14:18:09.094Z",
     "reviewItems": []
   },
@@ -5291,7 +5291,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T14:58:26.916Z",
     "reviewItems": []
   },
@@ -5326,7 +5326,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T22:55:49.927Z",
     "reviewItems": []
   },
@@ -5362,7 +5362,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T12:50:44.600Z",
     "reviewItems": []
   },
@@ -5397,7 +5397,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T15:23:35.370Z",
     "reviewItems": []
   },
@@ -5431,7 +5431,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T14:28:02.727Z",
     "reviewItems": []
   },
@@ -5465,7 +5465,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T08:32:56.797Z",
     "reviewItems": []
   },
@@ -5497,7 +5497,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T23:59:46.304Z",
     "reviewItems": []
   },
@@ -5533,7 +5533,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T22:46:37.486Z",
     "reviewItems": []
   },
@@ -5565,7 +5565,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T09:54:09.128Z",
     "reviewItems": []
   },
@@ -5601,7 +5601,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T23:13:28.973Z",
     "reviewItems": []
   },
@@ -5637,7 +5637,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T14:38:55.686Z",
     "reviewItems": []
   },
@@ -5671,7 +5671,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T14:17:51.305Z",
     "reviewItems": []
   },
@@ -5705,7 +5705,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T21:35:44.280Z",
     "reviewItems": []
   },
@@ -5741,7 +5741,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T13:29:10.526Z",
     "reviewItems": []
   },
@@ -5777,7 +5777,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T15:46:59.481Z",
     "reviewItems": []
   },
@@ -5813,7 +5813,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T01:11:56.819Z",
     "reviewItems": []
   },
@@ -5845,7 +5845,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T22:24:54.709Z",
     "reviewItems": []
   },
@@ -5879,7 +5879,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T19:43:28.601Z",
     "reviewItems": []
   },
@@ -5913,7 +5913,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T11:42:28.917Z",
     "reviewItems": []
   },
@@ -5947,7 +5947,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T17:24:55.187Z",
     "reviewItems": []
   },
@@ -5981,7 +5981,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T12:37:06.541Z",
     "reviewItems": []
   },
@@ -6015,7 +6015,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T22:09:03.194Z",
     "reviewItems": []
   },
@@ -6049,7 +6049,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T19:17:03.233Z",
     "reviewItems": []
   },
@@ -6081,7 +6081,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T05:58:49.599Z",
     "reviewItems": []
   },
@@ -6115,7 +6115,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T01:34:30.511Z",
     "reviewItems": []
   },
@@ -6149,7 +6149,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T19:23:39.656Z",
     "reviewItems": []
   },
@@ -6183,7 +6183,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T10:08:50.844Z",
     "reviewItems": []
   },
@@ -6215,7 +6215,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T12:11:47.075Z",
     "reviewItems": []
   },
@@ -6249,7 +6249,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T22:00:20.352Z",
     "reviewItems": []
   },
@@ -6284,7 +6284,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T21:00:59.952Z",
     "reviewItems": []
   },
@@ -6318,7 +6318,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T03:27:10.515Z",
     "reviewItems": []
   },
@@ -6353,7 +6353,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T22:09:08.190Z",
     "reviewItems": []
   },
@@ -6386,7 +6386,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T04:07:19.917Z",
     "reviewItems": []
   },
@@ -6421,7 +6421,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T06:11:16.541Z",
     "reviewItems": []
   },
@@ -6455,7 +6455,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T18:15:21.479Z",
     "reviewItems": []
   },
@@ -6490,7 +6490,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T03:21:56.966Z",
     "reviewItems": []
   },
@@ -6523,7 +6523,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T07:41:33.738Z",
     "reviewItems": []
   },
@@ -6558,7 +6558,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T01:15:23.941Z",
     "reviewItems": []
   },
@@ -6591,7 +6591,7 @@
       "size": "50 x 90",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T01:00:56.173Z",
     "reviewItems": []
   },
@@ -6624,7 +6624,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T03:47:30.670Z",
     "reviewItems": []
   },
@@ -6660,7 +6660,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T18:51:16.144Z",
     "reviewItems": []
   },
@@ -6694,7 +6694,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T04:06:19.436Z",
     "reviewItems": []
   },
@@ -6728,7 +6728,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T10:50:08.369Z",
     "reviewItems": []
   },
@@ -6760,7 +6760,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T06:14:38.632Z",
     "reviewItems": []
   },
@@ -6791,7 +6791,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T21:50:10.994Z",
     "reviewItems": []
   },
@@ -6826,7 +6826,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T11:57:51.040Z",
     "reviewItems": []
   },
@@ -6862,7 +6862,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T17:44:20.685Z",
     "reviewItems": []
   },
@@ -6896,7 +6896,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T11:47:35.501Z",
     "reviewItems": []
   },
@@ -6933,7 +6933,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T13:59:27.407Z",
     "reviewItems": []
   },
@@ -6969,7 +6969,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T02:05:41.715Z",
     "reviewItems": []
   },
@@ -7007,7 +7007,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T19:45:01.935Z",
     "reviewItems": []
   },
@@ -7045,7 +7045,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T00:49:39.465Z",
     "reviewItems": []
   },
@@ -7081,7 +7081,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T18:35:58.386Z",
     "reviewItems": []
   },
@@ -7117,7 +7117,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T12:06:59.474Z",
     "reviewItems": []
   },
@@ -7153,7 +7153,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T17:53:33.557Z",
     "reviewItems": []
   },
@@ -7191,7 +7191,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T16:02:29.955Z",
     "reviewItems": []
   },
@@ -7229,7 +7229,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T13:24:16.294Z",
     "reviewItems": []
   },
@@ -7267,7 +7267,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T03:23:12.586Z",
     "reviewItems": []
   },
@@ -7305,7 +7305,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T16:20:11.802Z",
     "reviewItems": []
   },
@@ -7337,7 +7337,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T11:54:33.588Z",
     "reviewItems": []
   },
@@ -7369,7 +7369,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T05:47:18.637Z",
     "reviewItems": []
   },
@@ -7401,7 +7401,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T07:49:35.809Z",
     "reviewItems": []
   },
@@ -7437,7 +7437,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T20:09:50.658Z",
     "reviewItems": []
   },
@@ -7472,7 +7472,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T23:38:17.411Z",
     "reviewItems": []
   },
@@ -7505,7 +7505,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T20:19:53.858Z",
     "reviewItems": []
   },
@@ -7538,7 +7538,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T16:03:34.949Z",
     "reviewItems": []
   },
@@ -7570,7 +7570,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T22:10:37.874Z",
     "reviewItems": []
   },
@@ -7605,7 +7605,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T10:19:09.269Z",
     "reviewItems": []
   },
@@ -7638,7 +7638,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T16:00:00.614Z",
     "reviewItems": []
   },
@@ -7670,7 +7670,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T05:33:42.352Z",
     "reviewItems": []
   },
@@ -7702,7 +7702,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T09:43:23.661Z",
     "reviewItems": []
   },
@@ -7735,7 +7735,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T02:46:37.210Z",
     "reviewItems": []
   },
@@ -7766,7 +7766,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T03:13:53.743Z",
     "reviewItems": []
   },
@@ -7801,7 +7801,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T09:58:50.037Z",
     "reviewItems": []
   },
@@ -7837,7 +7837,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T23:41:04.182Z",
     "reviewItems": []
   },
@@ -7873,7 +7873,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T05:07:18.111Z",
     "reviewItems": []
   },
@@ -7911,7 +7911,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T21:19:51.205Z",
     "reviewItems": []
   },
@@ -7944,7 +7944,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T01:40:45.020Z",
     "reviewItems": []
   },
@@ -7980,7 +7980,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T15:41:28.289Z",
     "reviewItems": []
   },
@@ -8014,7 +8014,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T06:09:06.973Z",
     "reviewItems": []
   },
@@ -8047,7 +8047,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T23:01:55.166Z",
     "reviewItems": []
   },
@@ -8081,7 +8081,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T06:23:39.858Z",
     "reviewItems": []
   },
@@ -8115,7 +8115,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T16:28:58.696Z",
     "reviewItems": []
   },
@@ -8150,7 +8150,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T21:24:49.325Z",
     "reviewItems": []
   },
@@ -8184,7 +8184,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T00:08:30.776Z",
     "reviewItems": []
   },
@@ -8218,7 +8218,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T13:16:06.138Z",
     "reviewItems": []
   },
@@ -8252,7 +8252,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T06:42:21.581Z",
     "reviewItems": []
   },
@@ -8286,7 +8286,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T03:43:43.516Z",
     "reviewItems": []
   },
@@ -8322,7 +8322,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T00:18:26.963Z",
     "reviewItems": []
   },
@@ -8356,7 +8356,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T05:56:04.359Z",
     "reviewItems": []
   },
@@ -8391,7 +8391,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T22:32:21.071Z",
     "reviewItems": []
   },
@@ -8426,7 +8426,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T03:00:40.653Z",
     "reviewItems": []
   },
@@ -8462,7 +8462,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T03:51:40.365Z",
     "reviewItems": []
   },
@@ -8496,7 +8496,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T11:48:38.297Z",
     "reviewItems": []
   },
@@ -8530,7 +8530,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T16:48:42.569Z",
     "reviewItems": []
   },
@@ -8563,7 +8563,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T15:21:29.943Z",
     "reviewItems": []
   },
@@ -8594,7 +8594,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T21:26:37.188Z",
     "reviewItems": []
   },
@@ -8628,7 +8628,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T04:10:07.281Z",
     "reviewItems": []
   },
@@ -8659,7 +8659,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T07:37:58.790Z",
     "reviewItems": []
   },
@@ -8693,7 +8693,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T08:25:54.365Z",
     "reviewItems": []
   },
@@ -8724,7 +8724,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T03:57:26.823Z",
     "reviewItems": []
   },
@@ -8758,7 +8758,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T12:55:34.750Z",
     "reviewItems": []
   },
@@ -8793,7 +8793,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T03:19:43.477Z",
     "reviewItems": []
   },
@@ -8826,7 +8826,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T04:18:08.778Z",
     "reviewItems": []
   },
@@ -8859,7 +8859,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T09:36:44.298Z",
     "reviewItems": []
   },
@@ -8892,7 +8892,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T16:42:38.987Z",
     "reviewItems": []
   },
@@ -8923,7 +8923,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T01:43:48.900Z",
     "reviewItems": []
   },
@@ -8956,7 +8956,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T12:57:30.421Z",
     "reviewItems": []
   },
@@ -8988,7 +8988,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T10:09:19.494Z",
     "reviewItems": []
   },
@@ -9019,7 +9019,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T02:56:34.277Z",
     "reviewItems": []
   },
@@ -9052,7 +9052,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T13:46:08.670Z",
     "reviewItems": []
   },
@@ -9085,7 +9085,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T11:15:52.019Z",
     "reviewItems": []
   },
@@ -9118,7 +9118,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T01:25:31.949Z",
     "reviewItems": []
   },
@@ -9149,7 +9149,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T03:43:51.122Z",
     "reviewItems": []
   },
@@ -9184,7 +9184,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T15:54:28.483Z",
     "reviewItems": []
   },
@@ -9219,7 +9219,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T09:28:24.033Z",
     "reviewItems": []
   },
@@ -9255,7 +9255,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T06:53:39.132Z",
     "reviewItems": []
   },
@@ -9286,7 +9286,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T04:32:53.200Z",
     "reviewItems": []
   },
@@ -9318,7 +9318,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T14:46:22.197Z",
     "reviewItems": []
   },
@@ -9352,7 +9352,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T00:38:04.691Z",
     "reviewItems": []
   },
@@ -9386,7 +9386,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T20:59:07.020Z",
     "reviewItems": []
   },
@@ -9419,7 +9419,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T08:53:30.779Z",
     "reviewItems": []
   },
@@ -9455,7 +9455,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T05:10:27.905Z",
     "reviewItems": []
   },
@@ -9487,7 +9487,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T10:59:23.545Z",
     "reviewItems": []
   },
@@ -9522,7 +9522,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T22:31:27.607Z",
     "reviewItems": []
   },
@@ -9556,7 +9556,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T07:57:38.799Z",
     "reviewItems": []
   },
@@ -9587,7 +9587,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T12:05:25.467Z",
     "reviewItems": []
   },
@@ -9619,7 +9619,7 @@
       "size": "7 x 10",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T01:38:39.084Z",
     "reviewItems": []
   },
@@ -9651,7 +9651,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T22:58:18.618Z",
     "reviewItems": []
   },
@@ -9683,7 +9683,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T22:54:39.575Z",
     "reviewItems": []
   },
@@ -9715,7 +9715,7 @@
       "size": "10 x 10",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T08:17:14.603Z",
     "reviewItems": []
   },
@@ -9748,7 +9748,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T15:03:56.606Z",
     "reviewItems": []
   },
@@ -9780,7 +9780,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T20:13:20.895Z",
     "reviewItems": []
   },
@@ -9812,7 +9812,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T08:17:01.685Z",
     "reviewItems": []
   },
@@ -9844,7 +9844,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T21:12:54.173Z",
     "reviewItems": []
   },
@@ -9876,7 +9876,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T09:19:06.182Z",
     "reviewItems": []
   },
@@ -9910,7 +9910,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T20:08:38.574Z",
     "reviewItems": []
   },
@@ -9944,7 +9944,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T13:21:29.283Z",
     "reviewItems": []
   },
@@ -9978,7 +9978,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T11:35:37.120Z",
     "reviewItems": []
   },
@@ -10012,7 +10012,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T11:11:21.921Z",
     "reviewItems": []
   },
@@ -10046,7 +10046,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T03:33:43.859Z",
     "reviewItems": []
   },
@@ -10080,7 +10080,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T03:49:32.798Z",
     "reviewItems": []
   },
@@ -10114,7 +10114,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T12:53:55.534Z",
     "reviewItems": []
   },
@@ -10148,7 +10148,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T03:14:22.491Z",
     "reviewItems": []
   },
@@ -10182,7 +10182,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T12:10:39.078Z",
     "reviewItems": []
   },
@@ -10216,7 +10216,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T20:32:32.554Z",
     "reviewItems": []
   },
@@ -10250,7 +10250,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T22:20:25.060Z",
     "reviewItems": []
   },
@@ -10282,7 +10282,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T00:48:08.432Z",
     "reviewItems": []
   },
@@ -10316,7 +10316,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T04:06:10.348Z",
     "reviewItems": []
   },
@@ -10349,7 +10349,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T01:51:07.375Z",
     "reviewItems": []
   },
@@ -10387,7 +10387,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T15:30:27.701Z",
     "reviewItems": []
   },
@@ -10420,7 +10420,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T13:25:09.272Z",
     "reviewItems": []
   },
@@ -10453,7 +10453,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T08:02:17.348Z",
     "reviewItems": []
   },
@@ -10491,7 +10491,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T08:33:14.711Z",
     "reviewItems": []
   },
@@ -10526,7 +10526,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T10:52:23.120Z",
     "reviewItems": []
   },
@@ -10559,7 +10559,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T09:21:19.138Z",
     "reviewItems": []
   },
@@ -10593,7 +10593,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T12:34:39.498Z",
     "reviewItems": []
   },
@@ -10629,7 +10629,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T15:47:34.260Z",
     "reviewItems": []
   },
@@ -10661,7 +10661,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T20:04:45.587Z",
     "reviewItems": []
   },
@@ -10693,7 +10693,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T07:41:58.801Z",
     "reviewItems": []
   },
@@ -10726,7 +10726,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T15:48:58.818Z",
     "reviewItems": []
   },
@@ -10761,7 +10761,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T17:24:58.614Z",
     "reviewItems": []
   },
@@ -10795,7 +10795,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T05:19:19.473Z",
     "reviewItems": []
   },
@@ -10830,7 +10830,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T14:17:14.113Z",
     "reviewItems": []
   },
@@ -10866,7 +10866,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T18:17:48.616Z",
     "reviewItems": []
   },
@@ -10903,7 +10903,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T17:11:31.008Z",
     "reviewItems": []
   },
@@ -10934,7 +10934,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T22:10:59.178Z",
     "reviewItems": []
   },
@@ -10968,7 +10968,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T19:02:35.748Z",
     "reviewItems": []
   },
@@ -11001,7 +11001,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T19:08:48.208Z",
     "reviewItems": []
   },
@@ -11033,7 +11033,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T11:48:22.038Z",
     "reviewItems": []
   },
@@ -11065,7 +11065,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T17:19:26.806Z",
     "reviewItems": []
   },
@@ -11097,7 +11097,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T05:53:50.424Z",
     "reviewItems": []
   },
@@ -11129,7 +11129,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T12:15:24.393Z",
     "reviewItems": []
   },
@@ -11164,7 +11164,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T11:14:02.419Z",
     "reviewItems": []
   },
@@ -11195,7 +11195,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T02:06:09.944Z",
     "reviewItems": []
   },
@@ -11232,7 +11232,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T02:06:45.874Z",
     "reviewItems": []
   },
@@ -11266,7 +11266,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T19:26:31.776Z",
     "reviewItems": []
   },
@@ -11301,7 +11301,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T03:09:48.824Z",
     "reviewItems": []
   },
@@ -11335,7 +11335,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T19:54:37.061Z",
     "reviewItems": []
   },
@@ -11369,7 +11369,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T18:40:21.246Z",
     "reviewItems": []
   },
@@ -11403,7 +11403,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T15:11:55.615Z",
     "reviewItems": []
   },
@@ -11437,7 +11437,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T00:32:13.641Z",
     "reviewItems": []
   },
@@ -11471,7 +11471,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T20:50:58.846Z",
     "reviewItems": []
   },
@@ -11505,7 +11505,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T20:42:07.701Z",
     "reviewItems": []
   },
@@ -11539,7 +11539,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T13:23:01.377Z",
     "reviewItems": []
   },
@@ -11573,7 +11573,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T05:17:50.998Z",
     "reviewItems": []
   },
@@ -11608,7 +11608,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T00:56:41.850Z",
     "reviewItems": []
   },
@@ -11642,7 +11642,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T02:47:03.528Z",
     "reviewItems": []
   },
@@ -11676,7 +11676,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T10:32:57.411Z",
     "reviewItems": []
   },
@@ -11708,7 +11708,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T08:47:02.933Z",
     "reviewItems": []
   },
@@ -11741,7 +11741,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T08:04:04.969Z",
     "reviewItems": []
   },
@@ -11777,7 +11777,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T20:34:03.662Z",
     "reviewItems": []
   },
@@ -11810,7 +11810,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T04:44:57.186Z",
     "reviewItems": []
   },
@@ -11842,7 +11842,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T10:07:38.587Z",
     "reviewItems": []
   },
@@ -11876,7 +11876,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T03:00:00.196Z",
     "reviewItems": []
   },
@@ -11910,7 +11910,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T02:27:31.625Z",
     "reviewItems": []
   },
@@ -11946,7 +11946,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T15:19:51.346Z",
     "reviewItems": []
   },
@@ -11983,7 +11983,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T17:42:47.516Z",
     "reviewItems": []
   },
@@ -12019,7 +12019,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T23:06:08.743Z",
     "reviewItems": []
   },
@@ -12055,7 +12055,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T07:03:53.683Z",
     "reviewItems": []
   },
@@ -12088,7 +12088,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T11:55:30.957Z",
     "reviewItems": []
   },
@@ -12121,7 +12121,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T15:38:07.027Z",
     "reviewItems": []
   },
@@ -12155,7 +12155,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T07:11:57.557Z",
     "reviewItems": []
   },
@@ -12187,7 +12187,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T20:54:59.656Z",
     "reviewItems": []
   },
@@ -12220,7 +12220,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T12:17:29.074Z",
     "reviewItems": []
   },
@@ -12255,7 +12255,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T19:35:19.323Z",
     "reviewItems": []
   },
@@ -12287,7 +12287,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T19:51:42.490Z",
     "reviewItems": []
   },
@@ -12320,7 +12320,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T19:41:17.662Z",
     "reviewItems": []
   },
@@ -12352,7 +12352,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T21:10:41.469Z",
     "reviewItems": []
   },
@@ -12384,7 +12384,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T03:00:48.398Z",
     "reviewItems": []
   },
@@ -12416,7 +12416,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T01:32:40.767Z",
     "reviewItems": []
   },
@@ -12448,7 +12448,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T03:13:44.621Z",
     "reviewItems": []
   },
@@ -12480,7 +12480,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T18:31:46.014Z",
     "reviewItems": []
   },
@@ -12513,7 +12513,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T08:48:43.843Z",
     "reviewItems": []
   },
@@ -12546,7 +12546,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T04:28:31.616Z",
     "reviewItems": []
   },
@@ -12578,7 +12578,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T16:56:04.309Z",
     "reviewItems": []
   },
@@ -12612,7 +12612,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T10:21:49.824Z",
     "reviewItems": []
   },
@@ -12645,7 +12645,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T17:20:45.365Z",
     "reviewItems": []
   },
@@ -12677,7 +12677,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T03:09:20.611Z",
     "reviewItems": []
   },
@@ -12710,7 +12710,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T03:13:06.444Z",
     "reviewItems": []
   },
@@ -12743,7 +12743,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T01:49:26.111Z",
     "reviewItems": []
   },
@@ -12776,7 +12776,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T17:47:14.783Z",
     "reviewItems": []
   },
@@ -12808,7 +12808,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T10:29:01.809Z",
     "reviewItems": []
   },
@@ -12843,7 +12843,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T01:16:44.891Z",
     "reviewItems": []
   },
@@ -12876,7 +12876,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T22:01:51.486Z",
     "reviewItems": []
   },
@@ -12907,7 +12907,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T09:54:13.863Z",
     "reviewItems": []
   },
@@ -12940,7 +12940,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T23:58:17.374Z",
     "reviewItems": []
   },
@@ -12971,7 +12971,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T20:50:03.607Z",
     "reviewItems": []
   },
@@ -13006,7 +13006,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T07:51:41.023Z",
     "reviewItems": []
   },
@@ -13040,7 +13040,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T04:56:27.846Z",
     "reviewItems": []
   },
@@ -13072,7 +13072,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T21:17:18.341Z",
     "reviewItems": []
   },
@@ -13106,7 +13106,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T04:14:20.646Z",
     "reviewItems": []
   },
@@ -13143,7 +13143,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T04:48:13.789Z",
     "reviewItems": []
   },
@@ -13177,7 +13177,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T03:37:15.760Z",
     "reviewItems": []
   },
@@ -13212,7 +13212,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T09:15:16.347Z",
     "reviewItems": []
   },
@@ -13244,7 +13244,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T06:44:17.858Z",
     "reviewItems": []
   },
@@ -13277,7 +13277,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T16:21:37.724Z",
     "reviewItems": []
   },
@@ -13311,7 +13311,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T23:43:07.484Z",
     "reviewItems": []
   },
@@ -13349,7 +13349,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T01:16:20.217Z",
     "reviewItems": []
   },
@@ -13380,7 +13380,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T02:43:58.092Z",
     "reviewItems": []
   },
@@ -13413,7 +13413,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T03:06:43.930Z",
     "reviewItems": []
   },
@@ -13449,7 +13449,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T14:16:15.314Z",
     "reviewItems": []
   },
@@ -13483,7 +13483,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T04:30:28.823Z",
     "reviewItems": []
   },
@@ -13517,7 +13517,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T05:13:11.490Z",
     "reviewItems": []
   },
@@ -13550,7 +13550,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T17:49:40.826Z",
     "reviewItems": []
   },
@@ -13582,7 +13582,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T15:29:53.574Z",
     "reviewItems": []
   },
@@ -13618,7 +13618,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T09:41:52.300Z",
     "reviewItems": []
   },
@@ -13649,7 +13649,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T20:10:29.026Z",
     "reviewItems": []
   },
@@ -13680,7 +13680,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T22:14:45.727Z",
     "reviewItems": []
   },
@@ -13714,7 +13714,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T00:24:44.037Z",
     "reviewItems": []
   },
@@ -13750,7 +13750,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T21:41:36.168Z",
     "reviewItems": []
   },
@@ -13782,7 +13782,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T10:55:41.523Z",
     "reviewItems": []
   },
@@ -13815,7 +13815,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T06:57:10.551Z",
     "reviewItems": []
   },
@@ -13848,7 +13848,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T14:38:54.737Z",
     "reviewItems": []
   },
@@ -13884,7 +13884,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T13:51:28.140Z",
     "reviewItems": []
   },
@@ -13916,7 +13916,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T14:09:37.269Z",
     "reviewItems": []
   },
@@ -13954,7 +13954,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T10:11:07.219Z",
     "reviewItems": []
   },
@@ -13992,7 +13992,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T01:17:46.920Z",
     "reviewItems": []
   },
@@ -14026,7 +14026,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T14:45:10.823Z",
     "reviewItems": []
   },
@@ -14062,7 +14062,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T01:09:50.373Z",
     "reviewItems": []
   },
@@ -14098,7 +14098,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T21:00:08.710Z",
     "reviewItems": []
   },
@@ -14134,7 +14134,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T15:26:17.300Z",
     "reviewItems": []
   },
@@ -14170,7 +14170,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T12:36:34.452Z",
     "reviewItems": []
   },
@@ -14207,7 +14207,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T14:18:15.688Z",
     "reviewItems": []
   },
@@ -14245,7 +14245,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T08:37:57.831Z",
     "reviewItems": []
   },
@@ -14283,7 +14283,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T16:26:45.068Z",
     "reviewItems": []
   },
@@ -14319,7 +14319,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T19:26:49.277Z",
     "reviewItems": []
   },
@@ -14353,7 +14353,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T13:08:24.449Z",
     "reviewItems": []
   },
@@ -14387,7 +14387,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T12:12:58.866Z",
     "reviewItems": []
   },
@@ -14420,7 +14420,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T05:11:07.771Z",
     "reviewItems": []
   },
@@ -14452,7 +14452,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T12:10:09.318Z",
     "reviewItems": []
   },
@@ -14484,7 +14484,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T03:58:14.237Z",
     "reviewItems": []
   },
@@ -14516,7 +14516,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T10:16:52.475Z",
     "reviewItems": []
   },
@@ -14548,7 +14548,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T18:29:17.565Z",
     "reviewItems": []
   },
@@ -14581,7 +14581,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T05:49:19.139Z",
     "reviewItems": []
   },
@@ -14614,7 +14614,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T09:22:12.074Z",
     "reviewItems": []
   },
@@ -14647,7 +14647,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T09:59:20.435Z",
     "reviewItems": []
   },
@@ -14678,7 +14678,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T21:37:28.199Z",
     "reviewItems": []
   },
@@ -14712,7 +14712,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T19:02:18.178Z",
     "reviewItems": []
   },
@@ -14747,7 +14747,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T00:18:05.517Z",
     "reviewItems": []
   },
@@ -14780,7 +14780,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T01:15:49.445Z",
     "reviewItems": []
   },
@@ -14813,7 +14813,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T10:04:01.465Z",
     "reviewItems": []
   },
@@ -14846,7 +14846,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T09:24:41.151Z",
     "reviewItems": []
   },
@@ -14878,7 +14878,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T00:51:50.621Z",
     "reviewItems": []
   },
@@ -14909,7 +14909,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T02:31:32.673Z",
     "reviewItems": []
   },
@@ -14944,7 +14944,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T07:17:54.584Z",
     "reviewItems": []
   },
@@ -14978,7 +14978,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T04:37:20.318Z",
     "reviewItems": []
   },
@@ -15012,7 +15012,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T02:01:38.376Z",
     "reviewItems": []
   },
@@ -15046,7 +15046,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T17:19:10.614Z",
     "reviewItems": []
   },
@@ -15080,7 +15080,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T09:59:13.354Z",
     "reviewItems": []
   },
@@ -15115,7 +15115,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T07:22:22.804Z",
     "reviewItems": []
   },
@@ -15149,7 +15149,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T20:52:53.867Z",
     "reviewItems": []
   },
@@ -15183,7 +15183,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T01:50:58.826Z",
     "reviewItems": []
   },
@@ -15217,7 +15217,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T03:31:37.531Z",
     "reviewItems": []
   },
@@ -15251,7 +15251,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T04:23:57.397Z",
     "reviewItems": []
   },
@@ -15282,7 +15282,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T17:58:10.394Z",
     "reviewItems": []
   },
@@ -15317,7 +15317,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T09:35:11.690Z",
     "reviewItems": []
   },
@@ -15353,7 +15353,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T14:45:49.910Z",
     "reviewItems": []
   },
@@ -15390,7 +15390,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T12:19:29.973Z",
     "reviewItems": []
   },
@@ -15424,7 +15424,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T07:49:06.674Z",
     "reviewItems": []
   },
@@ -15458,7 +15458,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T22:16:58.649Z",
     "reviewItems": []
   },
@@ -15491,7 +15491,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T06:49:20.104Z",
     "reviewItems": []
   },
@@ -15527,7 +15527,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T18:52:09.190Z",
     "reviewItems": []
   },
@@ -15565,7 +15565,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T18:18:58.273Z",
     "reviewItems": []
   },
@@ -15602,7 +15602,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T12:05:12.772Z",
     "reviewItems": []
   },
@@ -15640,7 +15640,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T05:46:34.571Z",
     "reviewItems": []
   },
@@ -15678,7 +15678,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T07:10:43.976Z",
     "reviewItems": []
   },
@@ -15713,7 +15713,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T09:22:21.752Z",
     "reviewItems": []
   },
@@ -15751,7 +15751,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T13:47:59.806Z",
     "reviewItems": []
   },
@@ -15787,7 +15787,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T23:33:00.737Z",
     "reviewItems": []
   },
@@ -15821,7 +15821,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T07:00:47.740Z",
     "reviewItems": []
   },
@@ -15857,7 +15857,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T04:14:31.031Z",
     "reviewItems": []
   },
@@ -15891,7 +15891,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T21:13:46.774Z",
     "reviewItems": []
   },
@@ -15925,7 +15925,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T18:36:39.704Z",
     "reviewItems": []
   },
@@ -15957,7 +15957,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T10:31:19.430Z",
     "reviewItems": []
   },
@@ -15990,7 +15990,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T00:33:21.139Z",
     "reviewItems": []
   },
@@ -16026,7 +16026,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T20:05:48.234Z",
     "reviewItems": []
   },
@@ -16058,7 +16058,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T00:40:15.744Z",
     "reviewItems": []
   },
@@ -16090,7 +16090,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T19:44:18.059Z",
     "reviewItems": []
   },
@@ -16126,7 +16126,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T05:22:02.865Z",
     "reviewItems": []
   },
@@ -16163,7 +16163,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T14:27:03.972Z",
     "reviewItems": []
   },
@@ -16195,7 +16195,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T20:22:36.658Z",
     "reviewItems": []
   },
@@ -16228,7 +16228,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T02:18:50.091Z",
     "reviewItems": []
   },
@@ -16260,7 +16260,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T09:04:34.648Z",
     "reviewItems": []
   },
@@ -16292,7 +16292,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T20:06:41.462Z",
     "reviewItems": []
   },
@@ -16324,7 +16324,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T05:48:19.413Z",
     "reviewItems": []
   },
@@ -16356,7 +16356,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T03:21:07.355Z",
     "reviewItems": []
   },
@@ -16387,7 +16387,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T14:13:24.111Z",
     "reviewItems": [
       {
@@ -16426,7 +16426,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T22:36:36.015Z",
     "reviewItems": []
   },
@@ -16463,7 +16463,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T10:18:17.071Z",
     "reviewItems": []
   },
@@ -16497,7 +16497,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T10:12:35.626Z",
     "reviewItems": []
   },
@@ -16529,7 +16529,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T07:23:22.506Z",
     "reviewItems": []
   },
@@ -16562,7 +16562,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T19:12:46.212Z",
     "reviewItems": []
   },
@@ -16599,7 +16599,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T22:53:45.837Z",
     "reviewItems": []
   },
@@ -16632,7 +16632,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T12:31:24.526Z",
     "reviewItems": []
   },
@@ -16664,7 +16664,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T01:56:01.582Z",
     "reviewItems": []
   },
@@ -16696,7 +16696,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T03:30:04.251Z",
     "reviewItems": []
   },
@@ -16728,7 +16728,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T13:07:19.725Z",
     "reviewItems": []
   },
@@ -16760,7 +16760,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T02:32:10.743Z",
     "reviewItems": []
   },
@@ -16794,7 +16794,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T20:01:25.404Z",
     "reviewItems": []
   },
@@ -16826,7 +16826,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T06:07:41.932Z",
     "reviewItems": []
   },
@@ -16858,7 +16858,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T00:05:16.398Z",
     "reviewItems": []
   },
@@ -16890,7 +16890,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T09:59:46.328Z",
     "reviewItems": []
   },
@@ -16922,7 +16922,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T21:03:07.659Z",
     "reviewItems": []
   },
@@ -16954,7 +16954,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T09:28:04.694Z",
     "reviewItems": []
   },
@@ -16986,7 +16986,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T01:45:53.660Z",
     "reviewItems": []
   },
@@ -17020,7 +17020,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T03:36:32.719Z",
     "reviewItems": []
   },
@@ -17053,7 +17053,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T03:44:50.408Z",
     "reviewItems": []
   },
@@ -17086,7 +17086,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T22:28:19.668Z",
     "reviewItems": []
   },
@@ -17117,7 +17117,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T05:31:44.866Z",
     "reviewItems": []
   },
@@ -17149,7 +17149,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T23:32:05.929Z",
     "reviewItems": []
   },
@@ -17182,7 +17182,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T07:51:31.163Z",
     "reviewItems": []
   },
@@ -17215,7 +17215,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T21:25:13.693Z",
     "reviewItems": []
   },
@@ -17247,7 +17247,7 @@
       "size": "Belirtilmemiş",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T23:30:59.391Z",
     "reviewItems": []
   },
@@ -17281,7 +17281,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T22:00:51.886Z",
     "reviewItems": []
   },
@@ -17313,7 +17313,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T04:46:01.720Z",
     "reviewItems": []
   },
@@ -17344,7 +17344,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T06:13:36.873Z",
     "reviewItems": []
   },
@@ -17378,7 +17378,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T20:36:32.650Z",
     "reviewItems": []
   },
@@ -17410,7 +17410,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T13:18:48.497Z",
     "reviewItems": []
   },
@@ -17444,7 +17444,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T14:16:29.932Z",
     "reviewItems": []
   },
@@ -17476,7 +17476,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T10:38:23.702Z",
     "reviewItems": []
   },
@@ -17507,7 +17507,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T20:00:06.367Z",
     "reviewItems": []
   },
@@ -17540,7 +17540,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T17:02:16.309Z",
     "reviewItems": []
   },
@@ -17574,7 +17574,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T15:17:34.292Z",
     "reviewItems": []
   },
@@ -17608,7 +17608,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T13:43:18.899Z",
     "reviewItems": []
   },
@@ -17642,7 +17642,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T01:39:07.952Z",
     "reviewItems": []
   },
@@ -17676,7 +17676,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T14:31:21.165Z",
     "reviewItems": []
   },
@@ -17710,7 +17710,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T17:46:58.036Z",
     "reviewItems": []
   },
@@ -17742,7 +17742,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T20:40:25.049Z",
     "reviewItems": []
   },
@@ -17776,7 +17776,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T22:47:11.922Z",
     "reviewItems": []
   },
@@ -17810,7 +17810,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T08:56:00.317Z",
     "reviewItems": []
   },
@@ -17844,7 +17844,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T07:32:28.538Z",
     "reviewItems": []
   },
@@ -17876,7 +17876,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T05:00:28.796Z",
     "reviewItems": []
   },
@@ -17913,7 +17913,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T09:13:04.024Z",
     "reviewItems": []
   },
@@ -17944,7 +17944,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T05:57:22.211Z",
     "reviewItems": []
   },
@@ -17978,7 +17978,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T04:24:06.711Z",
     "reviewItems": []
   },
@@ -18012,7 +18012,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T03:45:46.624Z",
     "reviewItems": []
   },
@@ -18043,7 +18043,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T02:01:43.584Z",
     "reviewItems": []
   },
@@ -18074,7 +18074,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T07:26:01.103Z",
     "reviewItems": []
   },
@@ -18107,7 +18107,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T11:30:53.827Z",
     "reviewItems": []
   },
@@ -18140,7 +18140,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T01:36:13.961Z",
     "reviewItems": []
   },
@@ -18174,7 +18174,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T05:48:18.519Z",
     "reviewItems": []
   },
@@ -18206,7 +18206,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T16:33:36.201Z",
     "reviewItems": []
   },
@@ -18238,7 +18238,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T12:28:06.303Z",
     "reviewItems": []
   },
@@ -18270,7 +18270,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T07:19:45.015Z",
     "reviewItems": []
   },
@@ -18302,7 +18302,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T04:56:50.408Z",
     "reviewItems": []
   },
@@ -18335,7 +18335,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T14:00:10.757Z",
     "reviewItems": []
   },
@@ -18367,7 +18367,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T06:09:04.917Z",
     "reviewItems": []
   },
@@ -18399,7 +18399,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T06:47:13.911Z",
     "reviewItems": []
   },
@@ -18430,7 +18430,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T11:19:02.943Z",
     "reviewItems": [
       {
@@ -18469,7 +18469,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T04:36:00.131Z",
     "reviewItems": []
   },
@@ -18501,7 +18501,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T15:58:29.028Z",
     "reviewItems": []
   },
@@ -18533,7 +18533,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T15:22:06.598Z",
     "reviewItems": []
   },
@@ -18564,7 +18564,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T16:44:07.502Z",
     "reviewItems": []
   },
@@ -18595,7 +18595,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T02:04:33.021Z",
     "reviewItems": []
   },
@@ -18626,7 +18626,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-07T16:54:33.531Z",
     "reviewItems": []
   },
@@ -18657,7 +18657,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T09:30:46.524Z",
     "reviewItems": []
   },
@@ -18690,7 +18690,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T03:17:03.924Z",
     "reviewItems": []
   },
@@ -18723,7 +18723,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T12:08:06.933Z",
     "reviewItems": []
   },
@@ -18754,7 +18754,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T18:54:47.573Z",
     "reviewItems": []
   },
@@ -18787,7 +18787,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T09:22:31.240Z",
     "reviewItems": []
   },
@@ -18819,7 +18819,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T21:37:17.430Z",
     "reviewItems": []
   },
@@ -18852,7 +18852,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T20:23:39.279Z",
     "reviewItems": []
   },
@@ -18883,7 +18883,7 @@
       "size": "38 x 38",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T11:28:15.867Z",
     "reviewItems": []
   },
@@ -18921,7 +18921,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T00:23:59.195Z",
     "reviewItems": []
   },
@@ -18955,7 +18955,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T23:33:09.447Z",
     "reviewItems": []
   },
@@ -18989,7 +18989,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T03:31:08.788Z",
     "reviewItems": []
   },
@@ -19023,7 +19023,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T06:37:21.208Z",
     "reviewItems": []
   },
@@ -19057,7 +19057,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T04:02:44.669Z",
     "reviewItems": []
   },
@@ -19094,7 +19094,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T10:53:33.813Z",
     "reviewItems": []
   },
@@ -19125,7 +19125,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T14:50:30.717Z",
     "reviewItems": []
   },
@@ -19156,7 +19156,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T21:37:25.735Z",
     "reviewItems": []
   },
@@ -19189,7 +19189,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T16:56:51.864Z",
     "reviewItems": []
   },
@@ -19220,7 +19220,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T01:21:53.736Z",
     "reviewItems": []
   },
@@ -19254,7 +19254,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T02:45:33.515Z",
     "reviewItems": []
   },
@@ -19286,7 +19286,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T03:18:45.975Z",
     "reviewItems": []
   },
@@ -19320,7 +19320,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T05:43:30.465Z",
     "reviewItems": []
   },
@@ -19354,7 +19354,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T08:22:17.272Z",
     "reviewItems": []
   },
@@ -19385,7 +19385,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T02:35:39.681Z",
     "reviewItems": []
   },
@@ -19416,7 +19416,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T06:38:30.900Z",
     "reviewItems": []
   },
@@ -19447,7 +19447,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T10:27:07.246Z",
     "reviewItems": []
   },
@@ -19483,7 +19483,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T20:47:56.780Z",
     "reviewItems": []
   },
@@ -19514,7 +19514,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T12:34:14.300Z",
     "reviewItems": []
   },
@@ -19552,7 +19552,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T05:31:41.620Z",
     "reviewItems": []
   },
@@ -19583,7 +19583,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T07:23:37.138Z",
     "reviewItems": []
   },
@@ -19615,7 +19615,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T09:03:35.604Z",
     "reviewItems": []
   },
@@ -19646,7 +19646,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T05:49:18.383Z",
     "reviewItems": []
   },
@@ -19677,7 +19677,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T02:31:14.316Z",
     "reviewItems": []
   },
@@ -19708,7 +19708,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T05:27:05.645Z",
     "reviewItems": []
   },
@@ -19741,7 +19741,7 @@
       "size": "Tek Ebat",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T16:44:01.653Z",
     "reviewItems": []
   },
@@ -19772,7 +19772,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T17:03:13.401Z",
     "reviewItems": []
   },
@@ -19803,7 +19803,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T21:58:41.691Z",
     "reviewItems": []
   },
@@ -19834,7 +19834,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T00:23:39.588Z",
     "reviewItems": []
   },
@@ -19868,7 +19868,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T02:38:19.187Z",
     "reviewItems": []
   },
@@ -19900,7 +19900,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T23:39:30.497Z",
     "reviewItems": []
   },
@@ -19931,7 +19931,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T16:03:37.881Z",
     "reviewItems": []
   },
@@ -19962,7 +19962,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-10T11:51:38.383Z",
     "reviewItems": []
   },
@@ -19993,7 +19993,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T00:12:04.590Z",
     "reviewItems": []
   },
@@ -20026,7 +20026,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T14:26:38.924Z",
     "reviewItems": []
   },
@@ -20059,7 +20059,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T09:58:11.702Z",
     "reviewItems": []
   },
@@ -20094,7 +20094,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T05:40:17.897Z",
     "reviewItems": []
   },
@@ -20126,7 +20126,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T10:08:45.796Z",
     "reviewItems": []
   },
@@ -20158,7 +20158,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T22:17:25.626Z",
     "reviewItems": []
   },
@@ -20189,7 +20189,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T08:37:29.280Z",
     "reviewItems": []
   },
@@ -20220,7 +20220,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T20:46:05.903Z",
     "reviewItems": []
   },
@@ -20251,7 +20251,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T08:11:49.741Z",
     "reviewItems": []
   },
@@ -20282,7 +20282,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T09:07:49.839Z",
     "reviewItems": []
   },
@@ -20313,7 +20313,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T02:20:08.935Z",
     "reviewItems": []
   },
@@ -20344,7 +20344,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T07:00:57.681Z",
     "reviewItems": []
   },
@@ -20376,7 +20376,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T00:39:54.491Z",
     "reviewItems": []
   },
@@ -20407,7 +20407,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T03:00:38.179Z",
     "reviewItems": []
   },
@@ -20438,7 +20438,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-25T16:46:22.397Z",
     "reviewItems": []
   },
@@ -20469,7 +20469,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T03:56:23.337Z",
     "reviewItems": []
   },
@@ -20500,7 +20500,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T19:32:52.740Z",
     "reviewItems": []
   },
@@ -20536,7 +20536,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-18T08:11:49.497Z",
     "reviewItems": []
   },
@@ -20574,7 +20574,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T21:32:40.433Z",
     "reviewItems": []
   },
@@ -20612,7 +20612,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T01:37:00.441Z",
     "reviewItems": []
   },
@@ -20650,7 +20650,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T06:52:29.393Z",
     "reviewItems": []
   },
@@ -20688,7 +20688,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T21:19:54.483Z",
     "reviewItems": []
   },
@@ -20719,7 +20719,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T03:57:33.388Z",
     "reviewItems": []
   },
@@ -20751,7 +20751,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-01T08:34:08.560Z",
     "reviewItems": []
   },
@@ -20782,7 +20782,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T14:08:54.987Z",
     "reviewItems": []
   },
@@ -20813,7 +20813,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T23:54:07.882Z",
     "reviewItems": []
   },
@@ -20849,7 +20849,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T19:47:31.840Z",
     "reviewItems": []
   },
@@ -20885,7 +20885,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T10:05:11.798Z",
     "reviewItems": []
   },
@@ -20921,7 +20921,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-27T14:40:20.652Z",
     "reviewItems": []
   },
@@ -20957,7 +20957,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-03T20:36:10.381Z",
     "reviewItems": []
   },
@@ -20988,7 +20988,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T16:00:53.343Z",
     "reviewItems": []
   },
@@ -21022,7 +21022,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-06T02:27:56.613Z",
     "reviewItems": []
   },
@@ -21058,7 +21058,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T08:58:20.105Z",
     "reviewItems": []
   },
@@ -21089,7 +21089,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-17T13:08:24.230Z",
     "reviewItems": []
   },
@@ -21125,7 +21125,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T13:09:08.493Z",
     "reviewItems": []
   },
@@ -21161,7 +21161,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T23:54:32.345Z",
     "reviewItems": []
   },
@@ -21193,7 +21193,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-30T00:45:50.941Z",
     "reviewItems": []
   },
@@ -21228,7 +21228,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T06:09:28.688Z",
     "reviewItems": []
   },
@@ -21263,7 +21263,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T21:27:45.994Z",
     "reviewItems": []
   },
@@ -21294,7 +21294,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-20T11:56:08.224Z",
     "reviewItems": []
   },
@@ -21327,7 +21327,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T05:34:52.976Z",
     "reviewItems": []
   },
@@ -21359,7 +21359,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-05T09:04:53.140Z",
     "reviewItems": []
   },
@@ -21390,7 +21390,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-15T10:06:35.405Z",
     "reviewItems": []
   },
@@ -21424,7 +21424,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T15:41:55.563Z",
     "reviewItems": []
   },
@@ -21456,7 +21456,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-22T08:08:55.980Z",
     "reviewItems": []
   },
@@ -21488,7 +21488,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-08T20:28:00.178Z",
     "reviewItems": []
   },
@@ -21519,7 +21519,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-11T07:31:11.383Z",
     "reviewItems": []
   },
@@ -21552,7 +21552,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-19T00:21:05.347Z",
     "reviewItems": []
   },
@@ -21585,7 +21585,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-21T06:53:35.473Z",
     "reviewItems": []
   },
@@ -21616,7 +21616,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-02T09:51:53.217Z",
     "reviewItems": []
   },
@@ -21651,7 +21651,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-16T13:36:57.769Z",
     "reviewItems": []
   },
@@ -21683,7 +21683,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-12T15:48:02.363Z",
     "reviewItems": []
   },
@@ -21714,7 +21714,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-24T12:45:36.207Z",
     "reviewItems": []
   },
@@ -21747,7 +21747,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-31T17:34:29.236Z",
     "reviewItems": []
   },
@@ -21781,7 +21781,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-04T19:33:03.177Z",
     "reviewItems": []
   },
@@ -21814,7 +21814,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-29T20:29:49.425Z",
     "reviewItems": []
   },
@@ -21847,7 +21847,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-26T12:06:33.786Z",
     "reviewItems": []
   },
@@ -21881,7 +21881,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2026-01-09T01:19:45.558Z",
     "reviewItems": []
   },
@@ -21912,7 +21912,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T01:46:09.838Z",
     "reviewItems": []
   },
@@ -21944,7 +21944,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-14T17:07:17.422Z",
     "reviewItems": []
   },
@@ -21977,7 +21977,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-28T21:09:08.200Z",
     "reviewItems": []
   },
@@ -22008,7 +22008,7 @@
       "size": "Standart",
       "shippingType": "Standart"
     },
-    "isActive": true,
+    "isActive": true, "sameDayShipping": true,
     "createdAt": "2025-12-23T10:04:12.672Z",
     "reviewItems": []
   }

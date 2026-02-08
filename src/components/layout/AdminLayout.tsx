@@ -18,7 +18,7 @@ export const AdminLayout: React.FC = () => {
             subItems: [
                 { string_icon: Image, label: 'Slayt Yönetimi', path: '/admin/home/slider' },
                 { string_icon: Image, label: 'Banner Yönetimi', path: '/admin/home/banners' },
-                { string_icon: Truck, label: 'Kargo Bantı', path: '/admin/home/free-shipping-banner' },
+                { string_icon: Truck, label: 'Kampanya Bandı', path: '/admin/home/top-campaign' },
                 { string_icon: Image, label: 'Ana Sayfa Ürün Grubu', path: '/admin/home/collections' },
                 { string_icon: Tag, label: 'Popüler Kategoriler', path: '/admin/home/popular-categories' },
                 { string_icon: Image, label: 'Ürün Detay Kutuları', path: '/admin/home/features' },

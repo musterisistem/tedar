@@ -5,21 +5,32 @@
       "name": "Ofis & Kırtasiye Ürünleri",
       "icon": "Briefcase",
       "subcategories": [
-        "Sekreterlik",
-        "Kalemlik & Ataşlık",
-        "Not Kağıtları ve Bloknot",
-        "Kırtasiye Seti",
+        "Ajanda",
+        "Ataş",
+        "Bant & Bant Makinesi",
+        "Cetvel",
+        "Defter",
+        "Delgeç",
         "Dosya",
-        "Planlayıcı",
-        "Masaüstü Organizer",
         "Etiket",
         "Fotokopi & Baskı Kağıtları",
-        "Delgeç",
-        "Kaşe ve Istampa",
-        "Paket Lastiği",
-        "Ofis Aksesuarı",
         "Hesap Makinesi",
-        "Lazer Yazıcı"
+        "Kalemlik & Ataşlık",
+        "Kaşe ve Istanpa",
+        "Makas",
+        "Maket Bıçak",
+        "Masaüstü Organizer",
+        "Not Kağıtları ve Bloknot",
+        "Ofis Aksesuarı",
+        "Paket Lastiği",
+        "Planlayıcı",
+        "Sekreterlik",
+        "Takvim",
+        "Yaka Kartı & Aksesuarları",
+        "Yapıştırıcı",
+        "Zarf",
+        "Zımba",
+        "Çelik Para Kasası"
       ]
     },
     {
@@ -27,19 +38,19 @@
       "name": "Kalem & Yazı Gereçleri",
       "icon": "PenTool",
       "subcategories": [
-        "Kurşun Kalem",
-        "Keçeli Kalem",
+        "CD & DVD Kalemi",
         "Fosforlu Kalem",
         "Jel Mürekkepli Kalem",
-        "Prestij & Dolma Kalem",
-        "Kuru Boya Kalemi",
-        "Pastel Boya",
-        "Guaj Boya",
+        "Kalem Kutusu",
         "Kalem Uçları",
-        "Kalemtraş",
-        "Silgi",
+        "Kalemtıraş",
+        "Keçeli Kalem",
+        "Kurşun Kalem",
         "Mürekkep",
-        "Sanatsal Kağıt & Kalem"
+        "Prestij & Dolma Kalem",
+        "Silgi",
+        "Tükenmez Kalem",
+        "Uçlu Kalem"
       ]
     },
     {
@@ -47,10 +58,16 @@
       "name": "Kişisel Aksesuarlar",
       "icon": "User",
       "subcategories": [
+        "Bel Çantası",
+        "Cüzdan",
         "El Çantası",
-        "Omuz Çantası",
-        "Kartlık",
+        "Havlu",
+        "Islak Mendil",
         "Kapak & Kılıf",
+        "Kartlık",
+        "Katı Sabun",
+        "Makyaj & Takı Organizeri",
+        "Omuz Çantası",
         "Rozet",
         "Taç",
         "Tırnak Makası"
@@ -61,20 +78,27 @@
       "name": "Mutfak & İçecek Ürünleri",
       "icon": "Coffee",
       "subcategories": [
-        "Mug",
-        "Kahve Fincanı",
-        "Sürahi ve Karaf",
-        "Suluk & Matara",
-        "Spor Matara",
-        "Karıştırıcı",
+        "Bardak",
+        "Bardak Altlığı",
+        "Chemex",
         "Dripper",
-        "Limon Sıkacağı",
-        "Sarımsak Ezici",
         "El Rondosu",
-        "Tirbuşon",
+        "Kahve Fincanı",
         "Kahve ve Baharat Öğütücü Değirmen",
+        "Karıştırıcı",
+        "Kağıt Peçete",
+        "Kupa",
+        "Limon Sıkacağı",
+        "Mug",
         "Saklama Kabı",
-        "Kağıt Peçete"
+        "Sarımsak Ezici",
+        "Spor Matara",
+        "Suluk & Matara",
+        "Sürahi ve Karaf",
+        "Termos",
+        "Tirbuşon",
+        "Yağdanlık",
+        "Çırpıcı"
       ]
     },
     {
@@ -82,11 +106,9 @@
       "name": "Promosyon & Kurumsal Ürünler",
       "icon": "Gift",
       "subcategories": [
-        "Mousepad",
-        "Kumbara",
-        "Kartlık",
-        "Rozet",
+        "Anahtarlık",
         "Hediye Kutusu",
+        "Kumbara",
         "Kırtasiye Seti"
       ]
     },
@@ -95,9 +117,10 @@
       "name": "Teknoloji & Elektronik Aksesuarlar",
       "icon": "Monitor",
       "subcategories": [
-        "Mousepad",
+        "Lazer Yazıcı",
         "Led Işık",
-        "Lazer Yazıcı"
+        "Mousepad",
+        "Toner"
       ]
     },
     {
@@ -105,11 +128,17 @@
       "name": "Hobi, Oyuncak & Eğitici Ürünler",
       "icon": "Gamepad2",
       "subcategories": [
+        "Blok Flüt",
+        "Boyama Seti",
         "Futbol Topu",
+        "Guaj Boya",
         "Hamur Şekillendirici",
-        "Tohumlar",
+        "Kuru Boya Kalemi",
+        "Pastel Boya",
         "Sanatsal Kağıt & Kalem",
-        "Müzik Kutusu"
+        "Tohumlar",
+        "Tombala",
+        "Çocuk Puzzle & Yapboz"
       ]
     },
     {
@@ -119,7 +148,8 @@
       "subcategories": [
         "Kar Küresi",
         "Konsept Hediyelik",
-        "Mum & Kandil"
+        "Yılbaşı Seti",
+        "Yılbaşı Süsü"
       ]
     },
     {
@@ -127,9 +157,24 @@
       "name": "Dekorasyon & Özel Ürünler",
       "icon": "Gem",
       "subcategories": [
-        "Oda Kokusu",
+        "Dekoratif Obje ve Biblo",
         "Mum & Kandil",
-        "Müzik Kutusu"
+        "Müzik Kutusu",
+        "Oda Kokusu"
+      ]
+    },
+    {
+      "id": "diger",
+      "name": "Diğer Ürünler",
+      "icon": "Box",
+      "subcategories": []
+    },
+    {
+      "id": "sise-acacagi",
+      "name": "Şişe Açacağı",
+      "icon": "Box",
+      "subcategories": [
+        "Şişe Açacağı"
       ]
     }
   ]

@@ -40,14 +40,14 @@ export const ShippingManager: React.FC = () => {
                         <Truck className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Kargo Yönetimi</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Kargo Yönetimi</h1>
                         <p className="text-slate-500 font-medium">Ücretsiz kargo limiti ve sabit kargo ücretini ayarlayın.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center gap-2 disabled:bg-blue-300 shadow-lg shadow-blue-100"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-normal hover:bg-blue-700 transition-all flex items-center gap-2 disabled:bg-blue-300 shadow-lg shadow-blue-100"
                 >
                     {isSaving ? 'KAYDEDİLİYOR...' : <><Save className="w-5 h-5" /> KAYDET</>}
                 </button>
@@ -58,7 +58,7 @@ export const ShippingManager: React.FC = () => {
                 <div className="lg:col-span-2 space-y-6">
                     {/* Enable/Disable Shipping */}
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                        <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+                        <h2 className="text-lg font-normal mb-4 flex items-center gap-2">
                             <Package className="w-5 h-5 text-blue-600" /> Kargo Ücreti Durumu
                         </h2>
                         <div className={`p-6 rounded-2xl border-2 transition-all ${settings.isEnabled ? 'border-blue-600 bg-white shadow-md' : 'border-gray-200 bg-gray-50'}`}>
@@ -67,13 +67,13 @@ export const ShippingManager: React.FC = () => {
                                     <div className={`p-2 rounded-lg ${settings.isEnabled ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-500'}`}>
                                         <Truck className="w-6 h-6" />
                                     </div>
-                                    <span className={`font-bold text-lg ${settings.isEnabled ? 'text-slate-800' : 'text-slate-400'}`}>
+                                    <span className={`font-normal text-lg ${settings.isEnabled ? 'text-slate-800' : 'text-slate-400'}`}>
                                         Kargo Ücreti Sistemi
                                     </span>
                                 </div>
                                 <button
                                     onClick={() => setSettings({ ...settings, isEnabled: !settings.isEnabled })}
-                                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${settings.isEnabled ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
+                                    className={`px-4 py-1.5 rounded-full text-xs font-normal transition-all ${settings.isEnabled ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
                                 >
                                     {settings.isEnabled ? 'AKTİF' : 'PASİF'}
                                 </button>
@@ -89,14 +89,14 @@ export const ShippingManager: React.FC = () => {
                     {/* Shipping Settings */}
                     {settings.isEnabled && (
                         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fadeIn">
-                            <h2 className="text-lg font-bold mb-6 flex items-center gap-2">
+                            <h2 className="text-lg font-normal mb-6 flex items-center gap-2">
                                 <DollarSign className="w-5 h-5 text-blue-600" /> Kargo Ücret Ayarları
                             </h2>
 
                             <div className="space-y-6">
                                 {/* Free Shipping Threshold */}
                                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
-                                    <label className="block text-sm font-bold text-green-900 mb-2 uppercase tracking-wider">
+                                    <label className="block text-sm font-normal text-green-900 mb-2 uppercase tracking-wider">
                                         Ücretsiz Kargo Limiti (TL)
                                     </label>
                                     <div className="relative">
@@ -108,12 +108,12 @@ export const ShippingManager: React.FC = () => {
                                                 setSettings({ ...settings, freeShippingThreshold: val });
                                             }}
                                             onFocus={(e) => e.target.select()}
-                                            className="w-full px-4 py-3 rounded-lg border-2 border-green-300 focus:border-green-500 outline-none text-lg font-bold text-green-900"
+                                            className="w-full px-4 py-3 rounded-lg border-2 border-green-300 focus:border-green-500 outline-none text-lg font-normal text-green-900"
                                             placeholder="1500"
                                             min="0"
                                             step="50"
                                         />
-                                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-green-700 font-bold">TL</span>
+                                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-green-700 font-normal">TL</span>
                                     </div>
                                     <p className="text-xs text-green-700 mt-2">
                                         Bu tutarın üzerindeki siparişlerde kargo ücretsiz olacaktır.
@@ -122,7 +122,7 @@ export const ShippingManager: React.FC = () => {
 
                                 {/* Fixed Shipping Cost */}
                                 <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl border border-orange-200">
-                                    <label className="block text-sm font-bold text-orange-900 mb-2 uppercase tracking-wider">
+                                    <label className="block text-sm font-normal text-orange-900 mb-2 uppercase tracking-wider">
                                         Sabit Kargo Ücreti (TL)
                                     </label>
                                     <div className="relative">
@@ -134,12 +134,12 @@ export const ShippingManager: React.FC = () => {
                                                 setSettings({ ...settings, fixedShippingCost: val });
                                             }}
                                             onFocus={(e) => e.target.select()}
-                                            className="w-full px-4 py-3 rounded-lg border-2 border-orange-300 focus:border-orange-500 outline-none text-lg font-bold text-orange-900"
+                                            className="w-full px-4 py-3 rounded-lg border-2 border-orange-300 focus:border-orange-500 outline-none text-lg font-normal text-orange-900"
                                             placeholder="50"
                                             min="0"
                                             step="5"
                                         />
-                                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-700 font-bold">TL</span>
+                                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-700 font-normal">TL</span>
                                     </div>
                                     <p className="text-xs text-orange-700 mt-2">
                                         Ücretsiz kargo limitinin altındaki siparişlere bu tutar eklenecektir.
@@ -153,7 +153,7 @@ export const ShippingManager: React.FC = () => {
                 {/* Preview Panel */}
                 <div className="lg:col-span-1">
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-sm border border-blue-200 p-6 sticky top-4">
-                        <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                        <h3 className="text-lg font-normal text-blue-900 mb-4 flex items-center gap-2">
                             <TrendingUp className="w-5 h-5" /> Ön İzleme
                         </h3>
                         <p className="text-sm text-blue-700 mb-6">
@@ -175,7 +175,7 @@ export const ShippingManager: React.FC = () => {
                                             }`}
                                     >
                                         <div className="flex justify-between items-center mb-2">
-                                            <span className="text-sm font-bold text-slate-700">
+                                            <span className="text-sm font-normal text-slate-700">
                                                 Sepet: {amount.toLocaleString('tr-TR')} TL
                                             </span>
                                             {isFree && (
@@ -186,12 +186,12 @@ export const ShippingManager: React.FC = () => {
                                         </div>
                                         <div className="flex justify-between items-center text-xs">
                                             <span className="text-slate-500">Kargo:</span>
-                                            <span className={`font-bold ${isFree ? 'text-green-600' : 'text-orange-600'}`}>
+                                            <span className={`font-normal ${isFree ? 'text-green-600' : 'text-orange-600'}`}>
                                                 {isFree ? '0 TL' : `${shipping.toLocaleString('tr-TR')} TL`}
                                             </span>
                                         </div>
                                         <div className="border-t border-dashed border-slate-300 mt-2 pt-2 flex justify-between items-center">
-                                            <span className="text-xs font-bold text-slate-600">Toplam:</span>
+                                            <span className="text-xs font-normal text-slate-600">Toplam:</span>
                                             <span className="text-sm font-black text-blue-600">
                                                 {total.toLocaleString('tr-TR')} TL
                                             </span>

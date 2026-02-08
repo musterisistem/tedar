@@ -26,28 +26,61 @@ export const SiteSidebar: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Promo Box Banner */}
-            <div className={`relative overflow-hidden ${promoBox?.bgColor || 'bg-blue-600'} rounded-2xl p-6 text-center shadow-xl shadow-blue-900/10 group`}>
-                {/* Decorative Circles */}
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all duration-700"></div>
-                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-black/10 rounded-full blur-3xl group-hover:bg-black/20 transition-all duration-700"></div>
+            {/* Promo Box Banner - Modern Redesign */}
+            <div className={`relative overflow-hidden ${promoBox?.bgColor || 'bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800'} rounded-3xl shadow-2xl group`}>
+                {/* Animated Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-0 left-0 w-full h-full">
+                        <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl animate-pulse"></div>
+                        <div className="absolute bottom-10 right-10 w-40 h-40 bg-white rounded-full blur-3xl animate-pulse delay-700"></div>
+                        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-yellow-300 rounded-full blur-2xl animate-pulse delay-1000"></div>
+                    </div>
+                </div>
 
-                <div className="relative z-10">
-                    <div className={`${promoBox?.iconBgColor || 'bg-white/20'} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-inner rotate-3 group-hover:rotate-6 transition-transform duration-500`}>
-                        <Icon className={`w-9 h-9 ${promoBox?.textColor || 'text-white'}`} />
+                {/* Optional Image Section */}
+                {promoBox?.image && (
+                    <div className="relative h-40 overflow-hidden">
+                        <img
+                            src={promoBox.image}
+                            alt={promoBox.title}
+                            className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/50"></div>
+                    </div>
+                )}
+
+                {/* Content Section */}
+                <div className="relative z-10 p-6 text-center">
+                    {/* Icon with Animated Ring */}
+                    <div className="relative inline-block mb-5">
+                        <div className={`${promoBox?.iconBgColor || 'bg-white/20'} backdrop-blur-sm w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl transform group-hover:rotate-6 group-hover:scale-110 transition-all duration-500`}>
+                            <Icon className={`w-10 h-10 ${promoBox?.textColor || 'text-white'} drop-shadow-lg`} />
+                        </div>
+                        {/* Animated Ring */}
+                        <div className="absolute inset-0 rounded-2xl border-2 border-white/30 animate-ping"></div>
                     </div>
 
-                    <h4 className={`font-black ${promoBox?.textColor || 'text-white'} text-xl mb-2 tracking-tight`}>
+                    {/* Title */}
+                    <h4 className={`font-black ${promoBox?.textColor || 'text-white'} text-2xl mb-3 tracking-tight drop-shadow-lg`}>
                         {promoBox?.title || 'Fırsat'}
                     </h4>
 
-                    <p className={`text-sm ${promoBox?.textColor || 'text-white'} opacity-90 mb-6 font-medium leading-relaxed`}>
+                    {/* Description */}
+                    <p className={`text-base ${promoBox?.textColor || 'text-white'} opacity-95 mb-6 font-semibold leading-relaxed max-w-sm mx-auto drop-shadow-md`}>
                         {promoBox?.description}
                     </p>
 
-                    <div className={`${promoBox?.btnBgColor || 'bg-white'} ${promoBox?.btnTextColor || 'text-blue-600'} text-sm font-black py-3 px-6 rounded-xl inline-block shadow-lg shadow-black/20 hover:scale-105 active:scale-95 transition-all cursor-pointer`}>
+                    {/* Premium Button */}
+                    <button
+                        onClick={() => navigate('/ayni-gun-kargo')}
+                        className={`${promoBox?.btnBgColor || 'bg-white'} ${promoBox?.btnTextColor || 'text-blue-600'} text-base font-black py-4 px-8 rounded-xl shadow-2xl hover:shadow-3xl hover:scale-105 active:scale-95 transition-all duration-300`}
+                    >
                         {promoBox?.buttonText || 'İncele'}
-                    </div>
+                    </button>
+
+                    {/* Decorative Elements */}
+                    <div className="absolute -top-6 -right-6 w-20 h-20 bg-yellow-400/20 rounded-full blur-2xl"></div>
+                    <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-purple-400/20 rounded-full blur-2xl"></div>
                 </div>
             </div>
 

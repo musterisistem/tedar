@@ -28,7 +28,7 @@ export const UserList: React.FC = () => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-800">Kullanıcılar</h1>
+                    <h1 className="text-3xl font-normal text-slate-800">Kullanıcılar</h1>
                     <p className="text-slate-500 mt-1">Kayıtlı üyeleri yönetin ve görüntüleyin.</p>
                 </div>
             </div>
@@ -60,11 +60,11 @@ export const UserList: React.FC = () => {
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-slate-50 border-b border-slate-100">
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Kullanıcı</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">İletişim</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">IP Adresi</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Durum</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">İşlemler</th>
+                                <th className="px-6 py-4 text-xs font-normal text-slate-500 uppercase tracking-wider">Kullanıcı</th>
+                                <th className="px-6 py-4 text-xs font-normal text-slate-500 uppercase tracking-wider">İletişim</th>
+                                <th className="px-6 py-4 text-xs font-normal text-slate-500 uppercase tracking-wider">IP Adresi</th>
+                                <th className="px-6 py-4 text-xs font-normal text-slate-500 uppercase tracking-wider">Durum</th>
+                                <th className="px-6 py-4 text-xs font-normal text-slate-500 uppercase tracking-wider text-right">İşlemler</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
@@ -72,11 +72,11 @@ export const UserList: React.FC = () => {
                                 <tr key={user.id} className="hover:bg-slate-50/50 transition-colors group">
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold uppercase">
+                                            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-normal uppercase">
                                                 {(user.name || '?').charAt(0)}
                                             </div>
                                             <div>
-                                                <div className="font-bold text-slate-800 text-sm">{user.name}</div>
+                                                <div className="font-normal text-slate-800 text-sm">{user.name}</div>
                                                 <div className="text-xs text-slate-500">@{user.username}</div>
                                             </div>
                                         </div>

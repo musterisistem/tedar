@@ -67,14 +67,14 @@ export const PopularCategoryManager: React.FC = () => {
                         <Tag className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Popüler Kategoriler</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Popüler Kategoriler</h1>
                         <p className="text-slate-500 font-medium">Ana sayfada listelenecek kategorileri yönetin.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold transition-all shadow-lg ${isSaved ? 'bg-green-500 text-white' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200'} ${isSaving ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`flex items-center gap-2 px-8 py-3 rounded-xl font-normal transition-all shadow-lg ${isSaved ? 'bg-green-500 text-white' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200'} ${isSaving ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     {isSaving ? (
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -89,7 +89,7 @@ export const PopularCategoryManager: React.FC = () => {
 
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
                 <div className="p-6 border-b border-slate-100 bg-slate-50">
-                    <h2 className="font-bold text-slate-800 flex items-center gap-2">
+                    <h2 className="font-normal text-slate-800 flex items-center gap-2">
                         <Tag className="w-5 h-5 text-blue-600" /> Ana Sayfada Gösterilecek Kategoriler
                     </h2>
                     <p className="text-sm text-slate-500 mt-1">
@@ -110,11 +110,11 @@ export const PopularCategoryManager: React.FC = () => {
                                     >
                                         <div className="flex items-center gap-3 flex-1" onClick={() => toggleExpand(category.id)}>
                                             {isExpanded ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronRight className="w-4 h-4 text-slate-400" />}
-                                            <span className="font-bold text-slate-800">{category.name}</span>
+                                            <span className="font-normal text-slate-800">{category.name}</span>
                                         </div>
                                         <button
                                             onClick={() => handleToggle({ id: category.id, name: category.name, type: 'category' })}
-                                            className={`flex items-center gap-2 px-4 py-1.5 rounded-lg border-2 transition-all text-xs font-bold ${isCatSelected ? 'border-blue-600 bg-blue-600 text-white' : 'border-slate-200 text-slate-400 hover:border-slate-300'}`}
+                                            className={`flex items-center gap-2 px-4 py-1.5 rounded-lg border-2 transition-all text-xs font-normal ${isCatSelected ? 'border-blue-600 bg-blue-600 text-white' : 'border-slate-200 text-slate-400 hover:border-slate-300'}`}
                                         >
                                             {isCatSelected ? <Check className="w-3.5 h-3.5" /> : null}
                                             {isCatSelected ? 'SEÇİLDİ' : 'ANA KATEGORİYİ SEÇ'}
@@ -149,12 +149,12 @@ export const PopularCategoryManager: React.FC = () => {
             </div>
 
             <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6">
-                <h3 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                <h3 className="font-normal text-blue-900 mb-2 flex items-center gap-2">
                     <Check className="w-5 h-5" /> Seçili Popüler Öğeler ({selectedItems.length})
                 </h3>
                 <div className="flex flex-wrap gap-2">
                     {selectedItems.map((item, idx) => (
-                        <div key={idx} className="bg-white px-3 py-1.5 rounded-lg border border-blue-200 text-xs font-bold text-blue-600 shadow-sm flex items-center gap-2">
+                        <div key={idx} className="bg-white px-3 py-1.5 rounded-lg border border-blue-200 text-xs font-normal text-blue-600 shadow-sm flex items-center gap-2">
                             {item.type === 'subcategory' && <span className="text-[10px] text-slate-400 font-normal uppercase">{item.parentId} / </span>}
                             {item.name}
                             <button onClick={() => handleToggle(item)} className="ml-1 hover:text-red-500">

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useUsers } from '../../context/UserContext';
 import type { Address } from '../../context/UserContext';
-import { locationData } from '../../data/locationData';
+import { useLocation as useLocationHook } from '../../hooks/useLocation';
 import { LogOut, Package, MapPin, User, Settings, Plus, Trash2, X, ChevronRight, Calendar, CreditCard, ChevronDown, Bell, ArrowRight, Heart } from 'lucide-react';
 import { slugify } from '../../utils/slugify';
+import { formatPhoneNumber } from '../../utils/formatPhone';
 import { usePriceAlerts } from '../../context/PriceAlertContext';
 import { useProducts } from '../../context/ProductContext';
 import { ProductCard } from '../../components/common/ProductCard';
@@ -56,6 +57,10 @@ export const Account: React.FC = () => {
 
     // Order Modal State
     const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
+
+    // Location Hook
+    // We rename the hook import to avoid conflict with react-router's useLocation
+    const { cities, districts, neighborhoods } = useLocationHook(addressForm.city, addressForm.district);
 
     if (!currentUser) {
         navigate('/giris');
@@ -350,7 +355,7 @@ export const Account: React.FC = () => {
                                                                 required
                                                             >
                                                                 <option value="">Seçiniz</option>
-                                                                {Object.keys(locationData).map(city => <option key={city} value={city}>{city}</option>)}
+                                                                {cities.sort().map(city => <option key={city} value={city}>{city}</option>)}
                                                             </select>
                                                             <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-3 pointer-events-none" />
                                                         </div>
@@ -367,7 +372,7 @@ export const Account: React.FC = () => {
                                                                 required
                                                             >
                                                                 <option value="">Seçiniz</option>
-                                                                {addressForm.city && locationData[addressForm.city] && Object.keys(locationData[addressForm.city]).map(district => (
+                                                                {districts.sort().map(district => (
                                                                     <option key={district} value={district}>{district}</option>
                                                                 ))}
                                                             </select>
@@ -386,8 +391,8 @@ export const Account: React.FC = () => {
                                                                 required
                                                             >
                                                                 <option value="">Seçiniz</option>
-                                                                {addressForm.city && addressForm.district && locationData[addressForm.city][addressForm.district] && locationData[addressForm.city][addressForm.district].map(neighborhood => (
-                                                                    <option key={neighborhood} value={neighborhood}>{neighborhood}</option>
+                                                                {neighborhoods.sort().map(n => (
+                                                                    <option key={n} value={n}>{n}</option>
                                                                 ))}
                                                             </select>
                                                             <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-3 pointer-events-none" />
@@ -402,6 +407,23 @@ export const Account: React.FC = () => {
                                                             onChange={(e) => setAddressForm({ ...addressForm, zipCode: e.target.value })}
                                                             placeholder="34000"
                                                             maxLength={5}
+                                                            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                                        />
+                                                    </div>
+
+                                                    <div className="md:col-span-1">
+                                                        <label className="block text-sm font-medium text-slate-700 mb-1">Telefon Numarası</label>
+                                                        <input
+                                                            type="tel"
+                                                            value={addressForm.phone}
+                                                            onChange={(e) => {
+                                                                const formatted = formatPhoneNumber(e.target.value);
+                                                                if (formatted.length <= 17) {
+                                                                    setAddressForm({ ...addressForm, phone: formatted });
+                                                                }
+                                                            }}
+                                                            placeholder="(05XX) XXX XX XX"
+                                                            required
                                                             className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500"
                                                         />
                                                     </div>

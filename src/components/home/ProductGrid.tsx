@@ -17,7 +17,7 @@ export interface ProductGridProps {
 export const ProductGrid: React.FC<ProductGridProps> = ({
     title,
     productCount,
-    columns = 5,
+    columns = 4,
     viewAllLink,
     variant = 'simple',
     headerClassName = "bg-blue-600",

@@ -230,7 +230,7 @@ export const Header: React.FC = () => {
 
             {/* First Row: Top Navigation */}
             <div className="border-b border-gray-100 bg-white relative z-50">
-                <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+                <div className="w-full px-4 md:px-8 h-16 flex items-center justify-between">
                     {/* Mobile Menu Button - VISIBLE ONLY ON MOBILE */}
                     <div className="lg:hidden flex items-center mr-4">
                         <button
@@ -261,6 +261,96 @@ export const Header: React.FC = () => {
                         </Link>
                         <Link to="/iletisim" className="hover:text-secondary transition-colors">İLETİŞİM</Link>
                     </nav>
+
+                    {/* Search Bar - Desktop */}
+                    <div className="hidden lg:flex flex-1 max-w-xl mx-8 relative" ref={searchRef}>
+                        <div className="relative w-full">
+                            <input
+                                type="text"
+                                placeholder="Ürün, kategori veya marka arayın..."
+                                value={searchTerm}
+                                onChange={handleSearchCheck}
+                                onFocus={() => setShowSearch(true)}
+                                className="w-full h-10 pl-4 pr-24 rounded-full border border-gray-200 bg-gray-50 focus:bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all text-sm"
+                            />
+                            <div className="absolute right-1 top-1 bottom-1 flex items-center gap-1">
+                                {searchTerm && (
+                                    <button
+                                        onClick={() => { setSearchTerm(''); setShowSearch(false); }}
+                                        className="p-1.5 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-200 transition-colors"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                )}
+                                <button className="bg-secondary text-white px-5 h-full rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center gap-2">
+                                    <Search className="w-4 h-4" />
+                                    <span>ARA</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Search Results Dropdown */}
+                        {showSearch && searchTerm.length > 2 && (
+                            <div className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
+                                {searchResults.length > 0 ? (
+                                    <>
+                                        <div className="p-3 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+                                            <span className="text-xs font-bold text-gray-500">SONUÇLAR ({searchResults.length})</span>
+                                            <Link
+                                                to={`/ara?q=${searchTerm}`}
+                                                onClick={() => setShowSearch(false)}
+                                                className="text-xs text-blue-600 hover:underline cursor-pointer"
+                                            >
+                                                Tümünü Gör
+                                            </Link>
+                                        </div>
+                                        <div className="max-h-[350px] overflow-y-auto">
+                                            {searchResults.map((product) => (
+                                                <Link
+                                                    key={product.id}
+                                                    to={`/${slugify(product.name)}`}
+                                                    onClick={() => setShowSearch(false)}
+                                                    className="flex items-center gap-4 p-3 hover:bg-blue-50/50 transition-colors border-b border-gray-50 last:border-0"
+                                                >
+                                                    <div className="w-12 h-12 bg-white rounded border border-gray-100 p-1 flex-shrink-0">
+                                                        <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <h4 className="text-sm font-medium text-gray-900 truncate" dangerouslySetInnerHTML={{
+                                                            __html: product.name.replace(
+                                                                new RegExp(searchTerm, 'gi'),
+                                                                (match) => `<span class="bg-yellow-100 text-yellow-800">${match}</span>`
+                                                            )
+                                                        }} />
+                                                        <div className="flex items-center gap-2 mt-1">
+                                                            <span className="text-xs text-gray-500">{product.badges[0] || 'Stokta'}</span>
+                                                            {product.discount && product.discount > 0 && (
+                                                                <span className="text-[10px] bg-red-100 text-red-600 px-1.5 rounded font-bold">%{product.discount}</span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-right flex-shrink-0">
+                                                        <div className="text-sm font-bold text-secondary">{product.price.current.toLocaleString('tr-TR')} TL</div>
+                                                        {product.price.original > product.price.current && (
+                                                            <div className="text-xs text-gray-400 line-through">{product.price.original.toLocaleString('tr-TR')} TL</div>
+                                                        )}
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="p-8 text-center flex flex-col items-center justify-center">
+                                        <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
+                                            <Search className="w-6 h-6 text-gray-400" />
+                                        </div>
+                                        <p className="text-gray-900 font-medium">Sonuç bulunamadı</p>
+                                        <p className="text-sm text-gray-500 mt-1">"{searchTerm}" ile ilgili bir ürün bulamadık.</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
 
                     {/* Right: Utilities */}
                     <div className="flex items-center gap-2 md:gap-4 text-xs font-medium text-gray-600">
@@ -463,99 +553,30 @@ export const Header: React.FC = () => {
 
             {/* Second Row: Search & Categories */}
             <div className="bg-primary/5 py-3 md:py-4 border-b border-gray-200 z-30 relative">
-                <div className="container mx-auto px-4 flex items-center gap-4">
+                <div className="w-full px-4 md:px-8 flex items-center gap-4">
                     {/* Categories Dropdown - Hidden on Mobile */}
                     <div className="w-64 flex-shrink-0 hidden lg:block">
                         <CategoryDropdown />
                     </div>
 
                     {/* Search Input */}
-                    <div className="flex-1 flex gap-3 relative" ref={searchRef}>
-                        <div className="flex-1 relative">
-                            <input
-                                type="text"
-                                placeholder="Ürün, kategori veya marka arayın..."
-                                value={searchTerm}
-                                onChange={handleSearchCheck}
-                                onFocus={() => setShowSearch(true)}
-                                className="w-full h-10 md:h-12 pl-4 pr-12 md:pr-32 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all shadow-sm text-sm"
-                            />
-                            <div className="absolute right-1 top-1 bottom-1 flex">
-                                {searchTerm && (
-                                    <button
-                                        onClick={() => { setSearchTerm(''); setShowSearch(false); }}
-                                        className="h-full px-2 text-gray-400 hover:text-gray-600"
-                                    >
-                                        <X className="w-4 h-4" />
-                                    </button>
-                                )}
-                                <button className="bg-secondary text-white px-3 md:px-6 rounded-md font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 my-0.5">
-                                    <Search className="w-4 h-4" />
-                                    <span className="hidden md:inline">ARA</span>
-                                </button>
-                            </div>
-
-                            {/* Search Results Dropdown */}
-                            {showSearch && searchTerm.length > 2 && (
-                                <div className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-lg shadow-[0_10px_40px_-5px_rgba(0,0,0,0.15)] border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
-                                    {searchResults.length > 0 ? (
-                                        <>
-                                            <div className="p-3 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
-                                                <span className="text-xs font-bold text-gray-500">SONUÇLAR ({searchResults.length})</span>
-                                                <Link
-                                                    to={`/ara?q=${searchTerm}`}
-                                                    onClick={() => setShowSearch(false)}
-                                                    className="text-xs text-blue-600 hover:underline cursor-pointer"
-                                                >
-                                                    Tümünü Gör
-                                                </Link>
-                                            </div>
-                                            <div className="max-h-[350px] overflow-y-auto">
-                                                {searchResults.map((product) => (
-                                                    <Link
-                                                        key={product.id}
-                                                        to={`/${slugify(product.name)}`}
-                                                        onClick={() => setShowSearch(false)}
-                                                        className="flex items-center gap-4 p-3 hover:bg-blue-50/50 transition-colors border-b border-gray-50 last:border-0"
-                                                    >
-                                                        <div className="w-12 h-12 bg-white rounded border border-gray-100 p-1 flex-shrink-0">
-                                                            <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
-                                                        </div>
-                                                        <div className="flex-1 min-w-0">
-                                                            <h4 className="text-sm font-medium text-gray-900 truncate" dangerouslySetInnerHTML={{
-                                                                __html: product.name.replace(
-                                                                    new RegExp(searchTerm, 'gi'),
-                                                                    (match) => `<span class="bg-yellow-100 text-yellow-800">${match}</span>`
-                                                                )
-                                                            }} />
-                                                            <div className="flex items-center gap-2 mt-1">
-                                                                <span className="text-xs text-gray-500">{product.badges[0] || 'Stokta'}</span>
-                                                                {product.discount && product.discount > 0 && (
-                                                                    <span className="text-[10px] bg-red-100 text-red-600 px-1.5 rounded font-bold">%{product.discount}</span>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-right flex-shrink-0">
-                                                            <div className="text-sm font-bold text-secondary">{product.price.current.toLocaleString('tr-TR')} TL</div>
-                                                            {product.price.original > product.price.current && (
-                                                                <div className="text-xs text-gray-400 line-through">{product.price.original.toLocaleString('tr-TR')} TL</div>
-                                                            )}
-                                                        </div>
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div className="p-8 text-center flex flex-col items-center justify-center">
-                                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-                                                <Search className="w-6 h-6 text-gray-400" />
-                                            </div>
-                                            <p className="text-gray-900 font-medium">Sonuç bulunamadı</p>
-                                            <p className="text-sm text-gray-500 mt-1">"{searchTerm}" ile ilgili bir ürün bulamadık.</p>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
+                    {/* Main Categories Links */}
+                    <div className="flex-1 flex items-center gap-3 overflow-hidden">
+                        <div className="flex-1 overflow-x-auto scrollbar-hide py-1">
+                            <ul className="flex items-center gap-2 text-sm font-semibold text-gray-700 whitespace-nowrap">
+                                {categories.map((cat) => (
+                                    <li key={cat.id}>
+                                        <Link
+                                            to={`/kategori/${slugify(cat.name)}`}
+                                            className="block px-4 py-2 rounded-lg transition-all duration-200 whitespace-nowrap border border-blue-100 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 hover:border-blue-300 hover:shadow-sm"
+                                        >
+                                            {cat.name.split(' ').map(word =>
+                                                word.toLocaleUpperCase('tr-TR').charAt(0) + word.toLocaleLowerCase('tr-TR').slice(1)
+                                            ).join(' ')}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
                         <Link to="/outlet" className="hidden xl:flex items-center justify-center px-8 h-12 bg-gradient-to-r from-red-700 to-red-500 text-white rounded-lg font-bold hover:from-red-800 hover:to-red-600 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap tracking-wide border border-red-400/20">

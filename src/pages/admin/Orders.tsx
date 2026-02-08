@@ -29,7 +29,7 @@ export const Orders: React.FC = () => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-800">Sipariş Yönetimi</h1>
+                    <h1 className="text-2xl font-normal text-slate-800">Sipariş Yönetimi</h1>
                     <p className="text-slate-500 text-sm mt-1">Sistemdeki tüm siparişlerin takibi.</p>
                 </div>
                 <div className="flex gap-2">
@@ -69,7 +69,7 @@ export const Orders: React.FC = () => {
             {/* Simple Table */}
             <div className="bg-white border border-slate-200 overflow-x-auto">
                 <table className="w-full text-sm text-left text-slate-600">
-                    <thead className="bg-slate-100 text-slate-800 font-bold border-b border-slate-200 uppercase text-xs">
+                    <thead className="bg-slate-100 text-slate-800 font-normal border-b border-slate-200 uppercase text-xs">
                         <tr>
                             <th className="px-4 py-3">Sipariş No</th>
                             <th className="px-4 py-3">Müşteri</th>
@@ -112,20 +112,20 @@ export const Orders: React.FC = () => {
                                         {order.orderNo}
                                     </td>
                                     <td className="px-4 py-3">
-                                        <div className="font-semibold text-slate-700">{order.customer}</div>
+                                        <div className="font-normal text-slate-700">{order.customer}</div>
                                         {order.isActiveMember && <span className="text-[10px] text-blue-600">(Üye)</span>}
                                     </td>
                                     <td className="px-4 py-3">
                                         {order.date}
                                     </td>
-                                    <td className="px-4 py-3 font-bold text-slate-800">
+                                    <td className="px-4 py-3 font-normal text-slate-800">
                                         {order.amount.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL
                                     </td>
                                     <td className="px-4 py-3">
                                         {order.paymentType || 'Kredi Kartı'}
                                     </td>
                                     <td className="px-4 py-3">
-                                        <span className={`px-2 py-1 text-xs font-bold border ${getStatusColor(displayStatus)}`}>
+                                        <span className={`px-2 py-1 text-xs font-normal border ${getStatusColor(displayStatus)}`}>
                                             {displayStatus}
                                         </span>
                                     </td>

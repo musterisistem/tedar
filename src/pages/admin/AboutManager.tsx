@@ -87,7 +87,7 @@ export const AboutManager: React.FC = () => {
     return (
         <div className="space-y-6 pb-24">
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-gray-800">Hakkımızda Sayfası Yönetimi</h1>
+                <h1 className="text-2xl font-normal text-gray-800">Hakkımızda Sayfası Yönetimi</h1>
                 <button
                     onClick={handleSave}
                     disabled={saving}
@@ -108,7 +108,7 @@ export const AboutManager: React.FC = () => {
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex items-center gap-2 mb-6 text-blue-800 border-b pb-2">
                     <ImageIcon className="w-5 h-5" />
-                    <h2 className="text-lg font-bold">Hero (Üst) Bölümü</h2>
+                    <h2 className="text-lg font-normal">Hero (Üst) Bölümü</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -140,7 +140,7 @@ export const AboutManager: React.FC = () => {
                             type="file"
                             accept="image/*"
                             onChange={(e) => handleImageUpload(e, 'heroImage')}
-                            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-2"
+                            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-normal file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-2"
                         />
                         {formData.heroImage && (
                             <div className="h-40 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
@@ -156,7 +156,7 @@ export const AboutManager: React.FC = () => {
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex items-center gap-2 mb-6 text-blue-800 border-b pb-2">
                     <Type className="w-5 h-5" />
-                    <h2 className="text-lg font-bold">Misyon & İçerik</h2>
+                    <h2 className="text-lg font-normal">Misyon & İçerik</h2>
                 </div>
 
                 <div className="space-y-4">
@@ -199,15 +199,15 @@ export const AboutManager: React.FC = () => {
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex items-center gap-2 mb-6 text-blue-800 border-b pb-2">
                     <Target className="w-5 h-5" />
-                    <h2 className="text-lg font-bold">İstatistikler ve Görseller</h2>
+                    <h2 className="text-lg font-normal">İstatistikler ve Görseller</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-gray-700">İstatistikler</h3>
+                        <h3 className="font-normal text-gray-700">İstatistikler</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">Yıl Değeri</label>
+                                <label className="block text-xs font-normal text-gray-500 mb-1">Yıl Değeri</label>
                                 <input
                                     type="text"
                                     value={formData.stats.years}
@@ -216,7 +216,7 @@ export const AboutManager: React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">Yıl Etiketi</label>
+                                <label className="block text-xs font-normal text-gray-500 mb-1">Yıl Etiketi</label>
                                 <input
                                     type="text"
                                     value={formData.stats.yearsLabel}
@@ -225,7 +225,7 @@ export const AboutManager: React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">Müşteri Değeri</label>
+                                <label className="block text-xs font-normal text-gray-500 mb-1">Müşteri Değeri</label>
                                 <input
                                     type="text"
                                     value={formData.stats.customers}
@@ -234,7 +234,7 @@ export const AboutManager: React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">Müşteri Etiketi</label>
+                                <label className="block text-xs font-normal text-gray-500 mb-1">Müşteri Etiketi</label>
                                 <input
                                     type="text"
                                     value={formData.stats.customersLabel}
@@ -246,14 +246,14 @@ export const AboutManager: React.FC = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-gray-700">Ofis Görselleri</h3>
+                        <h3 className="font-normal text-gray-700">Ofis Görselleri</h3>
                         <div>
-                            <label className="block text-xs font-bold text-gray-500 mb-1">Ana Ofis Görseli</label>
+                            <label className="block text-xs font-normal text-gray-500 mb-1">Ana Ofis Görseli</label>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => handleImageUpload(e, 'officeImage')}
-                                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-2"
+                                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-normal file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-2"
                             />
                             {formData.officeImage && (
                                 <div className="h-24 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
@@ -262,12 +262,12 @@ export const AboutManager: React.FC = () => {
                             )}
                         </div>
                         <div>
-                            <label className="block text-xs font-bold text-gray-500 mb-1">Toplantı Görseli</label>
+                            <label className="block text-xs font-normal text-gray-500 mb-1">Toplantı Görseli</label>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => handleImageUpload(e, 'meetingImage')}
-                                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-2"
+                                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-normal file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-2"
                             />
                             {formData.meetingImage && (
                                 <div className="h-24 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
@@ -283,13 +283,13 @@ export const AboutManager: React.FC = () => {
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex items-center gap-2 mb-6 text-blue-800 border-b pb-2">
                     <Award className="w-5 h-5" />
-                    <h2 className="text-lg font-bold">Değerlerimiz (Kartlar)</h2>
+                    <h2 className="text-lg font-normal">Değerlerimiz (Kartlar)</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {formData.values.map((item, index) => (
                         <div key={index} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <h4 className="font-bold text-gray-700 mb-2">Başlık {index + 1}</h4>
+                            <h4 className="font-normal text-gray-700 mb-2">Başlık {index + 1}</h4>
                             <div className="space-y-2">
                                 <input
                                     type="text"

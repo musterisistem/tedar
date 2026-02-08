@@ -174,6 +174,21 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     // Check Auth on Load
     useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const token = localStorage.getItem('auth_token');
+                if (!token) return;
+
+                const res = await fetch('/api/users');
+                const result = await res.json();
+                if (res.ok && result.success) {
+                    setUsers(result.data);
+                }
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+
         const checkAuth = async () => {
             const token = localStorage.getItem('auth_token');
             if (!token) return;
@@ -195,6 +210,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             }
         };
         checkAuth();
+        fetchUsers();
     }, []);
 
     const login = async (emailInput: string, password: string): Promise<{ success: boolean; error?: string }> => {

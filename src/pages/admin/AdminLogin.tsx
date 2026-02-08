@@ -22,7 +22,7 @@ export const AdminLogin: React.FC = () => {
         <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold text-gray-900">Yönetim Paneli</h1>
+                    <h1 className="text-2xl font-normal text-gray-900">Yönetim Paneli</h1>
                     <p className="text-gray-500 text-sm mt-2">Giriş yapmak için bilgilerinizi giriniz</p>
                 </div>
 
@@ -65,7 +65,7 @@ export const AdminLogin: React.FC = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-blue-900 text-white font-bold py-3 rounded-lg hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl"
+                        className="w-full bg-blue-900 text-white font-normal py-3 rounded-lg hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl"
                     >
                         Giriş Yap
                     </button>

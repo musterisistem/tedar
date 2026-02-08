@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUsers } from '../../context/UserContext';
 import { Mail, Lock, User, Phone, MapPin, Building, AlertCircle } from 'lucide-react';
-import { locationData } from '../../data/locationData'; // Assuming this exists for city/district
+import { formatPhoneNumber } from '../../utils/formatPhone';
+import { useLocation } from '../../hooks/useLocation';
 
 export const Register: React.FC = () => {
     const navigate = useNavigate();
@@ -28,7 +29,8 @@ export const Register: React.FC = () => {
 
     // Filtered districts based on selected city
     // Filtered districts based on selected city
-    const districts = formData.city ? (locationData[formData.city] ? Object.keys(locationData[formData.city]) : []) : [];
+    // Location Hook
+    const { cities, districts, loading: locationLoading } = useLocation(formData.city);
     // If you have town data, adjust here. Assuming simple city/district for now or based on your locationData structure.
 
     // Basit locationData yapısı varsayımı (Şehir -> İlçeler)
@@ -37,7 +39,16 @@ export const Register: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+
+        if (name === 'phone') {
+            const formatted = formatPhoneNumber(value);
+            // Limit to 17 characters: (0555) 555 55 55
+            if (formatted.length <= 17) {
+                setFormData(prev => ({ ...prev, [name]: formatted }));
+            }
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
 
         // Reset district if city changes
         if (name === 'city') {
@@ -220,7 +231,8 @@ export const Register: React.FC = () => {
                                         className="block w-full pl-10 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none appearance-none"
                                     >
                                         <option value="">Seçiniz</option>
-                                        {Object.keys(locationData).sort().map(city => (
+                                        <option value="">Seçiniz</option>
+                                        {cities.sort().map(city => (
                                             <option key={city} value={city}>{city}</option>
                                         ))}
                                     </select>

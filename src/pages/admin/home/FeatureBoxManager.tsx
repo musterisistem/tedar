@@ -46,13 +46,13 @@ export const FeatureBoxManager: React.FC = () => {
                         <Layout className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Bilgi Kutuları Yönetimi</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Bilgi Kutuları Yönetimi</h1>
                         <p className="text-slate-500 font-medium">Site genelindeki bilgi ve promosyon kutularını düzenleyin.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleSave}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-xl font-normal hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100"
                 >
                     <Save className="w-5 h-5" /> TÜMÜNÜ KAYDET
                 </button>
@@ -62,14 +62,14 @@ export const FeatureBoxManager: React.FC = () => {
             <section className="space-y-6">
                 <div className="flex items-center gap-2 border-b border-slate-200 pb-4">
                     <Layout className="w-5 h-5 text-blue-600" />
-                    <h2 className="text-xl font-bold text-slate-800">Ana Sayfa Yan Menü Kutusu</h2>
+                    <h2 className="text-xl font-normal text-slate-800">Ana Sayfa Yan Menü Kutusu</h2>
                 </div>
 
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                         {/* Preview */}
                         <div className="lg:col-span-4">
-                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Canlı Önizleme</label>
+                            <label className="block text-xs font-normal text-slate-400 uppercase tracking-wider mb-6">Canlı Önizleme</label>
                             <div className={`relative overflow-hidden ${localPromo.bgColor} rounded-3xl p-8 text-center shadow-2xl shadow-blue-900/10`}>
                                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
                                 <div className="relative z-10">
@@ -86,19 +86,19 @@ export const FeatureBoxManager: React.FC = () => {
                         {/* Edit Form */}
                         <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Başlık</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Başlık</label>
                                 <input type="text" value={localPromo.title} onChange={(e) => handlePromoUpdate('title', e.target.value)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500" />
                             </div>
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Açıklama</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Açıklama</label>
                                 <textarea rows={2} value={localPromo.description} onChange={(e) => handlePromoUpdate('description', e.target.value)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500" />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Buton Metni</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Buton Metni</label>
                                 <input type="text" value={localPromo.buttonText} onChange={(e) => handlePromoUpdate('buttonText', e.target.value)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500" />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Simge</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Simge</label>
                                 <select value={localPromo.icon} onChange={(e) => handlePromoUpdate('icon', e.target.value as any)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500">
                                     <option value="Truck">Kamyon</option>
                                     <option value="Zap">Şimşek</option>
@@ -107,19 +107,19 @@ export const FeatureBoxManager: React.FC = () => {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Arka Plan Rengi</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Arka Plan Rengi</label>
                                 <input type="text" value={localPromo.bgColor} onChange={(e) => handlePromoUpdate('bgColor', e.target.value)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl" />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Simge Arka Planı</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Simge Arka Planı</label>
                                 <input type="text" value={localPromo.iconBgColor} onChange={(e) => handlePromoUpdate('iconBgColor', e.target.value)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl" />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Buton Arka Planı</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Buton Arka Planı</label>
                                 <input type="text" value={localPromo.btnBgColor} onChange={(e) => handlePromoUpdate('btnBgColor', e.target.value)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl" />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Buton Yazı Rengi</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Buton Yazı Rengi</label>
                                 <input type="text" value={localPromo.btnTextColor} onChange={(e) => handlePromoUpdate('btnTextColor', e.target.value)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl" />
                             </div>
                         </div>
@@ -131,7 +131,7 @@ export const FeatureBoxManager: React.FC = () => {
             <section className="space-y-6">
                 <div className="flex items-center gap-2 border-b border-slate-200 pb-4">
                     <Layout className="w-5 h-5 text-blue-600" />
-                    <h2 className="text-xl font-bold text-slate-800">Ürün Detay Sayfası Kutuları</h2>
+                    <h2 className="text-xl font-normal text-slate-800">Ürün Detay Sayfası Kutuları</h2>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6">
@@ -142,13 +142,13 @@ export const FeatureBoxManager: React.FC = () => {
                                 <div className="flex flex-col md:flex-row gap-8">
                                     {/* Preview */}
                                     <div className="md:w-1/3">
-                                        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Görünüm Önizleme</label>
+                                        <label className="block text-xs font-normal text-slate-400 uppercase tracking-wider mb-4">Görünüm Önizleme</label>
                                         <div className={`${box.bgColor} ${box.borderColor} border-2 rounded-2xl p-6 flex items-start gap-4`}>
                                             <div className={`${box.iconColor} flex-shrink-0 mt-1`}>
                                                 <Icon className="w-8 h-8" />
                                             </div>
                                             <div>
-                                                <h4 className="font-bold text-gray-900 text-lg mb-1">{box.title}</h4>
+                                                <h4 className="font-normal text-gray-900 text-lg mb-1">{box.title}</h4>
                                                 <p className="text-sm text-gray-600">{box.description}</p>
                                             </div>
                                         </div>
@@ -157,7 +157,7 @@ export const FeatureBoxManager: React.FC = () => {
                                     {/* Form */}
                                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="md:col-span-2">
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Başlık</label>
+                                            <label className="block text-sm font-normal text-slate-700 mb-2">Başlık</label>
                                             <input
                                                 type="text"
                                                 value={box.title}
@@ -166,7 +166,7 @@ export const FeatureBoxManager: React.FC = () => {
                                             />
                                         </div>
                                         <div className="md:col-span-2">
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Açıklama</label>
+                                            <label className="block text-sm font-normal text-slate-700 mb-2">Açıklama</label>
                                             <input
                                                 type="text"
                                                 value={box.description}
@@ -175,7 +175,7 @@ export const FeatureBoxManager: React.FC = () => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Simge</label>
+                                            <label className="block text-sm font-normal text-slate-700 mb-2">Simge</label>
                                             <select
                                                 value={box.icon}
                                                 onChange={(e) => handleUpdate(box.id, 'icon', e.target.value as any)}
@@ -187,7 +187,7 @@ export const FeatureBoxManager: React.FC = () => {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Arka Plan Rengi (Tailwind)</label>
+                                            <label className="block text-sm font-normal text-slate-700 mb-2">Arka Plan Rengi (Tailwind)</label>
                                             <input
                                                 type="text"
                                                 value={box.bgColor}
@@ -196,7 +196,7 @@ export const FeatureBoxManager: React.FC = () => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Simge Rengi (Tailwind)</label>
+                                            <label className="block text-sm font-normal text-slate-700 mb-2">Simge Rengi (Tailwind)</label>
                                             <input
                                                 type="text"
                                                 value={box.iconColor}
@@ -205,7 +205,7 @@ export const FeatureBoxManager: React.FC = () => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Kenarlık Rengi (Tailwind)</label>
+                                            <label className="block text-sm font-normal text-slate-700 mb-2">Kenarlık Rengi (Tailwind)</label>
                                             <input
                                                 type="text"
                                                 value={box.borderColor}

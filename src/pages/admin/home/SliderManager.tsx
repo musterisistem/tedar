@@ -16,6 +16,7 @@ export const SliderManager: React.FC = () => {
         title: '',
         description: '',
         link: '',
+        buttonText: '',
         showText: true
     });
 
@@ -53,6 +54,7 @@ export const SliderManager: React.FC = () => {
                 title: newSlide.title,
                 description: newSlide.description || '',
                 link: newSlide.link || '',
+                buttonText: newSlide.buttonText || '',
                 order: slides.length + 1,
                 showText: newSlide.showText
             };
@@ -60,7 +62,7 @@ export const SliderManager: React.FC = () => {
         }
 
         // Reset form
-        setNewSlide({ image: '', title: '', description: '', link: '', showText: true });
+        setNewSlide({ image: '', title: '', description: '', link: '', buttonText: '', showText: true });
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
@@ -73,6 +75,7 @@ export const SliderManager: React.FC = () => {
             title: slide.title,
             description: slide.description,
             link: slide.link,
+            buttonText: slide.buttonText,
             showText: slide.showText
         });
         // Scroll to top to see the form
@@ -81,7 +84,7 @@ export const SliderManager: React.FC = () => {
 
     const handleCancelEdit = () => {
         setEditingId(null);
-        setNewSlide({ image: '', title: '', description: '', link: '', showText: true });
+        setNewSlide({ image: '', title: '', description: '', link: '', buttonText: '', showText: true });
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
@@ -130,19 +133,19 @@ export const SliderManager: React.FC = () => {
                         <ImageIcon className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Slayt Yönetimi</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Slayt Yönetimi</h1>
                         <p className="text-slate-500 font-medium">Ana sayfa slider görsellerini ve içeriklerini düzenleyin.</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100 flex items-center gap-3">
-                        <span className="text-slate-900 font-bold text-xl">{slides.length}</span>
-                        <span className="text-slate-500 font-semibold text-sm">Slayt</span>
+                        <span className="text-slate-900 font-normal text-xl">{slides.length}</span>
+                        <span className="text-slate-500 font-normal text-sm">Slayt</span>
                     </div>
                     <button
                         onClick={handleSaveToDisk}
                         disabled={isSaving}
-                        className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100 disabled:opacity-50"
+                        className="bg-blue-600 text-white px-8 py-3 rounded-xl font-normal hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-100 disabled:opacity-50"
                     >
                         {isSaving ? 'KAYDEDİLİYOR...' : <><Save className="w-5 h-5" /> DEĞİŞİKLİKLERİ KAYDET</>}
                     </button>
@@ -151,7 +154,7 @@ export const SliderManager: React.FC = () => {
 
             {/* Add/Edit Slide Form */}
             <div className={`p-6 rounded-xl shadow-sm border transition-colors duration-300 ${editingId ? 'bg-blue-50 border-blue-200' : 'bg-white border-slate-200'}`}>
-                <h2 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${editingId ? 'text-blue-700' : 'text-slate-700'}`}>
+                <h2 className={`text-lg font-normal mb-4 flex items-center gap-2 ${editingId ? 'text-blue-700' : 'text-slate-700'}`}>
                     {editingId ? (
                         <>
                             <Pencil className="w-5 h-5" /> Slaytı Düzenle
@@ -174,7 +177,7 @@ export const SliderManager: React.FC = () => {
                                 className="block w-full text-sm text-slate-500
                                 file:mr-4 file:py-2 file:px-4
                                 file:rounded-full file:border-0
-                                file:text-sm file:font-semibold
+                                file:text-sm file:font-normal
                                 file:bg-blue-50 file:text-blue-700
                                 hover:file:bg-blue-100"
                             />
@@ -202,6 +205,16 @@ export const SliderManager: React.FC = () => {
                             onChange={(e) => setNewSlide({ ...newSlide, description: e.target.value })}
                             className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Slayt Alt Açıklaması"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Buton Metni (Opsiyonel)</label>
+                        <input
+                            type="text"
+                            value={newSlide.buttonText || ''}
+                            onChange={(e) => setNewSlide({ ...newSlide, buttonText: e.target.value })}
+                            className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Örn: Alışverişe Başla"
                         />
                     </div>
                     <div>
@@ -258,7 +271,7 @@ export const SliderManager: React.FC = () => {
                         </div>
 
                         <div className="flex-1 text-center md:text-left">
-                            <h3 className="font-semibold text-lg text-slate-800 flex items-center gap-2 justify-center md:justify-start">
+                            <h3 className="font-normal text-lg text-slate-800 flex items-center gap-2 justify-center md:justify-start">
                                 {slide.title}
                                 {!slide.showText && (
                                     <span className="px-2 py-0.5 bg-gray-100 text-gray-500 text-xs rounded-full border border-gray-200 flex items-center gap-1">

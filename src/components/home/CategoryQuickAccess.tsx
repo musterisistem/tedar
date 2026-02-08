@@ -18,7 +18,7 @@ export const CategoryQuickAccess: React.FC = () => {
         <div className="container mx-auto px-4 mb-8">
             <div className={`grid ${getGridClass(banners.length)} gap-6`}>
                 {banners.map(banner => (
-                    <a key={banner.id} href={banner.link} className="block relative overflow-hidden h-[200px] rounded-xl shadow-md">
+                    <a key={banner.id} href={banner.link} className="block relative overflow-hidden h-[200px] rounded-xl">
                         <img
                             src={banner.image}
                             alt={banner.title || 'Banner'}

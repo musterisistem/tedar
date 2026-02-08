@@ -5,17 +5,31 @@ import { useNavigate, Link } from 'react-router-dom';
 import { slugify } from '../../utils/slugify';
 
 export const VerticalProductScroller: React.FC = () => {
-    const { products } = useProducts();
-    const [randomProducts, setRandomProducts] = useState<Product[]>([]);
+    const { products, homeCollections } = useProducts();
+    const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (products.length > 0) {
-            // Select 6 random products when products are available
-            const shuffled = [...products].sort(() => 0.5 - Math.random());
-            setRandomProducts(shuffled.slice(0, 6));
+            // Find "Ofisiniz İçin Seçtik" collection
+            const officeCollection = homeCollections.find(c => c.id === 'office');
+
+            let selectedProducts: Product[] = [];
+
+            if (officeCollection && officeCollection.productIds.length > 0) {
+                // Map IDs to actual products to preserve order
+                selectedProducts = officeCollection.productIds
+                    .map(id => products.find(p => p.id === id))
+                    .filter((p): p is Product => !!p);
+            } else {
+                // Fallback if no collection defined
+                selectedProducts = [...products].sort(() => 0.5 - Math.random());
+            }
+
+            // Limit to 8 products
+            setDisplayProducts(selectedProducts.slice(0, 8));
         }
-    }, [products]);
+    }, [products, homeCollections]);
 
     const handleProductClick = (productName: string) => {
         navigate(`/${slugify(productName)}`);
@@ -34,9 +48,8 @@ export const VerticalProductScroller: React.FC = () => {
                 </div>
             </div>
 
-            {/* Content */}
             <div className="flex-1 flex flex-col p-2 gap-1 overflow-visible">
-                {randomProducts.map((product, index) => (
+                {displayProducts.map((product, index) => (
                     <div
                         key={product.id}
                         onClick={() => handleProductClick(product.name)}

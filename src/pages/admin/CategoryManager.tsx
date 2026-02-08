@@ -160,7 +160,7 @@ export const CategoryManager: React.FC = () => {
                         <LayoutGrid className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase">Kategori Yönetimi</h1>
+                        <h1 className="text-xl font-normal text-slate-900 tracking-tight uppercase">Kategori Yönetimi</h1>
                         <p className="text-slate-500 font-medium">Site menü yapısını ve kategorileri yönetin.</p>
                     </div>
                 </div>
@@ -171,10 +171,10 @@ export const CategoryManager: React.FC = () => {
                 {/* LEFT PANE: List */}
                 <div className="w-full lg:w-1/3 border-r border-slate-200 flex flex-col bg-slate-50">
                     <div className="p-4 border-b border-slate-200 flex justify-between items-center bg-white sticky top-0 z-10">
-                        <span className="font-bold text-slate-700 text-sm">Kategoriler</span>
+                        <span className="font-normal text-slate-700 text-sm">Kategoriler</span>
                         <button
                             onClick={handleAddMain}
-                            className="text-xs bg-blue-600 text-white px-3 py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center gap-1 shadow-sm"
+                            className="text-xs bg-blue-600 text-white px-3 py-2 rounded-lg font-normal hover:bg-blue-700 transition-colors flex items-center gap-1 shadow-sm"
                         >
                             <Plus className="w-3 h-3" /> Ekle
                         </button>
@@ -204,7 +204,7 @@ export const CategoryManager: React.FC = () => {
                                     {renderIcon(cat.icon)}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className={`font-semibold text-sm truncate ${selectedId === cat.id ? 'text-blue-900' : 'text-slate-700'}`}>
+                                    <div className={`font-normal text-sm truncate ${selectedId === cat.id ? 'text-blue-900' : 'text-slate-700'}`}>
                                         {cat.name}
                                     </div>
                                     <div className="text-[10px] text-slate-400">
@@ -242,14 +242,14 @@ export const CategoryManager: React.FC = () => {
                                 <div className="flex flex-col gap-6">
                                     {/* Name */}
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Kategori Adı</label>
+                                        <label className="block text-xs font-normal text-slate-400 uppercase tracking-wider mb-2">Kategori Adı</label>
                                         <div className="flex gap-3">
                                             <div className="flex-1 relative">
                                                 <input
                                                     type="text"
                                                     value={name}
                                                     onChange={(e) => setName(e.target.value)}
-                                                    className="w-full pl-4 pr-4 py-3 border border-slate-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none font-bold text-lg text-slate-800 transition-all placeholder:text-slate-300"
+                                                    className="w-full pl-4 pr-4 py-3 border border-slate-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none font-normal text-lg text-slate-800 transition-all placeholder:text-slate-300"
                                                 />
                                             </div>
                                             <button
@@ -257,14 +257,14 @@ export const CategoryManager: React.FC = () => {
                                                 className="px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-black transition-colors flex items-center gap-2 shadow-lg shadow-slate-200 active:scale-95 transform duration-100"
                                             >
                                                 <Save className="w-4 h-4" />
-                                                <span className="font-bold text-sm">Kaydet</span>
+                                                <span className="font-normal text-sm">Kaydet</span>
                                             </button>
                                         </div>
                                     </div>
 
                                     {/* Icon Grid */}
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">İkon Seçimi</label>
+                                        <label className="block text-xs font-normal text-slate-400 uppercase tracking-wider mb-3">İkon Seçimi</label>
                                         <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto custom-scrollbar p-1">
                                             {Object.keys(SAFE_ICON_MAP).map(iconKey => {
                                                 const isActive = icon === iconKey;
@@ -292,7 +292,7 @@ export const CategoryManager: React.FC = () => {
                             {/* Subcategories */}
                             <div className="flex-1 overflow-hidden flex flex-col">
                                 <div className="p-6 pb-0">
-                                    <h3 className="font-semibold text-slate-800 flex items-center gap-2 text-lg">
+                                    <h3 className="font-normal text-slate-800 flex items-center gap-2 text-lg">
                                         <CornerDownRight className="w-5 h-5 text-blue-500" />
                                         Alt Kategoriler
                                         <span className="text-xs font-medium text-slate-400 bg-slate-100 px-2 py-1 rounded-full">{selectedCategory.subcategories.length}</span>
@@ -302,7 +302,7 @@ export const CategoryManager: React.FC = () => {
                                 <div className="flex-1 overflow-y-auto p-6 space-y-2 custom-scrollbar">
                                     {selectedCategory.subcategories.map((sub, idx) => (
                                         <div key={idx} className="flex items-center gap-4 bg-slate-50 p-3 pl-4 rounded-xl border border-slate-100 group hover:border-blue-200 hover:bg-blue-50/30 transition-all">
-                                            <span className="w-6 h-6 flex items-center justify-center bg-white text-slate-400 rounded-md text-xs font-mono font-bold shadow-sm border border-slate-100">
+                                            <span className="w-6 h-6 flex items-center justify-center bg-white text-slate-400 rounded-md text-xs font-mono font-normal shadow-sm border border-slate-100">
                                                 {idx + 1}
                                             </span>
 
@@ -338,7 +338,7 @@ export const CategoryManager: React.FC = () => {
                                                 </div>
                                             ) : (
                                                 <>
-                                                    <span className="flex-1 font-semibold text-slate-700">{sub}</span>
+                                                    <span className="flex-1 font-normal text-slate-700">{sub}</span>
                                                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                         <button
                                                             onClick={() => {
@@ -388,7 +388,7 @@ export const CategoryManager: React.FC = () => {
                                         <button
                                             type="submit"
                                             disabled={!newSubcategory.trim()}
-                                            className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 transition-all font-bold text-sm shadow-lg shadow-blue-200"
+                                            className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 transition-all font-normal text-sm shadow-lg shadow-blue-200"
                                         >
                                             Ekle
                                         </button>
@@ -401,7 +401,7 @@ export const CategoryManager: React.FC = () => {
                             <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm border border-slate-100">
                                 <LayoutGrid className="w-10 h-10 text-slate-200" />
                             </div>
-                            <h2 className="text-xl font-bold text-slate-700 mb-2">Kategori Seçin</h2>
+                            <h2 className="text-xl font-normal text-slate-700 mb-2">Kategori Seçin</h2>
                             <p className="text-slate-500 text-center max-w-sm">
                                 Düzenleme yapmak için sol menüden bir kategori seçin.
                             </p>

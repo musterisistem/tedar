@@ -182,7 +182,7 @@ export const AddProduct: React.FC = () => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-slate-200 pb-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-800">{isEditMode ? 'Ürünü Düzenle' : 'Ürün Ekle'}</h1>
+                    <h1 className="text-3xl font-normal text-slate-800">{isEditMode ? 'Ürünü Düzenle' : 'Ürün Ekle'}</h1>
                     <p className="text-slate-500 mt-1">{isEditMode ? 'Mevcut ürün bilgilerini güncelleyin.' : 'Yeni bir ürünü kataloğa ekleyin ve yönetin.'}</p>
                 </div>
                 <div className="flex gap-3">
@@ -209,11 +209,11 @@ export const AddProduct: React.FC = () => {
                 <div className="lg:col-span-2 space-y-8">
                     {/* Basic Info */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Temel Bilgiler</h2>
+                        <h2 className="text-lg font-normal text-slate-800 border-b border-slate-100 pb-4 mb-6">Temel Bilgiler</h2>
 
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Ürün Adı <span className="text-red-500">*</span></label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Ürün Adı <span className="text-red-500">*</span></label>
                                 <input
                                     type="text"
                                     className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-400 transition-all"
@@ -224,7 +224,7 @@ export const AddProduct: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Açıklama</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Açıklama</label>
                                 <RichTextEditor
                                     value={description}
                                     onChange={setDescription}
@@ -237,7 +237,7 @@ export const AddProduct: React.FC = () => {
                     {/* Media Gallery */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                         <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
-                            <h2 className="text-lg font-bold text-slate-800">Ürün Görselleri</h2>
+                            <h2 className="text-lg font-normal text-slate-800">Ürün Görselleri</h2>
                             <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
                                 {images.length} görsel eklendi
                             </span>
@@ -287,7 +287,7 @@ export const AddProduct: React.FC = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => setCoverImage(idx)}
-                                                    className="px-3 py-1 bg-white text-slate-700 text-xs font-bold rounded-full shadow hover:bg-slate-50 transition-colors"
+                                                    className="px-3 py-1 bg-white text-slate-700 text-xs font-normal rounded-full shadow hover:bg-slate-50 transition-colors"
                                                 >
                                                     Vitrin Yap
                                                 </button>
@@ -296,7 +296,7 @@ export const AddProduct: React.FC = () => {
 
                                         {/* Cover Badge */}
                                         {idx === 0 && (
-                                            <div className="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+                                            <div className="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-normal px-2 py-0.5 rounded shadow-sm">
                                                 VİTRİN
                                             </div>
                                         )}
@@ -314,12 +314,12 @@ export const AddProduct: React.FC = () => {
                     {/* Video Section (NEW) */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                         <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
-                            <h2 className="text-lg font-bold text-slate-800">Ürün Videosu</h2>
+                            <h2 className="text-lg font-normal text-slate-800">Ürün Videosu</h2>
                             <Youtube className="w-5 h-5 text-red-600" />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-semibold text-slate-700 mb-2">Video (YouTube Embed Kodu veya Link)</label>
+                            <label className="block text-sm font-normal text-slate-700 mb-2">Video (YouTube Embed Kodu veya Link)</label>
                             <input
                                 type="text"
                                 className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-400 transition-all font-mono"
@@ -335,7 +335,7 @@ export const AddProduct: React.FC = () => {
 
                     {/* Related Products Selection */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Benzer Ürünler (İlgili Ürünler)</h2>
+                        <h2 className="text-lg font-normal text-slate-800 border-b border-slate-100 pb-4 mb-6">Benzer Ürünler (İlgili Ürünler)</h2>
 
                         <div className="space-y-4">
                             <div>
@@ -382,26 +382,26 @@ export const AddProduct: React.FC = () => {
                 <div className="space-y-8">
                     {/* Pricing & Stock */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Fiyat & Stok</h2>
+                        <h2 className="text-lg font-normal text-slate-800 border-b border-slate-100 pb-4 mb-6">Fiyat & Stok</h2>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Satış Fiyatı (TL) <span className="text-red-500">*</span></label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Satış Fiyatı (TL) <span className="text-red-500">*</span></label>
                                 <div className="relative">
                                     <input
                                         type="text"
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-4 pr-8 py-3 text-lg font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-400"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-4 pr-8 py-3 text-lg font-normal text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-400"
                                         value={priceCurrent}
                                         onChange={(e) => setPriceCurrent(e.target.value)}
                                         placeholder="0.00"
                                     />
-                                    <span className="absolute right-4 top-4 text-sm font-bold text-slate-400">₺</span>
+                                    <span className="absolute right-4 top-4 text-sm font-normal text-slate-400">₺</span>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Liste Fiyatı</label>
+                                    <label className="block text-xs font-normal text-slate-500 mb-1">Liste Fiyatı</label>
                                     <input
                                         type="text"
                                         className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
@@ -411,7 +411,7 @@ export const AddProduct: React.FC = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Stok</label>
+                                    <label className="block text-xs font-normal text-slate-500 mb-1">Stok</label>
                                     <input
                                         type="number"
                                         className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
@@ -423,7 +423,7 @@ export const AddProduct: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Ürün Kodu (SKU)</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Ürün Kodu (SKU)</label>
                                 <input
                                     type="text"
                                     className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm uppercase font-mono tracking-wider focus:outline-none focus:border-blue-500"
@@ -437,11 +437,11 @@ export const AddProduct: React.FC = () => {
 
                     {/* Organization */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Detaylar</h2>
+                        <h2 className="text-lg font-normal text-slate-800 border-b border-slate-100 pb-4 mb-6">Detaylar</h2>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Kategoriler</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Kategoriler</label>
                                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 max-h-64 overflow-y-auto custom-scrollbar">
                                     {allCategories.map(cat => (
                                         <div key={cat.id} className="mb-4 last:mb-0">
@@ -452,7 +452,7 @@ export const AddProduct: React.FC = () => {
                                                 >
                                                     {categoriesSelected.includes(cat.name) && <CheckSquare className="w-4 h-4 text-white" />}
                                                 </div>
-                                                <span className={`text-sm font-bold ${categoriesSelected.includes(cat.name) ? 'text-blue-700' : 'text-slate-700'}`}>
+                                                <span className={`text-sm font-normal ${categoriesSelected.includes(cat.name) ? 'text-blue-700' : 'text-slate-700'}`}>
                                                     {cat.name}
                                                 </span>
                                             </label>
@@ -481,7 +481,7 @@ export const AddProduct: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Marka</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Marka</label>
                                 <select
                                     className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500"
                                     value={brand}
@@ -495,11 +495,11 @@ export const AddProduct: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Etiketler</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Etiketler</label>
                                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-2 focus-within:ring-2 focus-within:ring-slate-200 focus-within:border-slate-400 transition-all">
                                     <div className="flex flex-wrap gap-2 mb-2">
                                         {tags.map((tag, idx) => (
-                                            <span key={idx} className="bg-white border border-slate-200 text-slate-700 text-xs font-bold px-2 py-1 rounded-md flex items-center gap-1">
+                                            <span key={idx} className="bg-white border border-slate-200 text-slate-700 text-xs font-normal px-2 py-1 rounded-md flex items-center gap-1">
                                                 {tag}
                                                 <button type="button" onClick={() => removeTag(tag)} className="hover:text-red-500"><CloseIcon className="w-3 h-3" /></button>
                                             </span>
@@ -520,11 +520,11 @@ export const AddProduct: React.FC = () => {
 
                     {/* Technical Details */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Teknik Detaylar</h2>
+                        <h2 className="text-lg font-normal text-slate-800 border-b border-slate-100 pb-4 mb-6">Teknik Detaylar</h2>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Ürün Rengi</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Ürün Rengi</label>
                                 <input
                                     type="text"
                                     className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500"
@@ -535,7 +535,7 @@ export const AddProduct: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Sevkiyat Tipi</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Sevkiyat Tipi</label>
                                 <input
                                     type="text"
                                     className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500"
@@ -546,7 +546,7 @@ export const AddProduct: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Boyut / Ebat</label>
+                                <label className="block text-sm font-normal text-slate-700 mb-2">Boyut / Ebat</label>
                                 <input
                                     type="text"
                                     className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500"
@@ -561,7 +561,7 @@ export const AddProduct: React.FC = () => {
                     {/* Status */}
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                         <div className="flex items-center justify-between mb-2">
-                            <h2 className="text-sm font-bold text-slate-800">Yayın Durumu</h2>
+                            <h2 className="text-sm font-normal text-slate-800">Yayın Durumu</h2>
                             <span className={`w-2.5 h-2.5 rounded-full ${isActive ? 'bg-green-500' : 'bg-slate-300'}`}></span>
                         </div>
                         <select
@@ -578,7 +578,7 @@ export const AddProduct: React.FC = () => {
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                         <div className="flex items-center justify-between">
                             <div>
-                                <h2 className="text-sm font-bold text-slate-800">Aynı Gün Kargo</h2>
+                                <h2 className="text-sm font-normal text-slate-800">Aynı Gün Kargo</h2>
                                 <p className="text-xs text-slate-500 mt-1">Saat 11:00'e kadar yapılan siparişler aynı gün kargoya verilir</p>
                             </div>
                             <button
@@ -602,7 +602,7 @@ export const AddProduct: React.FC = () => {
                     <div className="lg:col-span-3">
                         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                             <div className="p-6 border-b border-slate-200 flex justify-between items-center">
-                                <h2 className="text-lg font-bold text-slate-800">
+                                <h2 className="text-lg font-normal text-slate-800">
                                     Ürün Yorumları
                                     <span className="ml-2 text-sm font-normal text-slate-500">
                                         ({currentProduct.reviewItems.length})
@@ -614,7 +614,7 @@ export const AddProduct: React.FC = () => {
                                     <div key={index} className="p-6 flex items-start justify-between gap-4 hover:bg-slate-50 transition-colors">
                                         <div className="flex-1">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <div className="font-bold text-slate-800">{review.user}</div>
+                                                <div className="font-normal text-slate-800">{review.user}</div>
                                                 <div className="flex items-center text-yellow-500 text-sm">
                                                     {[...Array(5)].map((_, i) => (
                                                         <span key={i} className={i < review.rating ? "fill-current" : "text-gray-300"}>★</span>
