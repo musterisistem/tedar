@@ -242,9 +242,9 @@ export const Header: React.FC = () => {
                     </div>
 
                     {/* Left: Logo */}
-                    <div className="w-32 md:w-64 flex-shrink-0 flex items-center">
+                    <div className="w-40 md:w-64 flex-shrink-0 flex items-center">
                         <Link to="/" className="flex items-center">
-                            <img src={logo} alt="Dörtel Tedarik" className="h-8 md:h-12 w-auto object-contain" />
+                            <img src={logo} alt="Dörtel Tedarik" className="h-14 md:h-12 w-auto object-contain" />
                         </Link>
                     </div>
 

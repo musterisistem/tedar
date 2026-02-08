@@ -5,7 +5,6 @@ export const CategoryQuickAccess: React.FC = () => {
     const { banners } = useSite();
 
     if (!banners || banners.length === 0) return null;
-
     // Dynamic grid cols based on count
     const getGridClass = (count: number) => {
         if (count === 1) return 'grid-cols-1';
@@ -15,10 +14,10 @@ export const CategoryQuickAccess: React.FC = () => {
     };
 
     return (
-        <div className="container mx-auto px-4 mb-8">
-            <div className={`grid ${getGridClass(banners.length)} gap-6`}>
+        <div className="container mx-auto px-4 mb-0 sm:mb-8">
+            <div className={`grid ${getGridClass(banners.length)} gap-4 sm:gap-6`}>
                 {banners.map(banner => (
-                    <a key={banner.id} href={banner.link} className="block relative overflow-hidden h-[200px] rounded-xl">
+                    <a key={banner.id} href={banner.link} className="block relative overflow-hidden h-[100px] sm:h-[200px] rounded-xl shadow-sm border border-gray-100">
                         <img
                             src={banner.image}
                             alt={banner.title || 'Banner'}

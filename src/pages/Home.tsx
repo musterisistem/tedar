@@ -43,14 +43,14 @@ export const Home: React.FC = () => {
 
 
 
-            <div className="container mx-auto px-4 pt-1 pb-2">
-                <div className="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:h-auto min-h-[500px]">
+            <div className="container mx-auto px-0 sm:px-4 pt-0 sm:pt-1 pb-0 sm:pb-2">
+                <div className="grid grid-cols-1 lg:grid-cols-10 gap-0 sm:gap-6 lg:h-auto lg:min-h-[500px]">
                     {/* Center Slider & Popular Categories */}
-                    <div className="col-span-1 lg:col-span-8 flex flex-col gap-4">
-                        <div className="flex-shrink-0">
+                    <div className="col-span-1 lg:col-span-8 flex flex-col gap-0 sm:gap-4">
+                        <div className="flex-shrink-0 px-4 sm:px-0 pt-3 sm:pt-0">
                             <StoryMenu />
                         </div>
-                        <div className="flex-1 min-h-[400px]">
+                        <div className="flex-1 min-h-[250px] sm:min-h-[400px]">
                             <HeroSlider />
                         </div>
                     </div>
@@ -63,13 +63,13 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Quick Access */}
-            <div className="mt-8 relative z-10">
+            <div className="hidden sm:block mt-0 sm:mt-8 relative z-10">
                 <CategoryQuickAccess />
             </div>
 
             {/* Yeni Gelenler */}
             <DeferredContent height="400px">
-                <div className="bg-gray-100/80 py-2 rounded-xl my-8 border border-gray-200 shadow-inner">
+                <div className="bg-gray-100/80 py-1 sm:py-2 rounded-xl my-2 sm:my-8 border border-gray-200 shadow-inner">
                     <HomeProductSection
                         type="new-arrivals"
                         title="Yeni Gelenler"
@@ -83,7 +83,7 @@ export const Home: React.FC = () => {
 
             {/* Flash Sale - Wrapped in DeferredContent */}
             <DeferredContent height="300px">
-                <div className="container mx-auto px-4 mb-8">
+                <div className="container mx-auto px-4 mb-4 sm:mb-8">
                     <FlashSaleSection />
                 </div>
             </DeferredContent>

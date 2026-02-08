@@ -63,7 +63,7 @@ export const HeroSlider: React.FC = () => {
 
     return (
         <div
-            className="relative w-full h-[520px] bg-gray-900 overflow-hidden group"
+            className="relative w-full h-[250px] sm:h-[400px] lg:h-[520px] bg-white overflow-hidden group"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
@@ -93,24 +93,23 @@ export const HeroSlider: React.FC = () => {
                     }}
                     className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
                 >
-                    {/* Background Image - Static (No Zoom) */}
-                    <div className="absolute inset-0 overflow-hidden">
+                    {/* Background Image - Proper fitting for mobile */}
+                    <div className="absolute inset-0 overflow-hidden bg-white flex items-center justify-center">
                         {slides[current].link ? (
                             <Link to={slides[current].link} className="block w-full h-full" draggable="false">
                                 <img
                                     src={slides[current].image}
                                     alt={slides[current].title}
-                                    className="w-full h-full object-cover pointer-events-none"
+                                    className="w-full h-full object-contain sm:object-cover pointer-events-none"
                                 />
                             </Link>
                         ) : (
                             <img
                                 src={slides[current].image}
                                 alt={slides[current].title}
-                                className="w-full h-full object-cover pointer-events-none"
+                                className="w-full h-full object-contain sm:object-cover pointer-events-none"
                             />
                         )}
-                        {/* No Overlay or Text */}
                     </div>
                 </motion.div>
             </AnimatePresence>
@@ -120,13 +119,13 @@ export const HeroSlider: React.FC = () => {
                 <>
                     <button
                         onClick={prevSlide}
-                        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all duration-300 z-30 hover:scale-110 border border-white/20 group-hover:opacity-100 opacity-0"
+                        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/10 hover:bg-black/20 text-black p-2 md:p-3 rounded-full backdrop-blur-md transition-all duration-300 z-30 hover:scale-110 border border-black/5 group-hover:opacity-100 opacity-0"
                     >
                         <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
                     <button
                         onClick={nextSlide}
-                        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all duration-300 z-30 hover:scale-110 border border-white/20 group-hover:opacity-100 opacity-0"
+                        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/10 hover:bg-black/20 text-black p-2 md:p-3 rounded-full backdrop-blur-md transition-all duration-300 z-30 hover:scale-110 border border-black/5 group-hover:opacity-100 opacity-0"
                     >
                         <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
@@ -143,8 +142,7 @@ export const HeroSlider: React.FC = () => {
                                 setDirection(i > current ? 1 : -1);
                                 setCurrent(i);
                             }}
-                            className="relative h-2 rounded-full overflow-hidden transition-all duration-500 bg-white/30 hover:bg-white/60"
-                            style={{ width: i === current ? '60px' : '15px' }}
+                            className={`relative h-1.5 sm:h-2 rounded-full overflow-hidden transition-all duration-500 bg-white/30 hover:bg-white/60 ${i === current ? 'w-[30px] sm:w-[60px]' : 'w-[12px]'}`}
                         >
                             {i === current && (
                                 <motion.div

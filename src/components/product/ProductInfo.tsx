@@ -351,7 +351,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out skew-y-12"></div>
                         <ShoppingCart className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform" />
                         <span className="relative z-10 hidden sm:inline">SEPETE EKLE</span>
-                        <span className="relative z-10 sm:hidden">SEPET</span>
+                        <span className="relative z-10 sm:hidden text-[13px] tracking-tighter">SEPETE EKLE</span>
                     </button>
 
                     {/* Buy Now - Hemen Al */}
@@ -373,7 +373,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product, onReviewClick
                         <span className="relative z-10 uppercase tracking-wide hidden sm:flex items-center gap-2">
                             Hemen Al <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </span>
-                        <span className="relative z-10 uppercase tracking-wide sm:hidden">AL</span>
+                        <span className="relative z-10 uppercase tracking-tighter sm:hidden text-[13px]">HEMEN AL</span>
                     </button>
                     <style>{`
                         /* Özel smooth shadow */

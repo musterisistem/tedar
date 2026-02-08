@@ -29,7 +29,7 @@ export const StoryMenu: React.FC = () => {
     ];
 
     return (
-        <div className="py-6 overflow-x-auto scrollbar-hide">
+        <div className="pt-0 pb-2 sm:py-6 overflow-x-auto scrollbar-hide">
             <div className="flex items-start gap-3 md:gap-6 min-w-min px-4">
                 {stories.map((story) => (
                     <Link

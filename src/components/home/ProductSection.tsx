@@ -48,7 +48,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({ title, linkText 
         if (!container || baseProducts.length === 0) return;
 
         const handleScroll = () => {
-            const { scrollLeft, scrollWidth, clientWidth } = container;
+            const { scrollLeft, scrollWidth } = container;
             const sectionWidth = scrollWidth / 3;
 
             // If scrolled to end of second section, jump to start of second section
@@ -122,8 +122,10 @@ export const ProductSection: React.FC<ProductSectionProps> = ({ title, linkText 
                     {displayProducts.map((product, index) => (
                         <div
                             key={`${product.id}-${index}`}
-                            className="flex-shrink-0"
-                            style={{ width: `calc((100% - ${(columns - 1) * 16}px) / ${columns})` }}
+                            className="flex-shrink-0 w-[180px] xs:w-[200px] sm:w-[240px] md:w-[280px] lg:w-auto"
+                            style={{
+                                width: window.innerWidth >= 1024 ? `calc((100% - ${(columns - 1) * 16}px) / ${columns})` : undefined
+                            }}
                         >
                             <ProductCard {...product} />
                         </div>
