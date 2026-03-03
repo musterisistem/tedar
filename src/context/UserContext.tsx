@@ -63,7 +63,7 @@ interface UserContextType {
         district: string;
         zipCode: string;
         password: string
-    }) => Promise<{ success: boolean; error?: string }>;
+    }) => Promise<{ success: boolean; error?: string; user?: User }>;
     logout: () => void;
     updateUser: (id: string | number, updatedUser: Partial<User>) => void;
     deleteUser: (id: string | number) => void;
@@ -254,7 +254,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         district: string;
         zipCode: string;
         password: string
-    }): Promise<{ success: boolean; error?: string }> => {
+    }): Promise<{ success: boolean; error?: string; user?: User }> => {
         try {
             // Normalize email during registration
             const cleanUserData = { ...userData, email: userData.email.trim().toLowerCase() };
@@ -285,7 +285,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
             // Welcome email is sent from backend during registration
 
-            return { success: true };
+            return { success: true, user: data.user };
         } catch (error: any) {
             console.error('Register Fetch Error:', error);
             return { success: false, error: 'Bağlantı hatası: ' + (error.message || error) };

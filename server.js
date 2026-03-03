@@ -42,7 +42,17 @@ async function connectDB() {
         });
 
         await client.connect();
-        const dbName = new URL(uri).pathname.substr(1) || 'test';
+
+        let dbName = 'dortel-db';
+        try {
+            // Attempt to parse standard URI formats
+            dbName = new URL(uri).pathname.substr(1) || 'dortel-db';
+        } catch (e) {
+            // Fallback for multi-node standard string (mongodb://host1,host2/dbName)
+            const match = uri.match(/\/([^/?]+)(\?|$)/);
+            if (match && match[1]) dbName = match[1];
+        }
+
         const db = client.db(dbName);
 
         cachedClient = client;
@@ -1782,6 +1792,440 @@ app.post('/api/paytr/token', async (req, res) => {
     } catch (error) {
         console.error('PayTR Token Error:', error);
         res.status(500).json({ status: 'failed', reason: error.message });
+    }
+});
+
+
+// -----------------------------------------------------------------------
+// PayTR Direct API Endpoints (Site İçi Ödeme - iFrame Yok)
+// -----------------------------------------------------------------------
+
+// Helper: Load PayTR Credentials
+async function getPayTRCredentials() {
+    let merchant_id = process.env.PAYTR_MERCHANT_ID;
+    let merchant_key = process.env.PAYTR_MERCHANT_KEY;
+    let merchant_salt = process.env.PAYTR_MERCHANT_SALT;
+    try {
+        const database = await connectDB();
+        if (database) {
+            const settings = await database.collection('settings').findOne({ key: 'paytrSettings' });
+            if (settings?.data?.merchant_id) merchant_id = settings.data.merchant_id;
+            if (settings?.data?.merchant_key) merchant_key = settings.data.merchant_key;
+            if (settings?.data?.merchant_salt) merchant_salt = settings.data.merchant_salt;
+        }
+    } catch (e) {
+        console.error('PayTR credential read error:', e);
+    }
+    return { merchant_id, merchant_key, merchant_salt };
+}
+
+// Helper: Get User IP from request
+function getUserIp(req) {
+    let user_ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
+    if (Array.isArray(user_ip)) user_ip = user_ip[0];
+    if (user_ip.includes(',')) user_ip = user_ip.split(',')[0].trim();
+    if (user_ip === '::1') user_ip = '127.0.0.1';
+    return user_ip;
+}
+
+// Helper: Determine base URL
+function getBaseUrl() {
+    if (process.env.BASE_URL) return process.env.BASE_URL;
+    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+    return 'http://localhost:5173';
+}
+
+// 5. PayTR Direct API - Step 1 (Direkt Kredi Kartı Ödeme)
+app.post('/api/paytr/direct', async (req, res) => {
+    try {
+        const {
+            merchant_oid, email, payment_amount, user_basket,
+            user_name, user_address, user_phone,
+            cc_owner, card_number, expiry_month, expiry_year, cvv,
+            installment_count = '0', card_type = ''
+        } = req.body;
+
+        const { merchant_id, merchant_key, merchant_salt } = await getPayTRCredentials();
+        if (!merchant_id || !merchant_key || !merchant_salt) {
+            return res.status(500).json({ status: 'failed', reason: 'PayTR kimlik bilgileri eksik. Admin panelinden kontrol edin.' });
+        }
+
+        const user_ip = getUserIp(req);
+        const currency = 'TL';
+        const test_mode = '0'; // Canlı mod
+        const non_3d = '0'; // 3D Secure aktif
+        const payment_type = 'card';
+        const no_installment = '0';
+        const max_installment = '0';
+        const debug_on = '1';
+        const timeout_limit = '30';
+
+        const baseUrl = getBaseUrl();
+        // Since PayTR might POST to these URLs, we point them to our backend, which will then redirect natively to the frontend.
+        const apiUrl = baseUrl.replace('5173', '3001').replace('5174', '3001').replace('5175', '3001');
+        const merchant_ok_url = `${apiUrl}/api/paytr/success`;
+        const merchant_fail_url = `${apiUrl}/api/paytr/fail`;
+        const merchant_notification_url = `${apiUrl}/api/paytr/callback`;
+
+        // Base64 encode the basket (Required by PayTR)
+        const user_basket_json = JSON.stringify(user_basket);
+        const user_basket_base64 = Buffer.from(user_basket_json).toString('base64');
+
+        // IF this is a guest checkout, we store the registration data in a pending collection
+        const { guestUserData, orderFullData } = req.body;
+        if (guestUserData || orderFullData) {
+            const db = await connectDB();
+            if (db) {
+                await db.collection('pending_orders').updateOne(
+                    { merchant_oid: merchant_oid },
+                    {
+                        $set: {
+                            merchant_oid,
+                            guestUserData,
+                            orderFullData,
+                            createdAt: new Date()
+                        }
+                    },
+                    { upsert: true }
+                );
+            }
+        }
+
+        // PayTR Direct API Hash
+        // ADIM 1 imzası: merchant_id + user_ip + merchant_oid + email + payment_amount + payment_type + installment_count + currency + test_mode + non_3d
+        const hash_str = `${merchant_id}${user_ip}${merchant_oid}${email}${payment_amount}${payment_type}${installment_count}${currency}${test_mode}${non_3d}`;
+        const paytr_token = crypto.createHmac('sha256', merchant_key)
+            .update(hash_str + merchant_salt)
+            .digest('base64');
+
+        const params = new URLSearchParams();
+        params.append('merchant_id', merchant_id);
+        params.append('user_ip', user_ip);
+        params.append('merchant_oid', merchant_oid);
+        params.append('email', email);
+        params.append('payment_amount', payment_amount);
+        params.append('paytr_token', paytr_token);
+        params.append('user_basket', user_basket_base64);
+        params.append('debug_on', debug_on);
+        params.append('no_installment', no_installment);
+        params.append('max_installment', max_installment);
+        params.append('user_name', user_name);
+        params.append('user_address', user_address);
+        params.append('user_phone', user_phone);
+        params.append('merchant_ok_url', merchant_ok_url);
+        params.append('merchant_fail_url', merchant_fail_url);
+        params.append('merchant_notification_url', merchant_notification_url);
+        params.append('timeout_limit', timeout_limit);
+        params.append('currency', currency);
+        params.append('test_mode', test_mode);
+        params.append('payment_type', payment_type);
+        params.append('installment_count', installment_count);
+        params.append('non_3d', non_3d);
+        params.append('card_type', card_type);
+        // Card Details
+        params.append('cc_owner', cc_owner);
+        params.append('card_number', card_number.replace(/\s/g, ''));
+        params.append('expiry_month', expiry_month);
+        params.append('expiry_year', expiry_year);
+        params.append('cvv', cvv);
+
+        console.log('💳 PayTR Direct API isteği gönderiliyor:', { merchant_oid, email, payment_amount });
+
+        const response = await fetch('https://www.paytr.com/odeme', {
+            method: 'POST',
+            body: params,
+            redirect: 'manual' // 3D Secure yönlendirmesini yakala
+        });
+
+        // PayTR Direct API genellikle JSON veya HTML döner
+        // 3D Secure durumunda bir yönlendirme URL'si veya HTML form döner
+        const contentType = response.headers.get('content-type') || '';
+
+        if (response.status === 302 || response.status === 301) {
+            // 3D Yönlendirme
+            const redirectUrl = response.headers.get('location');
+            return res.json({ status: '3d_redirect', redirect_url: redirectUrl });
+        }
+
+        if (contentType.includes('application/json')) {
+            const result = await response.json();
+            console.log('💳 PayTR Direct API yanıtı:', result);
+
+            if (result.status === 'success') {
+                return res.json({ status: 'success', result });
+            } else if (result.status === '3d') {
+                return res.json({ status: '3d_redirect', redirect_url: result.url || result.redirect_url, html: result.html });
+            } else {
+                return res.status(400).json({ status: 'failed', reason: result.reason || result.error || 'Ödeme reddedildi.' });
+            }
+        } else {
+            // HTML 3D Secure formu veya Hata mesajı
+            const html = await response.text();
+            if (html.includes('<form') || html.includes('form')) {
+                return res.json({ status: '3d_form', html });
+            }
+            console.error('PayTR Beklenmeyen HTML Yanıtı:', html.substring(0, 1000));
+            // Let's try to extract any plain text error from PayTR if it's not a form
+            let errorMessage = 'Beklenmeyen yanıt formatı.';
+            if (html.length > 0 && html.length < 500 && !html.includes('<html')) {
+                errorMessage = html; // Sometimes PayTR just returns "Hash failed" or simple text strings
+            }
+            return res.status(400).json({ status: 'failed', reason: errorMessage, raw_html: html.substring(0, 200) });
+        }
+
+    } catch (error) {
+        console.error('PayTR Direct API Hatası:', error);
+        res.status(500).json({ status: 'failed', reason: error.message });
+    }
+});
+
+// PayTR 3D Secure Success/Fail Redirect Handlers
+// PayTR often POSTs to these URLs returning the user to the site. We need to catch POST and redirect as GET.
+app.all('/api/paytr/success', (req, res) => {
+    const baseUrl = getBaseUrl();
+    res.redirect(`${baseUrl}/siparis-basarili`);
+});
+
+app.all('/api/paytr/fail', (req, res) => {
+    const baseUrl = getBaseUrl();
+    res.redirect(`${baseUrl}/odeme?error=payment_failed`);
+});
+
+// 6. PayTR EFT/Havale API - Step 1
+app.post('/api/paytr/eft', async (req, res) => {
+    try {
+        const {
+            merchant_oid, email, payment_amount, user_basket,
+            user_name, user_address, user_phone
+        } = req.body;
+
+        const { merchant_id, merchant_key, merchant_salt } = await getPayTRCredentials();
+        if (!merchant_id || !merchant_key || !merchant_salt) {
+            return res.status(500).json({ status: 'failed', reason: 'PayTR kimlik bilgileri eksik.' });
+        }
+
+        const user_ip = getUserIp(req);
+        const currency = 'TL';
+        const test_mode = '0'; // Canlı mod
+        const debug_on = '1';
+        const timeout_limit = '30';
+
+        const baseUrl = getBaseUrl();
+        // Since PayTR might POST to these URLs, we point them to our backend, which will then redirect natively to the frontend.
+        const apiUrl = baseUrl.replace('5173', '3001').replace('5174', '3001').replace('5175', '3001');
+        const merchant_ok_url = `${apiUrl}/api/paytr/success`;
+        const merchant_fail_url = `${apiUrl}/api/paytr/fail`;
+        const merchant_notification_url = `${apiUrl}/api/paytr/callback`;
+
+        // IF this is a guest checkout, we store the registration data in a pending collection
+        const { guestUserData, orderFullData } = req.body;
+        if (guestUserData || orderFullData) {
+            const db = await connectDB();
+            if (db) {
+                await db.collection('pending_orders').updateOne(
+                    { merchant_oid: merchant_oid },
+                    {
+                        $set: {
+                            merchant_oid,
+                            guestUserData,
+                            orderFullData,
+                            createdAt: new Date()
+                        }
+                    },
+                    { upsert: true }
+                );
+            }
+        }
+
+        // EFT iframe için hash: merchant_id + user_ip + merchant_oid + email + payment_amount + user_basket + currency + test_mode
+        const user_basket_json = JSON.stringify(user_basket);
+        const user_basket_base64 = Buffer.from(user_basket_json).toString('base64');
+
+        const hash_str = `${merchant_id}${user_ip}${merchant_oid}${email}${payment_amount}${user_basket_json}${currency}${test_mode}`;
+        const paytr_token = crypto.createHmac('sha256', merchant_key)
+            .update(hash_str + merchant_salt)
+            .digest('base64');
+
+        const params = new URLSearchParams();
+        params.append('merchant_id', merchant_id);
+        params.append('user_ip', user_ip);
+        params.append('merchant_oid', merchant_oid);
+        params.append('email', email);
+        params.append('payment_amount', payment_amount);
+        params.append('paytr_token', paytr_token);
+        params.append('user_basket', user_basket_base64);
+        params.append('user_phone', user_phone);
+        params.append('merchant_ok_url', merchant_ok_url);
+        params.append('merchant_fail_url', merchant_fail_url);
+        params.append('merchant_notification_url', merchant_notification_url);
+        params.append('timeout_limit', timeout_limit);
+        params.append('currency', currency);
+        params.append('test_mode', test_mode);
+
+        console.log('🏦 PayTR EFT API isteği gönderiliyor:', { merchant_oid, email, payment_amount });
+
+        const response = await fetch('https://www.paytr.com/odeme/havale/api/get-token', {
+            method: 'POST',
+            body: params
+        });
+
+        const result = await response.json();
+        console.log('🏦 PayTR EFT API yanıtı:', result);
+
+        if (result.status === 'success') {
+            res.json({ status: 'success', token: result.token });
+        } else {
+            console.error('PayTR EFT Hatası:', result);
+            res.status(400).json({ status: 'failed', reason: result.reason || 'EFT başlatılamadı.' });
+        }
+
+    } catch (error) {
+        console.error('PayTR EFT API Hatası:', error);
+        res.status(500).json({ status: 'failed', reason: error.message });
+    }
+});
+
+// 7. PayTR Callback / Bildirim URL (Step 2 - PayTR'den gelen bildirim)
+app.post('/api/paytr/callback', express.urlencoded({ extended: false }), async (req, res) => {
+    try {
+        const post = req.body;
+        console.log('📩 PayTR Callback alındı:', post);
+
+        const { merchant_id, merchant_key, merchant_salt } = await getPayTRCredentials();
+        if (!merchant_id || !merchant_key || !merchant_salt) {
+            console.error('PayTR callback: kimlik bilgileri eksik');
+            return res.send('OK');
+        }
+
+        // Hash doğrulaması
+        const { hash, merchant_oid, status, total_amount } = post;
+
+        // Doğrulama: merchant_oid + merchant_salt + status + total_amount
+        const hash_str = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
+        const calculated_hash = crypto.createHmac('sha256', merchant_key)
+            .update(hash_str)
+            .digest('base64');
+
+        if (calculated_hash !== hash) {
+            console.error('❌ PayTR callback hash doğrulaması başarısız!', { calculated_hash, received: hash });
+            return res.send('PAYTR notification failed: bad hash');
+        }
+
+        console.log('✅ PayTR callback hash doğrulandı');
+
+        const database = await connectDB();
+        if (!database) {
+            return res.send('OK');
+        }
+
+        if (status === 'success') {
+            const pendingOrder = await database.collection('pending_orders').findOne({ merchant_oid: merchant_oid });
+
+            if (pendingOrder && !pendingOrder.processed) {
+                console.log('📦 Pending order bulundu, üyelik ve sipariş oluşturuluyor...');
+
+                let finalUserId = pendingOrder.orderFullData?.userId;
+
+                // 1. Ziyaretçi ise Üyelik Aç (Eğer henüz yoksa)
+                if (pendingOrder.guestUserData) {
+                    const guest = pendingOrder.guestUserData;
+                    const existingUser = await database.collection('users').findOne({ email: guest.email });
+
+                    if (!existingUser) {
+                        const hashedPassword = await bcrypt.hash(guest.password, 10);
+                        const newUser = {
+                            id: Date.now(),
+                            name: guest.name,
+                            email: guest.email,
+                            password: hashedPassword,
+                            phone: guest.phone,
+                            city: guest.city,
+                            district: guest.district,
+                            zipCode: guest.zipCode,
+                            addresses: [{
+                                title: 'Ev',
+                                content: guest.address,
+                                city: guest.city,
+                                district: guest.district,
+                                phone: guest.phone
+                            }],
+                            role: 'user',
+                            createdAt: new Date().toISOString()
+                        };
+                        await database.collection('users').insertOne(newUser);
+                        finalUserId = newUser.id;
+                        console.log('👤 Yeni kullanıcı oluşturuldu:', guest.email);
+                    } else {
+                        finalUserId = existingUser.id;
+                    }
+                }
+
+                // 2. Gerçek Siparişi Oluştur
+                if (pendingOrder.orderFullData) {
+                    const finalOrder = {
+                        ...pendingOrder.orderFullData,
+                        userId: finalUserId,
+                        status: 'processing',
+                        paymentStatus: 'paid',
+                        paymentReference: post.payment_id || merchant_oid,
+                        paidAt: new Date().toISOString(),
+                        paytrData: post,
+                        createdAt: new Date()
+                    };
+                    delete finalOrder._id; // MongoDB ID'sini temizle
+
+                    // Önce mevcut sipariş var mı bak (tekilleştirme)
+                    const existingOrder = await database.collection('orders').findOne({ orderNo: merchant_oid });
+                    if (!existingOrder) {
+                        await database.collection('orders').insertOne(finalOrder);
+                        console.log('✅ Gerçek sipariş oluşturuldu:', merchant_oid);
+                    }
+                }
+
+                // 3. Mark as processed
+                await database.collection('pending_orders').updateOne(
+                    { merchant_oid: merchant_oid },
+                    { $set: { processed: true, processedAt: new Date() } }
+                );
+            } else {
+                // Eğer pending order yoksa (eski sistem veya zaten kayıtlı kullanıcı)
+                // Siparişi başarılı olarak güncelle
+                const updateResult = await database.collection('orders').updateOne(
+                    { orderNo: merchant_oid },
+                    {
+                        $set: {
+                            status: 'processing',
+                            paymentStatus: 'paid',
+                            paymentReference: post.payment_id || merchant_oid,
+                            paidAt: new Date().toISOString(),
+                            paytrData: post
+                        }
+                    }
+                );
+                console.log(`✅ Sipariş ${merchant_oid} güncellendi. Result:`, updateResult);
+            }
+        } else {
+            // Başarısız ödeme - siparişi iptal et veya işaretle
+            await database.collection('orders').updateOne(
+                { orderNo: merchant_oid },
+                {
+                    $set: {
+                        status: 'cancelled',
+                        paymentStatus: 'failed',
+                        paymentFailReason: post.failed_reason_code || 'PayTR ödeme reddedildi',
+                        paytrData: post
+                    }
+                }
+            );
+            console.log(`❌ Sipariş ${merchant_oid} ödeme başarısız.`);
+        }
+
+        // PayTR her zaman "OK" beklir
+        res.send('OK');
+
+    } catch (error) {
+        console.error('PayTR Callback Hatası:', error);
+        res.send('OK'); // Her zaman OK gönder yoksa PayTR tekrar tekrar dener
     }
 });
 

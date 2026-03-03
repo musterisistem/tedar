@@ -6,10 +6,10 @@ import { useUsers } from '../context/UserContext';
 import { useSite } from '../context/SiteContext';
 import { useOrders } from '../context/OrderContext';
 import { useLocation } from '../hooks/useLocation';
-import { CheckCircle, CreditCard, Truck, User, LogIn, Lock, AlertCircle, MapPin, Home, Phone, Mail, ChevronDown, Plus, Landmark, Copy, Info } from 'lucide-react';
+import { CheckCircle, CreditCard, Truck, User, Lock, MapPin, Home, Phone, Mail, ChevronDown, Plus, Landmark, Copy, Info } from 'lucide-react';
 import { slugify } from '../utils/slugify';
 import { formatPhoneNumber } from '../utils/formatPhone';
-import { PayTRModal } from '../components/common/PayTRModal';
+import { DirectPaymentForm } from '../components/common/DirectPaymentForm';
 
 export const CheckoutPage: React.FC = () => {
     const {
@@ -24,6 +24,10 @@ export const CheckoutPage: React.FC = () => {
 
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
+    const { register } = useUsers();
+
+    const [cities, setCities] = useState<string[]>([]);
+    const [districts, setDistricts] = useState<string[]>([]);
 
     // Address Selection State
     const [selectedAddressIndex, setSelectedAddressIndex] = useState<number | null>(
@@ -42,12 +46,18 @@ export const CheckoutPage: React.FC = () => {
     };
 
     const [paymentMethod, setPaymentMethod] = useState(getDefaultPaymentMethod());
-    const [showPayTR, setShowPayTR] = useState(false);
-    const [paytrToken, setPaytrToken] = useState('');
+    const [showDirectForm, setShowDirectForm] = useState(false);
+    const [show3DForm, setShow3DForm] = useState(false);
+    const [threeD_html, setThreeD_html] = useState('');
+    const [pendingOrderData, setPendingOrderData] = useState<any>(null);
+    const [guestUserData, setGuestUserData] = useState<any>(null);
 
     // Detailed Address Form State
     const [addressForm, setAddressForm] = useState({
         title: 'Ev',
+        name: currentUser?.name || '',
+        email: currentUser?.email || '',
+        password: '',
         city: '',
         district: '',
         neighborhood: '',
@@ -58,8 +68,8 @@ export const CheckoutPage: React.FC = () => {
         note: ''
     });
 
-    // Location Hook
-    const { cities, districts, neighborhoods } = useLocation(addressForm.city, addressForm.district);
+    // Location Hook (only for initial cities now, districts are fetched dynamically)
+    const { cities: initialCities } = useLocation();
 
     const [isBillingSame, setIsBillingSame] = useState(true);
     const [billingAddressForm, setBillingAddressForm] = useState({
@@ -77,23 +87,45 @@ export const CheckoutPage: React.FC = () => {
         taxOffice: ''
     });
 
-
+    // Initialize cities
+    useEffect(() => {
+        setCities(initialCities);
+    }, [initialCities]);
 
     // Pre-fill phone if available
     useEffect(() => {
-        if (currentUser?.phone) {
-            setAddressForm(prev => ({ ...prev, phone: currentUser.phone }));
+        if (currentUser) {
+            setAddressForm(prev => ({
+                ...prev,
+                phone: currentUser.phone || '',
+                name: currentUser.name || '',
+                email: currentUser.email || ''
+            }));
         }
     }, [currentUser]);
 
     // Handle Location Changes
-    const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setAddressForm(prev => ({
-            ...prev,
-            city: e.target.value,
-            district: '',
-            neighborhood: ''
-        }));
+    const handleCityChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const city = e.target.value;
+        setAddressForm({ ...addressForm, city, district: '', neighborhood: '' });
+
+        if (city) {
+            try {
+                const response = await fetch(`/api/location/districts?city=${encodeURIComponent(city)}`);
+                if (!response.ok) throw new Error('İlçeler yüklenemedi');
+                const data = await response.json();
+                if (Array.isArray(data)) {
+                    setDistricts(data);
+                } else {
+                    setDistricts([]);
+                }
+            } catch (error) {
+                console.error('Error fetching districts:', error);
+                setDistricts([]);
+            }
+        } else {
+            setDistricts([]);
+        }
     };
 
     const handleDistrictChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -104,40 +136,8 @@ export const CheckoutPage: React.FC = () => {
         }));
     };
 
-    // 1. Mandatory Login Check
-    if (!currentUser) {
-        return (
-            <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center max-w-md text-center">
-                <div className="bg-red-50 p-6 rounded-full mb-6">
-                    <Lock className="w-12 h-12 text-red-500" />
-                </div>
-                <h2 className="text-2xl font-bold text-slate-800 mb-3">Giriş Yapmanız Gerekiyor</h2>
-                <p className="text-slate-600 mb-8">
-                    Siparişinizi tamamlamak ve güvenli ödeme yapmak için lütfen üye girişi yapın.
-                </p>
-                <div className="flex flex-col gap-3 w-full">
-                    <button
-                        onClick={() => navigate('/giris', { state: { from: '/odeme' } })}
-                        className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-                    >
-                        <LogIn className="w-5 h-5" />
-                        Giriş Yap
-                    </button>
-                    <button
-                        onClick={() => navigate('/kayit')}
-                        className="w-full bg-slate-100 text-slate-700 py-3 rounded-lg font-bold hover:bg-slate-200 transition-colors"
-                    >
-                        Hesap Oluştur
-                    </button>
-                </div>
-                <div className="mt-8 p-4 bg-blue-50 rounded-lg text-sm text-blue-800 flex items-start gap-3 text-left">
-                    <AlertCircle className="w-5 h-5 shrink-0" />
-                    <p>Misafir alışverişi güvenliğiniz için devre dışı bırakılmıştır. Üye olarak sipariş takibi yapabilir ve kampanyalardan yararlanabilirsiniz.</p>
-                </div>
-            </div>
-        );
-    }
-
+    // 1. Removed Mandatory Login Check to allow guest checkout
+    // if (!currentUser) { ... }
 
     // const [tempOrder, setTempOrder] = useState<any>(null);
 
@@ -149,8 +149,9 @@ export const CheckoutPage: React.FC = () => {
 
         let shippingAddress: any;
         // let billingAddress: any;
+        let activeUser = currentUser;
 
-        if (!useNewAddress && selectedAddressIndex !== null) {
+        if (currentUser && !useNewAddress && selectedAddressIndex !== null) {
             // Use selected stored address
             const selectedAddr = currentUser.addresses[selectedAddressIndex];
             shippingAddress = { ...selectedAddr };
@@ -175,12 +176,35 @@ export const CheckoutPage: React.FC = () => {
             // billingAddress = { ...billingAddressForm ... };
         }
 
+        // Guest Registration flow - DEFERRED
+        if (!activeUser) {
+            if (!addressForm.name || !addressForm.email || !addressForm.phone || !addressForm.password || !addressForm.city || !addressForm.district || !addressForm.neighborhood || !addressForm.street || !addressForm.detail) {
+                alert('Lütfen teslimat ve üyelik bilgilerini eksiksiz doldurun.');
+                setIsLoading(false);
+                return;
+            }
+
+            // We don't register yet. We just prepare the data.
+            setGuestUserData({
+                name: addressForm.name,
+                email: addressForm.email,
+                phone: addressForm.phone,
+                password: addressForm.password,
+                city: addressForm.city,
+                district: addressForm.district,
+                neighborhood: addressForm.neighborhood,
+                zipCode: addressForm.zipCode,
+                address: shippingAddress.content
+            });
+        } else {
+            setGuestUserData(null);
+        }
+
         // Create Order Object
-        // Create Order Object (Enhanced safety)
         const orderData = {
-            userId: currentUser.id, // Explicitly link to user
-            customer: currentUser.name,
-            email: currentUser.email,
+            userId: activeUser?.id || null, // Might be null for new guests
+            customer: activeUser?.name || addressForm.name,
+            email: activeUser?.email || addressForm.email,
             phone: shippingAddress.phone || addressForm.phone,
             address: shippingAddress.content,
             city: shippingAddress.city,
@@ -206,73 +230,67 @@ export const CheckoutPage: React.FC = () => {
         };
 
         if (paymentMethod === 'Kredi Kartı') {
+            // DEFERRED: We don't call addOrder here anymore.
+            // We just trigger the form with all required data for the backend to handle it on success.
+            setPendingOrderData(orderData);
+            setShowDirectForm(true);
+            setIsLoading(false);
+            return;
+        }
+
+        // For non-gateway methods (Cash on Delivery), register guest immediately
+        let finalActiveUser = activeUser;
+        if (!finalActiveUser) {
             try {
-                // 1. Get PayTR Token
-                const res = await fetch('/api/paytr/token', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_basket: items.map(i => [i.name, i.price.toString(), i.quantity.toString()]),
-                        email: currentUser.email,
-                        payment_amount: (totalPrice * 100).toFixed(0), // Kuruş cinsinden
-                        user_name: currentUser.name,
-                        user_address: shippingAddress.content,
-                        user_phone: shippingAddress.phone || addressForm.phone,
-                        merchant_oid: orderData.orderNo
-                    })
+                const regResult = await register({
+                    name: addressForm.name,
+                    email: addressForm.email,
+                    phone: addressForm.phone,
+                    password: addressForm.password,
+                    city: addressForm.city,
+                    district: addressForm.district,
+                    zipCode: addressForm.zipCode,
+                    address: shippingAddress.content
                 });
-
-                const result = await res.json();
-
-                if (result.status === 'success') {
-                    setPaytrToken(result.token);
-                    // setTempOrder(orderData); // Save order to confirm after payment (or we save it now as pending)
-
-                    // Optimistically save order as "Payment Pending"
-                    // But PayTR requires us to confirm... 
-                    // Let's just show modal. If successful, user is redirected.
-                    // But we need to save Local Order so 'OrderSuccess' page works if redirected.
-                    await addOrder(orderData);
-
-                    setShowPayTR(true);
-                    setIsLoading(false);
-                    return; // Stop here, wait for iFrame interaction
+                if (regResult.success && regResult.user) {
+                    finalActiveUser = regResult.user;
                 } else {
-                    alert('Ödeme başlatılamadı: ' + result.reason);
+                    alert('Üyelik oluşturulurken hata: ' + (regResult.error || 'Bilinmeyen hata'));
                     setIsLoading(false);
                     return;
                 }
             } catch (err) {
                 console.error(err);
-                alert('Ödeme sistemi hatası.');
                 setIsLoading(false);
                 return;
             }
         }
 
-        // Standard Logic for Other Methods
+        // Standard Logic for Other Methods (COD etc)
         setTimeout(async () => {
             try {
-                const savedOrder = await addOrder({ ...orderData });
+                const savedOrder = await addOrder({ ...orderData, userId: finalActiveUser?.id });
 
                 // Update User
-                let updatedAddresses = currentUser.addresses;
-                if (useNewAddress) {
+                let updatedAddresses = (finalActiveUser as any)?.addresses || [];
+                if (useNewAddress || !currentUser) { // If guest, they just used a new address
                     const newAddressObj = { ...shippingAddress, id: Date.now() };
-                    const addressExists = currentUser.addresses.some(addr =>
+                    const addressExists = updatedAddresses.some((addr: any) =>
                         addr.content === shippingAddress.content &&
                         addr.city === shippingAddress.city &&
                         addr.district === shippingAddress.district
                     );
                     if (!addressExists) {
-                        updatedAddresses = [...currentUser.addresses, newAddressObj];
+                        updatedAddresses = [...updatedAddresses, newAddressObj];
                     }
                 }
 
-                updateUser(currentUser.id, {
-                    orders: [savedOrder, ...(Array.isArray(currentUser.orders) ? currentUser.orders : [])],
-                    addresses: updatedAddresses
-                });
+                if (finalActiveUser) {
+                    updateUser(finalActiveUser.id, {
+                        orders: [savedOrder, ...(Array.isArray((finalActiveUser as any).orders) ? (finalActiveUser as any).orders : [])],
+                        addresses: updatedAddresses
+                    });
+                }
 
                 clearCart();
                 navigate('/siparis-basarili', { state: { order: savedOrder } });
@@ -312,19 +330,41 @@ export const CheckoutPage: React.FC = () => {
                                 <User className="w-5 h-5 text-blue-600" /> Teslimat Bilgileri
                             </h2>
 
-                            <div className="bg-blue-50 p-4 rounded-lg mb-6 flex items-start gap-3 border border-blue-100">
-                                <div className="p-1 bg-blue-100 rounded-full">
-                                    <Home className="w-4 h-4 text-blue-600" />
+                            {!currentUser && (
+                                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 p-4 rounded-xl mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="bg-white p-2 rounded-full shadow-sm text-blue-600">
+                                            <User className="w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-blue-900">Zaten üye misiniz?</h3>
+                                            <p className="text-sm text-blue-700">Giriş yaparak kayıtlı adreslerinizi kullanabilirsiniz.</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => navigate('/giris', { state: { from: '/odeme' } })}
+                                        className="bg-white text-blue-600 font-bold py-2 px-6 rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors whitespace-nowrap"
+                                    >
+                                        Giriş Yap
+                                    </button>
                                 </div>
-                                <div>
-                                    <p className="text-sm text-blue-800 font-medium">
-                                        Sayın <span className="font-bold">{currentUser.name}</span>,
-                                    </p>
-                                    <p className="text-xs text-blue-600 mt-1">
-                                        Siparişinizin güvenli teslimatı için lütfen bilgilerinizi kontrol ediniz.
-                                    </p>
+                            )}
+
+                            {currentUser && (
+                                <div className="bg-blue-50 p-4 rounded-lg mb-6 flex items-start gap-3 border border-blue-100">
+                                    <div className="p-1 bg-blue-100 rounded-full">
+                                        <Home className="w-4 h-4 text-blue-600" />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-blue-800 font-medium">
+                                            Sayın <span className="font-bold">{currentUser.name}</span>,
+                                        </p>
+                                        <p className="text-xs text-blue-600 mt-1">
+                                            Siparişinizin güvenli teslimatı için lütfen bilgilerinizi kontrol ediniz.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             {/* ------------ GLOBAL CONTACT INFO (ALWAYS VISIBLE) ------------ */}
                             <div className="mb-8">
@@ -334,29 +374,52 @@ export const CheckoutPage: React.FC = () => {
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pl-8">
                                     <div className="relative">
-                                        <label className="block text-xs font-semibold text-gray-500 mb-1">Ad Soyad</label>
+                                        <label className="block text-xs font-semibold text-gray-500 mb-1">Ad Soyad <span className="text-red-500">*</span></label>
                                         <div className="flex items-center">
                                             <User className="w-4 h-4 text-gray-400 absolute left-3" />
                                             <input
                                                 type="text"
-                                                value={currentUser.name}
-                                                readOnly
-                                                className="w-full h-10 border border-gray-200 bg-gray-50 rounded pl-10 pr-3 focus:outline-none text-gray-500 text-sm"
+                                                value={addressForm.name}
+                                                onChange={(e) => setAddressForm({ ...addressForm, name: e.target.value })}
+                                                readOnly={!!currentUser}
+                                                placeholder="Örn: Ahmet Yılmaz"
+                                                required
+                                                className={`w-full h-10 border border-gray-200 rounded pl-10 pr-3 focus:outline-none focus:border-blue-500 text-sm ${currentUser ? 'bg-gray-50 text-gray-500' : 'bg-white'}`}
                                             />
                                         </div>
                                     </div>
                                     <div className="relative">
-                                        <label className="block text-xs font-semibold text-gray-500 mb-1">E-Posta</label>
+                                        <label className="block text-xs font-semibold text-gray-500 mb-1">E-Posta <span className="text-red-500">*</span></label>
                                         <div className="flex items-center">
                                             <Mail className="w-4 h-4 text-gray-400 absolute left-3" />
                                             <input
                                                 type="email"
-                                                value={currentUser.email}
-                                                readOnly
-                                                className="w-full h-10 border border-gray-200 bg-gray-50 rounded pl-10 pr-3 focus:outline-none text-gray-500 text-sm"
+                                                value={addressForm.email}
+                                                onChange={(e) => setAddressForm({ ...addressForm, email: e.target.value })}
+                                                readOnly={!!currentUser}
+                                                placeholder="Örn: ahmet@ornek.com"
+                                                required
+                                                className={`w-full h-10 border border-gray-200 rounded pl-10 pr-3 focus:outline-none focus:border-blue-500 text-sm ${currentUser ? 'bg-gray-50 text-gray-500' : 'bg-white'}`}
                                             />
                                         </div>
                                     </div>
+                                    {!currentUser && (
+                                        <div className="relative md:col-span-2">
+                                            <label className="block text-xs font-semibold text-gray-700 mb-1">Hesap Şifresi Belirleyin <span className="text-red-500">*</span></label>
+                                            <div className="flex items-center">
+                                                <Lock className="w-4 h-4 text-gray-400 absolute left-3" />
+                                                <input
+                                                    type="password"
+                                                    required
+                                                    placeholder="En az 6 karakter"
+                                                    className="w-full h-10 border border-gray-300 rounded pl-10 pr-3 focus:outline-none focus:border-blue-500 text-sm transition-all shadow-sm"
+                                                    value={addressForm.password}
+                                                    onChange={(e) => setAddressForm({ ...addressForm, password: e.target.value })}
+                                                />
+                                            </div>
+                                            <p className="text-[10px] text-gray-400 mt-1">Siparişinizi takip edebilmeniz için şifre gereklidir. Üyeliğiniz sipariş tamamlandığında aktif olur.</p>
+                                        </div>
+                                    )}
                                     <div className="relative md:col-span-2">
                                         <label className="block text-xs font-semibold text-gray-700 mb-1">Cep Telefonu <span className="text-red-500">*</span></label>
                                         <div className="flex items-center">
@@ -391,7 +454,7 @@ export const CheckoutPage: React.FC = () => {
 
                                 <div className="pl-0 md:pl-8">
                                     {/* Saved Address Selection */}
-                                    {currentUser.addresses.length > 0 && (
+                                    {currentUser && currentUser.addresses && currentUser.addresses.length > 0 && (
                                         <div className="mb-8">
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 {currentUser.addresses.map((addr, index) => (
@@ -486,21 +549,14 @@ export const CheckoutPage: React.FC = () => {
 
                                                 <div className="md:col-span-2">
                                                     <label className="block text-xs font-semibold text-gray-700 mb-1">Mahalle <span className="text-red-500">*</span></label>
-                                                    <div className="relative">
-                                                        <select
-                                                            className="w-full h-10 border border-gray-300 rounded px-3 focus:outline-none focus:border-blue-500 text-sm shadow-sm appearance-none bg-white cursor-pointer"
-                                                            value={addressForm.neighborhood}
-                                                            onChange={(e) => setAddressForm({ ...addressForm, neighborhood: e.target.value })}
-                                                            disabled={!addressForm.district}
-                                                            required
-                                                        >
-                                                            <option value="">{addressForm.district ? 'Mahalle Seçiniz' : 'Önce İlçe Seçin'}</option>
-                                                            {neighborhoods.map(neighborhood => (
-                                                                <option key={neighborhood} value={neighborhood}>{neighborhood}</option>
-                                                            ))}
-                                                        </select>
-                                                        <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-3 pointer-events-none" />
-                                                    </div>
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        placeholder="Örn: Caferağa Mahallesi"
+                                                        className="w-full h-10 border border-gray-300 rounded px-3 focus:outline-none focus:border-blue-500 text-sm shadow-sm"
+                                                        value={addressForm.neighborhood}
+                                                        onChange={(e) => setAddressForm({ ...addressForm, neighborhood: e.target.value })}
+                                                    />
                                                 </div>
 
                                                 <div className="md:col-span-1">
@@ -680,34 +736,15 @@ export const CheckoutPage: React.FC = () => {
 
                             <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handlePayment(); }}>
                                 {paymentMethod === 'Kredi Kartı' && (
-                                    <>
+                                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-blue-800 text-sm flex gap-3 animate-fadeIn">
+                                        <Info className="w-5 h-5 shrink-0" />
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Kart Sahibi</label>
-                                            <input type="text" required className="w-full h-10 border border-gray-300 rounded px-3 focus:outline-none focus:border-blue-500" />
+                                            <p className="font-semibold mb-1">Güvenli Kart ile Ödeme</p>
+                                            <p>Siparişi Tamamla butonuna bastıktan sonra güvenli kart bilgilerini girebilirsiniz. Ödemeniz PayTR altyapısı üzerinden 3D Secure ile korunmaktadır.</p>
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Kart Numarası</label>
-                                            <input type="text" required maxLength={19} placeholder="____ ____ ____ ____" className="w-full h-10 border border-gray-300 rounded px-3 focus:outline-none focus:border-blue-500" />
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Son Kullanma Tarihi</label>
-                                                <div className="flex gap-2">
-                                                    <input type="text" placeholder="AA" maxLength={2} className="w-full h-10 border border-gray-300 rounded px-3 text-center" />
-                                                    <input type="text" placeholder="YY" maxLength={2} className="w-full h-10 border border-gray-300 rounded px-3 text-center" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">CVV</label>
-                                                <input type="text" maxLength={3} className="w-full h-10 border border-gray-300 rounded px-3 text-center" />
-                                            </div>
-                                        </div>
-                                        <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-blue-800 text-sm flex gap-3 animate-fadeIn">
-                                            <Info className="w-5 h-5 shrink-0" />
-                                            <p>{paymentSettings.creditCardDescription}</p>
-                                        </div>
-                                    </>
+                                    </div>
                                 )}
+
 
                                 {paymentMethod === 'Havale / EFT' && (
                                     <div className="space-y-4 animate-fadeIn">
@@ -836,12 +873,73 @@ export const CheckoutPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {/* PayTR Modal */}
-            {showPayTR && (
-                <PayTRModal
-                    token={paytrToken}
-                    onClose={() => setShowPayTR(false)}
-                />
+
+            {/* 3D Secure HTML Form (tam sayfa kaplayan overlay) */}
+            {show3DForm && threeD_html && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+                    <div className="bg-white w-full max-w-lg rounded-xl overflow-hidden shadow-2xl">
+                        <div className="p-4 border-b flex items-center justify-between">
+                            <h2 className="font-bold text-gray-800">3D Güvenli Doğrulama</h2>
+                        </div>
+                        <div
+                            className="p-4"
+                            dangerouslySetInnerHTML={{ __html: threeD_html }}
+                            ref={(el) => {
+                                if (el) {
+                                    const forms = el.getElementsByTagName('form');
+                                    if (forms.length > 0) forms[0].submit();
+                                }
+                            }}
+                        />
+                    </div>
+                </div>
+            )}
+
+            {/* Direkt Kart Formu - Kart bilgisi alma overlay */}
+            {showDirectForm && pendingOrderData && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60" style={{ backdropFilter: 'blur(4px)' }}>
+                    <div className="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
+                        <div className="p-5 border-b border-gray-100 flex items-center justify-between">
+                            <h2 className="font-bold text-gray-800 text-lg">Kart Bilgileri</h2>
+                            <button
+                                onClick={() => setShowDirectForm(false)}
+                                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 text-lg font-bold transition-colors"
+                            >×</button>
+                        </div>
+                        <div className="p-5">
+                            <DirectPaymentForm
+                                orderData={{
+                                    merchant_oid: pendingOrderData.orderNo,
+                                    email: pendingOrderData.email,
+                                    payment_amount: Math.round(pendingOrderData.amount * 100),
+                                    user_basket: pendingOrderData.items.map((i: any) => ({
+                                        name: i.name,
+                                        price: i.price,
+                                        quantity: i.quantity
+                                    })),
+                                    user_name: pendingOrderData.customer,
+                                    user_address: pendingOrderData.address,
+                                    user_phone: pendingOrderData.phone
+                                }}
+                                guestUserData={guestUserData}
+                                orderFullData={pendingOrderData}
+                                onSuccess={() => {
+                                    setShowDirectForm(false);
+                                    clearCart();
+                                    navigate('/siparis-basarili');
+                                }}
+                                onError={(msg) => {
+                                    alert(msg);
+                                }}
+                                onThreeDRedirect={(html) => {
+                                    setShowDirectForm(false);
+                                    setThreeD_html(html);
+                                    setShow3DForm(true);
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );

@@ -25,6 +25,10 @@ export interface Order {
     paymentType: string;
     items: OrderItem[];
     isActiveMember?: boolean;
+    userId?: string | number | null;
+    paymentStatus?: 'pending' | 'paid' | 'failed';
+    paymentReference?: string;
+    paidAt?: string;
     subtotal?: number;
     basketDiscount?: number;
     basketDiscountRate?: number;
